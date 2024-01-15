@@ -18,6 +18,7 @@
     },
     "plugins": ["react"],
     "rules": {
+      "no-nested-ternary":"off",
       "arrow-body-style":"off",
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "react/prop-types": 0,

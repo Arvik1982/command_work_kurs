@@ -1,5 +1,5 @@
 import './css/main.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 //  redux
 import { useSelector } from "react-redux";
 // 
@@ -9,31 +9,19 @@ import { getAllCourses } from '../api';
 
 
 
-export default function MainPage()
+export default function MainPage(){
 
-{
-    
 
+const [trainingsArray, setTrainingsArray]=useState([])  
 
     useEffect(()=>{
         getAllCourses().then((data)=>{
-        
-             console.log(data)
-             return data
+        const arr = [...Object.values(data)]
+        setTrainingsArray(arr)
+        return data
       })},[])
 
-
-
-    
     const testData = useSelector(state=>state.store.testData)
-
-    const trainingsArr =[
-        {name:"Йога"},
-        {name:"Стретчинг"},
-        {name:"Танцевальный фитнес"},
-        {name:"Степ-аэробика"},
-        {name:"Бодифлекс"},
-    ]
 
     return(<>
     <header className='main__header'>
@@ -48,10 +36,25 @@ export default function MainPage()
     </div>
     </header>
     <div className='main__trainings_grid'>
-        {trainingsArr.map(el=>{return <div key={el.name} 
-        className='trainings__grid_element'>
-          <h2 className='grid__element_name'>{el.name}</h2>  
-    </div>})}
+        {
+        
+        trainingsArray.map(el=>{return <div key={el.nameEN} 
+            
+        className={ 
+            el.nameEN ==='StepAirobic'?'grid__element_step':
+            el.nameEN === 'Yoga'? 'grid__element_yoga':
+            el.nameEN === 'Stretching'? 'grid__element_stretch':
+            el.nameEN === 'BodyFlex'? 'grid__element_body':
+            el.nameEN === 'DanceFitness'? 'grid__element_dance':
+            'trainings__grid_element'
+            }
+            >
+            
+        
+          {/* <h2 className='grid__element_name'>{el.nameEN}</h2> */}
+        
+    </div>
+ })}
             
 <div  className='trainings__grid_element'>{testData}</div>
     </div>
