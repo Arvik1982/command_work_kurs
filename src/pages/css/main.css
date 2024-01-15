@@ -17,9 +17,10 @@ background-color: #271A58 ;
 .main__header{
     
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 .main__header_right{
+    margin-left: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -60,8 +61,8 @@ background-color: #271A58 ;
     background: #140D40;
     border-radius: 46px;
 /* Text */
-    width: 45px;
-    height: 24px;
+    width: 77px;
+    height: 36px;
     font-family: 'StratosSkyeng';
     font-style: normal;
     font-weight: 400;
@@ -75,12 +76,22 @@ background-color: #271A58 ;
     flex: none;
     order: 0;
     flex-grow: 0;
+    padding: 5px, 16px, 7px, 16px;
+
+    &:hover{
+        background-color:   #2D1F79;
+    }
+    &:active{
+        background-color: #3B29A1;
+    }
 }
 .main__trainings_grid{
+
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    row-gap: 30px;
-    column-gap: 40px;
+    grid-template-columns: 360px 360px 360px;
+    
+    row-gap: 63px;
+    column-gap: 97px;
 }
 .trainings__grid_element{
     padding: 30px;
@@ -89,13 +100,68 @@ background-color: #271A58 ;
     top: 302px;
     left: 140px;
     border-radius: 30px;
-    background-color: #ffffff;
-    
+    background-color: #fff;
+}
+.grid__element_yoga{
+    padding: 30px;
+    width: 360px;
+    height: 480px;
+    top: 302px;
+    left: 140px;
+    border-radius: 30px;
+    background-image: url(../../img/prof\ card\ 2\ yoga.png);
+    background-size:contain; 
+    background-repeat: no-repeat; 
+    background-color: #fff;
 }
 
-.element__background_yoga{
-    background-image: url('../../img/prof\ card\ 2\ yoga.png');
+.grid__element_step{
+    padding: 30px;
+    width: 360px;
+    height: 480px;
+    top: 302px;
+    left: 140px;
+    border-radius: 30px;
+    background-image: url(../../img/prof\ card\ 6\ step.png);
+    background-size: contain;
+    background-repeat: no-repeat; 
+    background-color: #fff;
 }
+.grid__element_stretch{
+    padding: 30px;
+    width: 360px;
+    height: 480px;
+    top: 302px;
+    left: 140px;
+    border-radius: 30px;
+    background-image: url(../../img/prof\ card\ 3\ str.png);
+    background-size: contain; 
+    background-repeat: no-repeat; 
+    background-color: #fff;
+}
+.grid__element_body{
+    padding: 30px;
+    width: 360px;
+    height: 480px;
+    top: 302px;
+    left: 140px;
+    border-radius: 30px;
+    background-image: url(../../img/prof\ card\ 28\ body.png);
+    background-size: contain; 
+    background-repeat: no-repeat; 
+}
+.grid__element_dance{
+    padding: 30px;
+    width: 360px;
+    height: 480px;
+    top: 302px;
+    left: 140px;
+    border-radius: 30px;
+    background-image: url(../../img/prof\ card\ 20\ dance.png);
+    background-size: contain; 
+    background-repeat: no-repeat; 
+}
+
 
 .grid__element_name{
     text-align: left;
@@ -107,14 +173,25 @@ background-color: #271A58 ;
 
 
 .main__footer{
-    margin-top: 10px;
+    margin-top: 34px;
     display: flex;
     justify-content: center;
 }
 
 .main__footer_button{
+    width: 147px;
+    height: 48px;
     background-color:   rgba(199, 233, 87, 1);
     border-radius: 46px;
+    font-family: 'StratosSkyeng';
+    font-weight: 400;
+    font-size: 24px;
+    &:hover{
+        background-color:   #DAF289;
+    }
+    &:active{
+        background-color: #EBFFAB;
+    }
 
 
 }
