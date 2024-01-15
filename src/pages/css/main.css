@@ -1,0 +1,121 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+background-color: #271A58 ;
+    /* font-family: 'Montserrat', sans-serif; */
+}
+
+
+.main__header{
+    
+    display: flex;
+    justify-content: space-between;
+}
+.main__header_right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main__description{
+    width: 363px;
+    height: 23px;
+    top: 100px;
+    left: 140px;
+    opacity: 0.5px;
+    font-family: StratosSkyeng;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23px;
+    letter-spacing: -0.05px;
+    text-align: left;
+    color: #ffffff;
+  
+}
+.main__title{
+    width: 830px;
+    height: 110px;
+    top: 140px;
+    left: 140px;
+    font-family: StratosSkyeng;
+    font-size: 60px;
+    font-weight: 400;
+    line-height: 55px;
+    letter-spacing: -1px;
+    text-align: left;
+    color: rgba(244, 244, 255, 1);
+
+
+}
+.main__header_button{
+
+    background: #140D40;
+    border-radius: 46px;
+/* Text */
+    width: 45px;
+    height: 24px;
+    font-family: 'StratosSkyeng';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+/* identical to box height, or 150% */
+    text-align: center;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #FFFFFF;
+/* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+.main__trainings_grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 30px;
+    column-gap: 40px;
+}
+.trainings__grid_element{
+    padding: 30px;
+    width: 360px;
+    height: 480px;
+    top: 302px;
+    left: 140px;
+    border-radius: 30px;
+    background-color: #ffffff;
+    
+}
+
+.element__background_yoga{
+    background-image: url('../../img/prof\ card\ 2\ yoga.png');
+}
+
+.grid__element_name{
+    text-align: left;
+    font-style: 'Abhaya Libre ExtraBold';
+    font-weight: 800;
+    font-size: 36px;
+}
+
+
+
+.main__footer{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.main__footer_button{
+    background-color:   rgba(199, 233, 87, 1);
+    border-radius: 46px;
+
+
+}
+
