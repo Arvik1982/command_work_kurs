@@ -1,30 +1,30 @@
-import logo from './img/logo.svg'
-import courseImg from './img/skill card 17.png'
-import purposes from './img/Group 48096488.png'
-import iogaNaw from './img/iogaNaw.png'
-import iogaNew from './img/iogaNew.png'
-import info from './img/info.png'
-import buttonImage from './img/Group 48096487.svg'
-import './ioga.css'
+import logo from '../img/logo.svg'
+import courseImg from '../img/skill card 17.png'
+import purposes from '../img/Group 48096488.png'
+import iogaNaw from '../img/iogaNaw.png'
+import iogaNew from '../img/iogaNew.png'
+import info from '../img/info.png'
+import buttonImage from '../img/Group 48096487.svg'
+import styles from './css/ioga.module.css'
 
 export default function DescriptionPage() {
     return (
-        <div className='course__page'>
-            <div className='course__page_logo'>
+        <div className={styles.course__page}>
+            <div className={styles.course__page_logo}>
                 <img src={logo} alt="logo" />
             </div>
-            <div className='course__page_image'>
+            <div className={styles.course__page_image}>
                 <img src={courseImg} alt="courseimage" />
             </div>
-            <div className='centr_text'>
+            <div className={styles.centr_text}>
                 <h2>Подойдет для вас, если:</h2>
-                <div className='course__ioga_image'>
+                <div className={styles.course__ioga_image}>
                     <img src={purposes} alt="purposes" />
                 </div>
             </div>
             <div>
                 <h2>Направления</h2>
-                <div className='course__directions_image'>
+                <div className={styles.course__directions_image}>
                     <img src={iogaNaw} alt="iogaNaw" />
                     <img src={iogaNew} alt="iogaNew" />
                 </div>

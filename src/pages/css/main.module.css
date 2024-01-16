@@ -27,6 +27,8 @@ background-color: #271A58 ;
 }
 
 .main__description{
+    margin-top: 35px;
+    margin-bottom: 17px;
     width: 363px;
     height: 23px;
     top: 100px;
@@ -42,6 +44,8 @@ background-color: #271A58 ;
   
 }
 .main__title{
+    margin-bottom: 52px;
+    margin-top: 35px;
     width: 830px;
     height: 110px;
     top: 140px;
