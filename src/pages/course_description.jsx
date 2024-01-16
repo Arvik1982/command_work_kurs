@@ -17,5 +17,6 @@ export default function DescriptionPage()
         <div className='course__page_content'/>
         <div className='course__page_subscribe'/>
  </div>
+ 
     )
 }
