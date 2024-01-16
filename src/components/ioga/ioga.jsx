@@ -5,6 +5,7 @@ import iogaNaw from './img/iogaNaw.png'
 import iogaNew from './img/iogaNew.png'
 import info from './img/info.png'
 import buttonImage from './img/Group 48096487.svg'
+import './ioga.css'
 
 export default function DescriptionPage() {
     return (
@@ -15,7 +16,7 @@ export default function DescriptionPage() {
             <div className='course__page_image'>
                 <img src={courseImg} alt="courseimage" />
             </div>
-            <div>
+            <div className='centr_text'>
                 <h2>Подойдет для вас, если:</h2>
                 <div className='course__ioga_image'>
                     <img src={purposes} alt="purposes" />
@@ -27,6 +28,7 @@ export default function DescriptionPage() {
                     <img src={iogaNaw} alt="iogaNaw" />
                     <img src={iogaNew} alt="iogaNew" />
                 </div>
+                
             </div>
             <div>
                 <img src={info} alt="info" />
@@ -41,8 +43,8 @@ export default function DescriptionPage() {
                     </div>
                 </div>
                 <div className='button' >
-            <button type='button' className='button'>Записаться на тренировку</button>
-        </div>
+                    <button type='button' className='button'>Записаться на тренировку</button>
+                </div>
             </div>
         </div>
     )

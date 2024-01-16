@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.course__page{
+  background-color: white;
+
+}
+
+.course__page_logo{
+  padding-top: 30px;
+  padding-bottom: 75px;
+  padding-left: 140px;width: 220px;
+  height: 35px;
+  flex-shrink: 0;
+}
+
+.course__page_image{
+  margin-left: 140px;
+  margin-bottom: 75px;
+  width: 1160px;
+  height: 310px;
+}
+
+.centr_text{
+  margin-left: 140px;
+  display: flex;
+  gap: 40px;
+  flex-direction: column;
+  color: #000;
+
+font-family: StratosSkyeng;
+font-size: 30px;
+font-style: normal;
+font-weight: 400;
+line-height: 48px; /* 120% */
+
+}
