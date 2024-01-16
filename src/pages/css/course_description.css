@@ -1,0 +1,13 @@
+.course__page{
+position: absolute;
+top: 0;
+width: 1140px;
+height: 1623px;
+background-size:cover; 
+background-color: #fff;
+}
+.course__page_content{
+    background-color: green;
+    width: 200px;
+    height: 200px;
+}

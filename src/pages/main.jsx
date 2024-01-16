@@ -1,13 +1,14 @@
+import { Link } from 'react-router-dom';
 import './css/main.css';
 import { useEffect, useState } from 'react';
 //  redux
 import { useSelector } from "react-redux";
 // 
-import logo from '../img/logo.png'
-import sale from'../img/Sale sticker.png'
+
 import { getAllCourses } from '../api';
 
-
+import logo from '../img/logo.png'
+import sale from'../img/Sale sticker.png'
 
 export default function MainPage(){
 
@@ -31,14 +32,17 @@ const [trainingsArray, setTrainingsArray]=useState([])
         <h2 className='main__title'>Начните заниматься спортом и улучшите качество жизни</h2>
     </div>
     <div className='main__header_right'>
+        <Link to='/auth'>
         <button type='button' className='main__header_button'>вoйти</button>
+        </Link>
         <img src={sale} alt="sale" />
     </div>
     </header>
     <div className='main__trainings_grid'>
         {
         
-        trainingsArray.map(el=>{return <div key={el.nameEN} 
+        trainingsArray.map(el=>{return <Link to='/description'>
+        <div key={el.nameEN} 
             
         className={ 
             el.nameEN ==='StepAirobic'?'grid__element_step':
@@ -54,6 +58,7 @@ const [trainingsArray, setTrainingsArray]=useState([])
           {/* <h2 className='grid__element_name'>{el.nameEN}</h2> */}
         
     </div>
+    </Link> 
  })}
             
 <div  className='trainings__grid_element'>{testData}</div>
