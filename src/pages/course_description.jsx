@@ -11,12 +11,12 @@ export default function DescriptionPage()
         <img src={logo} alt="logo" />
         </div>
         <div className='course__page_image'>
-        <img src={courseImg} alt="course image" />  
+        <img src={courseImg} alt="courseimage" />  
         </div>
 
         <div className='course__page_content'/>
         <div className='course__page_subscribe'/>
  </div>
- 
+
     )
 }
