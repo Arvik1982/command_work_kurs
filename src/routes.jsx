@@ -3,7 +3,7 @@ import MainPage from "./pages/Main";
 import MyProfilePage from "./pages/Myprofile";
 import ErrPage  from "./pages/Err";
 import AuthorizationPage from "./pages/Authorization";
-import DescriptionPage from "./components/ioga/ioga";
+import DescriptionPage from "./pages/Ioga";
 
 export default function AppRoutes () {
     return(
