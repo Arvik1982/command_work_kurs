@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 import './css/main.css';
 import { useEffect, useState } from 'react';
 //  redux
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 // 
+
 
 import { getAllCourses } from '../api';
 
@@ -16,13 +17,14 @@ export default function MainPage(){
 const [trainingsArray, setTrainingsArray]=useState([])  
 
     useEffect(()=>{
+      
         getAllCourses().then((data)=>{
         const arr = [...Object.values(data)]
         setTrainingsArray(arr)
         return data
       })},[])
 
-    const testData = useSelector(state=>state.store.testData)
+    // const testData = useSelector(state=>state.store.testData)
 
     return(<>
     <header className='main__header'>
@@ -61,7 +63,7 @@ const [trainingsArray, setTrainingsArray]=useState([])
     </Link> 
  })}
             
-<div  className='trainings__grid_element'>{testData}</div>
+{/* <div  className='trainings__grid_element'>{testData}</div> */}
     </div>
 <div className='main__footer'>
     <button type='button' className='main__footer_button'>Наверх ↑</button>
