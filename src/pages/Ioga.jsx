@@ -22,7 +22,7 @@ export default function DescriptionPage() {
                     <img src={purposes} alt="purposes" />
                 </div>
             </div>
-            <div>
+            <div className={styles.course__directions_text}>
                 <h2>Направления</h2>
                 <div className={styles.course__directions_image}>
                     <img src={iogaNaw} alt="iogaNaw" />
@@ -30,20 +30,20 @@ export default function DescriptionPage() {
                 </div>
                 
             </div>
-            <div>
+            <div className={styles.course__directions_info}>
                 <img src={info} alt="info" />
             </div>
             <div>
-                <div>
-                    <h2>
+                <div className={styles.info}>
+                    <h2 className={styles.info_text}>
                         Оставьте заявку на пробное занятие, мы свяжемся с вами, поможем с выбором направления и тренера, с которым тренировки принесут здоровье и радость!
                     </h2>
-                    <div>
+                    <div className={styles.info_image}>
                         <img src={buttonImage} alt="buttonImage" />
                     </div>
                 </div>
-                <div className='button' >
-                    <button type='button' className='button'>Записаться на тренировку</button>
+                <div className={styles.button} >
+                    <button type='button' className={styles.button_text}>Записаться на тренировку</button>
                 </div>
             </div>
         </div>
