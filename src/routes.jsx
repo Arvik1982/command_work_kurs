@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import MainPage from "./pages/Main_";
-import MyProfilePage from "./pages/Myprofile_";
-import ErrPage  from "./pages/Err_";
-import AuthorizationPage from "./pages/Authorization_";
-import DescriptionPage from "./pages/Ioga_";
+import MainPage from "./pages/Main";
+import MyProfilePage from "./pages/Myprofile";
+import ErrPage  from "./pages/Err";
+import AuthorizationPage from "./pages/Authorization";
+import DescriptionPage from "./pages/Ioga";
 import ChangePasswordPage from "./pages/ChangePassword";
 
 export default function AppRoutes () {
