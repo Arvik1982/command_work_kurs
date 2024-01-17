@@ -15,6 +15,7 @@ import step from'../img/img_main/step_main_png.png'
 import body from'../img/img_main/body_main_png.png'
 
 export default function MainPage(){
+    
 
 function styleBody(){
         document.body.style.backgroundColor = '#271A58'
