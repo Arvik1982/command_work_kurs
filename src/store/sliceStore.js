@@ -5,6 +5,7 @@ const sliceStore =createSlice({
 
     initialState:{
         testData:'redux works',
+        courseName:''
     },
     reducers:{
 
@@ -12,8 +13,13 @@ const sliceStore =createSlice({
        state.testData='clicked';
 
         },
+
+        setCourseName (state, actions) {
+            state.courseName=actions.payload;
+            console.log(state.courseName)
+             },
     },
 })
 
-export const{testRegimeReducer}=sliceStore.actions;
+export const{testRegimeReducer,setCourseName}=sliceStore.actions;
 export default sliceStore.reducer

@@ -3,29 +3,42 @@
     margin: 0;
     padding: 0;
 }
-
 a {
     text-decoration: none;
 }
-
-body {
-background-color: #271A58 ;
-    /* font-family: 'Montserrat', sans-serif; */
+body{
+    height: 100%;
+    width: 100%;
 }
-
-
-.main__header{
+.main__content{
+    display: block;
+    position: absolute;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    background-color: #271A58;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: flex-start;
+    padding-left: 140px;
     
+}
+.main__header{
+    margin-top: 30px;
     display: flex;
     justify-content: flex-start;
 }
 .main__header_right{
-    margin-left: 350px;
+    margin-left: 170px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
+.main__header_sale{
+margin-top: 40px;
+}
 .main__description{
     margin-top: 35px;
     margin-bottom: 17px;
@@ -40,7 +53,7 @@ background-color: #271A58 ;
     line-height: 23px;
     letter-spacing: -0.05px;
     text-align: left;
-    color: #ffffff;
+    color: #918d8d;
   
 }
 .main__title{
@@ -61,9 +74,10 @@ background-color: #271A58 ;
 
 }
 .main__header_button{
-
+    border: #140D40 solid 0;
     background: #140D40;
     border-radius: 46px;
+
 /* Text */
     width: 77px;
     height: 36px;
@@ -90,12 +104,12 @@ background-color: #271A58 ;
     }
 }
 .main__trainings_grid{
-
     display: grid;
     grid-template-columns: 360px 360px 360px;
-    
-    row-gap: 63px;
-    column-gap: 97px;
+    row-gap: 37px;
+    column-gap: 44px;
+    align-items: center;
+    justify-items: center;
 }
 .trainings__grid_element{
     padding: 30px;
@@ -108,62 +122,18 @@ background-color: #271A58 ;
 }
 .grid__element_yoga{
     padding: 30px;
-    width: 360px;
-    height: 480px;
-    top: 302px;
-    left: 140px;
-    border-radius: 30px;
-    background-image: url(../../img/prof\ card\ 2\ yoga.png);
-    background-size:contain; 
-    background-repeat: no-repeat; 
-    background-color: #fff;
+    width: 400px;
+    height: 550px; 
 }
 
+
 .grid__element_step{
+    margin-bottom: 0;
+    padding-bottom: 0;
     padding: 30px;
-    width: 360px;
-    height: 480px;
-    top: 302px;
-    left: 140px;
-    border-radius: 30px;
-    background-image: url(../../img/prof\ card\ 6\ step.png);
-    background-size: contain;
-    background-repeat: no-repeat; 
-    background-color: #fff;
-}
-.grid__element_stretch{
-    padding: 30px;
-    width: 360px;
-    height: 480px;
-    top: 302px;
-    left: 140px;
-    border-radius: 30px;
-    background-image: url(../../img/prof\ card\ 3\ str.png);
-    background-size: contain; 
-    background-repeat: no-repeat; 
-    background-color: #fff;
-}
-.grid__element_body{
-    padding: 30px;
-    width: 360px;
-    height: 480px;
-    top: 302px;
-    left: 140px;
-    border-radius: 30px;
-    background-image: url(../../img/prof\ card\ 28\ body.png);
-    background-size: contain; 
-    background-repeat: no-repeat; 
-}
-.grid__element_dance{
-    padding: 30px;
-    width: 360px;
-    height: 480px;
-    top: 302px;
-    left: 140px;
-    border-radius: 30px;
-    background-image: url(../../img/prof\ card\ 20\ dance.png);
-    background-size: contain; 
-    background-repeat: no-repeat; 
+    width: 400px;
+    height: 500px;
+
 }
 
 
@@ -177,12 +147,15 @@ background-color: #271A58 ;
 
 
 .main__footer{
+    /* padding-left: 40%; */
     margin-top: 34px;
     display: flex;
     justify-content: center;
 }
 
 .main__footer_button{
+    
+    margin-bottom: 60px;
     width: 147px;
     height: 48px;
     background-color:   rgba(199, 233, 87, 1);
