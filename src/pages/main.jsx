@@ -16,10 +16,15 @@ import body from'../img/img_main/body_main_png.png'
 
 export default function MainPage(){
 
+function styleBody(){
+        document.body.style.backgroundColor = '#271A58'
+    }
+
 const dispatch =useDispatch()
 const [trainingsArray, setTrainingsArray]=useState([])  
 
     useEffect(()=>{
+        styleBody()
         getAllCourses().then((data)=>{
         const arr = [...Object.values(data)]
         setTrainingsArray(arr)
