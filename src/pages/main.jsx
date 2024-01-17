@@ -1,19 +1,22 @@
 import { Link } from 'react-router-dom';
-
 import { useEffect, useState } from 'react';
 //  redux
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setCourseName } from '../store/sliceStore';
 // 
-
 import { getAllCourses } from '../api';
-
 import logo from '../img/logo.png'
 import sale from'../img/Sale sticker.png'
 import styles from './css/main.module.css';
+import yoga from'../img/img_main/yoga_main_png.png';
+import stretch from'../img/img_main/stratch_main_png.png';
+import dance from'../img/img_main/dance_main_png.png';
+import step from'../img/img_main/step_main_png.png'
+import body from'../img/img_main/body_main_png.png'
 
 export default function MainPage(){
 
-
+const dispatch =useDispatch()
 const [trainingsArray, setTrainingsArray]=useState([])  
 
     useEffect(()=>{
@@ -23,10 +26,7 @@ const [trainingsArray, setTrainingsArray]=useState([])
         return data
       })},[])
 
-    const testData = useSelector(state=>state.store.testData)
-
-    return(<>
-    <header className={styles.main__header}>
+    return(<>    <header className={styles.main__header}>
      <div className={styles.main__header_left}>
         <img src={logo} alt="logo" />
         <h3 className={styles.main__description}>Онлайн-тренировки для занятий дома</h3>
@@ -34,39 +34,46 @@ const [trainingsArray, setTrainingsArray]=useState([])
     </div>
     <div className={styles.main__header_right}>
         <Link to='/auth'>
-        <button type='button' className={styles.main__header_button}>вoйти</button>
+        <button type='button' className={styles.main__header_button}>Вoйти</button>
         </Link>
-        <img src={sale} alt="sale" />
+        <img className={styles.main__header_sale} src={sale} alt="sale" />
     </div>
     </header>
-    <div className={styles.main__trainings_grid}>
+    <div  className={styles.main__trainings_grid}>
         {
-        
-        trainingsArray.map(el=>{return <Link to='/description'>
-        <div key={el.nameEN} 
+         trainingsArray.map(el=>{
+            return <div
+         
+         className='trainings__grid_element' key={el.nameEN}>
             
-        className={ 
-            el.nameEN ==='StepAirobic'?styles.grid__element_step:
-            el.nameEN === 'Yoga'? styles.grid__element_yoga:
-            el.nameEN === 'Stretching'? styles.grid__element_stretch:
-            el.nameEN === 'BodyFlex'? styles.grid__element_body:
-            el.nameEN === 'DanceFitness'? styles.grid__element_dance:
-            styles.trainings__grid_element
-            }
-            >
+            <Link onClick={()=>{dispatch(setCourseName(el.nameEN))}} to='/description'>
+            <img key={el.nameEN}  className={
+                el.nameEN === 'Yoga'?styles.grid__element_yoga:
+                el.nameEN === 'Stretching'?styles.grid__element_yoga:
+                'grid__element_step'
             
-        
-          {/* <h2 className='grid__element_name'>{el.nameEN}</h2> */}
-        
-    </div>
-    </Link> 
+            } src={
+                el.nameEN === 'Yoga'? yoga:
+                el.nameEN === 'Stretching'? stretch:
+                el.nameEN === 'DanceFitness'? dance:
+                el.nameEN ==='StepAirobic'?step:
+                el.nameEN === 'BodyFlex'?body:''
+                
+                } alt='img'/>
+        </Link>
+
+         </div>
+    
+    
  })}
-            
-<div  className='trainings__grid_element'>{testData}</div>
+           
+
     </div>
-<div className={styles.main__footer}>
+    
+    <div className={styles.main__footer}>
     <button type='button' className={styles.main__footer_button}>Наверх ↑</button>
-</div>
+    </div>   
+
     </>
     )
 }
