@@ -1,6 +1,6 @@
 .wrapper {
     padding-top: 30px;
-    color: #fafafa;
+    color: #161616;
 }
 .header {
     display: flex;
@@ -10,9 +10,16 @@
     font-size: 24px;
     padding-bottom: 75px;
 }
-
-.header__text {
-    color: black;
+.header_profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.header_photo {
+    background-color: #D9D9D9;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
 }
 .header_bottom {
     display: flex;
@@ -36,11 +43,12 @@
     cursor: pointer;
     width: 275px;
     height: 52px;
-    border: 1px solid #fafafa;
+    background-color: #580EA2;
+    border: 1px solid #580EA2;
     border-radius: 42px;
     font-weight: 400;
     font-size: 18px;
-    color: #580EA2;
+    color: #fafafa;
     transition: all .3s;
 }
 .main {
@@ -54,16 +62,10 @@
     width: 400px;
     margin-top: 30px;
 }
-.main_direct_two {
-    width: 350px;
-    height: 500px;
-    padding-top: 55px;
-    margin-left: 20px;
-}
 .main_button {
     position: absolute;
     bottom: 50px; /* Расстояние до нижнего края */
-    left: 50%; /* Горизонтальное выравнивание по центру */
+    left: 35%; /* Горизонтальное выравнивание по центру */
     transform: translateX(-50%); /* Для точного центрирования */
     background-color: #C7E957;
     border: 1px solid #C7E957;
@@ -77,40 +79,81 @@
     cursor: pointer;
     transition: all .3s;
 }
-.main_button_two {
-    position: absolute;
-    bottom: 50px; /* Расстояние до нижнего края */
-    left: 50%; /* Горизонтальное выравнивание по центру */
-    transform: translateX(-41%); /* Для точного центрирования */
-    background-color: #C7E957;
-    border: 1px solid #C7E957;
-    border-radius: 80px;
-    color: #000000;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
+
+/* Модальное окно */
+.modalOverlay {
+    position: fixed; /* изменено с position: absolute */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    background-color: rgba(72, 3, 162, 0.171); /* Полупрозрачный фон */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Назначение высокого z-index */
+}
+.modal {
+    background-color: #fff; /* Цвет фона модального окна */
+    padding: 20px;
+    border-radius: 15px;
+}
+.modalContent {
+    width: 350px;
+    height: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 55px;
+}
+.main_button_one {
     cursor: pointer;
+    width: 280px;
+    height: 55px;
+    border: 1px solid #580EA2;
+    border-radius: 80px;
+    color: #fafafa;
+    background-color: #580EA2;
+    font-size: 18px;
+    font-weight: 400px;
     transition: all .3s;
+}
+.main_info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 18px;
+}
+.main_text {
+    padding: 5px;
+    font-size: 18px;
+}
+.main_form {
+    width: 260px;
+    height: 30px;
+    padding: 5px;
+    color: #777676;
+    padding-bottom: 5px;
+    border: 1.5px solid #D0CECE;
+    font-size: 18px;
+    border: transparent;
+    border-bottom: 1px solid #D0CECE;
+}
+.main_form::placeholder {
+    color: #D0CECE;
 }
 
 /* Наведение */
 .header_button:hover {
-    background-color: #DAF289;
-    border: 1px solid #DAF289;
+    background-color: #3F007D;
+    border: 1px solid #3F007D;
 }
 .header_button:active {
-    background-color: #EBFFAB;
-    border: 1px solid #EBFFAB;
-}
-.main_button_two:hover {
-    background-color: #DAF289;
-    border: 1px solid #DAF289;
-}
-.main_button_two:active {
-    background-color: #EBFFAB;
-    border: 1px solid #EBFFAB;
+    transform: scale(0.95);
+    background-color: #271A58;
+    border: 1px solid #271A58;
 }
 .main_button:hover {
     background-color: #DAF289;
@@ -119,4 +162,12 @@
 .main_button:active {
     background-color: #EBFFAB;
     border: 1px solid #EBFFAB;
+}
+.main_button_one:hover {
+    background-color: #3F007D;
+    border: 1px solid #3F007D;
+}
+.main_button_one:active {
+    background-color: #271A58;
+    border: 1px solid #271A58;
 }
