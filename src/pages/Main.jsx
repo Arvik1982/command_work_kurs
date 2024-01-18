@@ -15,14 +15,14 @@ import step from '../img/img_main/step_main_png.png'
 import body from '../img/img_main/body_main_png.png'
 import {styleBody} from "../styleBody";
 import WhiteLogo from "../components/Logo/whiteLogo";
-import { addUser } from '../api'; 
+
 
 export default function MainPage() {
     const dispatch = useDispatch()
     const [trainingsArray, setTrainingsArray] = useState([])
 
     useEffect(() => {
-        addUser()
+        
         styleBody('#271A58')
         getAllCourses().then((data) => {
             const arr = [...Object.values(data)]

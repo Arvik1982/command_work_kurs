@@ -42,10 +42,10 @@ createUserWithEmailAndPassword(auth, login, pass)
     </div>
     <div className={styles.authorization__page_buttons}>
     <div className={registrationRegime!==false?styles.element__visibility:''} >
-        <button onClick={()=>registration()} type='button' className={styles.page__button_enter}>Войти</button>
+        <button onClick={()=>{}} type='button' className={styles.page__button_enter}>Войти</button>
     </div>
         <button  onClick={()=>{
-
+            registration()
             setRegistrationRegime(true);
             
             }} type='button' className={registrationRegime?styles.button__register_on:styles.page__button_register}>Зарегистрироваться</button>
