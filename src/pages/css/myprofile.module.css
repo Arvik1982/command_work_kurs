@@ -1,5 +1,4 @@
 .wrapper {
-    width: 1160px;
     padding-top: 30px;
     color: #161616;
 }
@@ -29,13 +28,16 @@
     padding-bottom: 75px;
 }
 .header_title {
+    color: black;
     font-weight: 400;
     font-size: 48px;
     padding-bottom: 20px;
 }
 .header_info {
+    color: black;
     font-weight: 400;
     font-size: 24px;
+    color: black;
 }
 .header_button {
     cursor: pointer;
@@ -44,22 +46,20 @@
     background-color: #580EA2;
     border: 1px solid #580EA2;
     border-radius: 42px;
-    font-weight: 400px;
+    font-weight: 400;
     font-size: 18px;
     color: #fafafa;
     transition: all .3s;
 }
 .main {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
 }
 .main_nav{
-    width: 1160px;
     position: relative;
 }
 .main_direct {
     width: 400px;
-    height: 550px;
     margin-top: 30px;
 }
 .main_button {
