@@ -1,15 +1,19 @@
 import styles from './css/myprofile.module.css';
-import logo from '../img/logo.png'
+import logo from '../img/logo.svg'
 import Yoga from '../img/prof card 2 yoga.png'
 import Stretch from '../img/prof card 3 str.png'
 import Bodyflex from '../img/prof card 28 body.png'
+import {useEffect} from "react";
+import BlackLogo from "../components/Logo/BlackLogo";
 
 export default function MyProfilePage() {
+  useEffect(() => {
+  }, []);
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
-        <img src={logo} alt="logo" />
-        <div>Профиль</div>
+        <BlackLogo/>
+        <div className={styles.header__text}>Профиль</div>
       </div>
       <div className={styles.header_bottom}>
         <span className={styles.header_title}>Мой профиль</span>
