@@ -5,6 +5,7 @@ import logo from '../img/logo.svg'
 import Yoga from '../img/img_profile/yoga_profile.png'
 import Stretch from '../img/img_profile/stretch_profile.png'
 import Bodyflex from '../img/img_profile/bodyflex_profile.png'
+import BlackLogo from "../components/Logo/BlackLogo";
 
 export default function MyProfilePage() {
     // Стейт для отображения модального окна №1
@@ -24,7 +25,7 @@ export default function MyProfilePage() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
-        <img src={logo} alt="logo" />
+        <BlackLogo route='/profile'/>
         <div className={styles.header_profile}>
             <div className={styles.header_photo}/>
             <div>Профиль</div>
