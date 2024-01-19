@@ -18,9 +18,8 @@ const [buttonDisabled, setButtonDisabled]=useState(false)
 const [placeholderLogin, setPlaseholderLogin]=useState('Логин')
 
 const disableButton = ()=>{
-    console.log('reg') 
     setButtonDisabled(true)
-    console.log(buttonDisabled)
+    
 }
 
 function registration (){
@@ -47,14 +46,15 @@ createUserWithEmailAndPassword(auth, login, pass)
 .then((response)=>{
     setError(null)
     setButtonDisabled(false)
-    console.log(response)})
+    console.log(response)
+    })
 
 
 
 .catch((newError)=>{
     setError(newError.message)
     setButtonDisabled(false)
-    console.log(newError.message)
+    
 
 })
 }
