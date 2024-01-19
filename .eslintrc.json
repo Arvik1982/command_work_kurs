@@ -5,8 +5,8 @@
     },
     "extends": [
       "plugin:react/recommended",
-      "prettier",
       "airbnb",
+      "prettier",
       "plugin:react/jsx-runtime"
     ],
     "parserOptions": {
@@ -20,11 +20,13 @@
     "rules": {
       "no-nested-ternary":"off",
       "arrow-body-style":"off",
-      "react/jsx-filename-extension": [1, { "extensions": ".jsx"}],
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "react/prop-types": 0,
       "react/destructuring-assignment": [0],
       "no-param-reassign":"off",
-      "no-useless-path-segments":"off"
+      "no-useless-path-segments":"off",
+      "linebreak-style":"off",
+      "no-console":"off"
       
     }
   }

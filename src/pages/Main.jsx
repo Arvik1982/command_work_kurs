@@ -4,8 +4,8 @@ import {useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {setCourseName} from '../store/sliceStore';
 // 
-import {getAllCourses} from '../api';
-import logo from '../img/logo.png'
+import getAllCourses from '../api';
+// import logo from '../img/logo.png'
 import sale from '../img/Sale sticker.png'
 import styles from './css/main.module.css';
 import yoga from '../img/img_main/yoga_main_png.png';
@@ -15,14 +15,14 @@ import step from '../img/img_main/step_main_png.png'
 import body from '../img/img_main/body_main_png.png'
 import {styleBody} from "../styleBody";
 import WhiteLogo from "../components/Logo/whiteLogo";
-
+import GoTop from '../components/GoTop/GoTop';
 
 export default function MainPage() {
     const dispatch = useDispatch()
     const [trainingsArray, setTrainingsArray] = useState([])
 
     useEffect(() => {
-        
+
         styleBody('#271A58')
         getAllCourses().then((data) => {
             const arr = [...Object.values(data)]
@@ -74,7 +74,8 @@ export default function MainPage() {
             </div>
 
             <div className={styles.main__footer}>
-                <button type='button' className={styles.main__footer_button}>Наверх ↑</button>
+                <GoTop/>
+                {/* <button type='button' className={styles.main__footer_button}>Наверх ↑</button> */}
             </div>
 
         </div>
