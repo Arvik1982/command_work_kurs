@@ -6,17 +6,24 @@ import iogaNew from '../img/iogaNew.png'
 import info from '../img/info.png'
 import buttonImage from '../img/Group 48096487.svg'
 import styles from './css/ioga.module.css'
+import {useEffect} from "react";
+import {styleBody} from "../styleBody";
+import WhiteLogo from "../components/Logo/whiteLogo";
+import BlackLogo from "../components/Logo/BlackLogo";
 
 export default function DescriptionPage() {
+    useEffect(() => {
+        styleBody('#fff')
+    }, []);
     return (
         <div className={styles.course__page}>
             <div className={styles.course__page_logo}>
-                <img src={logo} alt="logo" />
+                <BlackLogo/>
             </div>
             <div className={styles.course__page_image}>
                 <img src={courseImg} alt="courseimage" />
             </div>
-            <div className={styles.centr_text}>
+            <div className={styles.center_text}>
                 <h2>Подойдет для вас, если:</h2>
                 <div className={styles.course__ioga_image}>
                     <img src={purposes} alt="purposes" />

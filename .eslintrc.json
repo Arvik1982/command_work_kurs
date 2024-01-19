@@ -5,8 +5,8 @@
     },
     "extends": [
       "plugin:react/recommended",
-      "airbnb",
       "prettier",
+      "airbnb",
       "plugin:react/jsx-runtime"
     ],
     "parserOptions": {
@@ -20,7 +20,7 @@
     "rules": {
       "no-nested-ternary":"off",
       "arrow-body-style":"off",
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "react/jsx-filename-extension": [1, { "extensions": ".jsx"}],
       "react/prop-types": 0,
       "react/destructuring-assignment": [0],
       "no-param-reassign":"off",

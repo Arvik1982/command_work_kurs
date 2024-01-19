@@ -1,38 +1,45 @@
-export async function getAllCourses(){
+// const email ='ars@rrr.re';
+// const password='111we';
 
-const response = await fetch("https://fitness-pro-5a801-default-rtdb.europe-west1.firebasedatabase.app/courses.json", {
-  method: "GET",
-})
+export async function getAllCourses() {
 
-if(!response.ok){
-    throw new Error('Ошибка сервера')
+    const response = await fetch("https://fitness-pro-5a801-default-rtdb.europe-west1.firebasedatabase.app/courses.json", {
+        method: "GET",
+    })
+    if (!response.ok) {
+        throw new Error('Ошибка сервера')
+    }
+    const newData = await response.json()
+    console.log(newData)
+    return newData
+
 }
 
-const newData = await response.json()
-console.log(newData)
-return newData
-
-}
+// export async function addUser() {
+ 
+//     const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBkhbdRflDnKHqeqnmiXF2E9cFOSM-JckA", {
+//         method: "POST",
+//         headers:{"content-type": "application/json"},
+//         body: JSON.stringify({
+//             email: 'arsen@yandex.ru',
+//             password: `${password}`,
+//             returnSecureToken:true
+//           }),
+        
+//     })
+//     if (!response.ok) {
+//         console.log(response)
+//         throw new Error('Ошибка сервера')
+        
+//     }
+//     const newData = await response.json()
+//     console.log(newData)
     
 
-export async function getAllCourses2(){
-        const response = await fetch("https://fitness-pro-5a801.firebaseio.com/courses.json", {
-          method: "GET",
-          
-        })
-            
-            
-            if(!response.ok)   {
-                throw new Error('Ошибка сервера')
-            }
-            
-            
-            const newData = await response.json()
-            newData.forEach((el, index)=> {
-            el.id =index+8})
-            
-            const data = newData
-            
-                return data
-            
-            }
+//     const data = newData
+
+//     return data
+
+// }
+
+
