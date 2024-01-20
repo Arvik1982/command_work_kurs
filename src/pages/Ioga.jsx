@@ -46,21 +46,17 @@ export default function DescriptionPage() {
             <div className={styles.course__directions_info}>
                 <img src={info} alt="info" />
             </div>
-            <div>
-                <div className={styles.info}>
-                    <h2 className={styles.info_text}>
-                        Оставьте заявку на пробное занятие, мы свяжемся с вами, поможем с выбором направления и тренера, с которым тренировки принесут здоровье и радость!
-                    </h2>
-                    <div className={styles.button} >
+            <div className={styles.info_block}>
+                <h2 className={styles.info_text}>
+                    Оставьте заявку на пробное занятие, мы свяжемся с вами, поможем с выбором направления и тренера, с которым тренировки принесут здоровье и радость!
+                </h2>
+                <div className={styles.button} >
                     <button className={styles.button_text}
                         onClick={() => handleClick()} type='button'>Записаться на тренировку</button>
                 </div>
-                    <div className={styles.info_image}>
-                        <img src={buttonImage} alt="buttonImage" />
-                    </div>
-                    
+                <div className={styles.info_image}>
+                    <img src={buttonImage} alt="buttonImage" />
                 </div>
-
                 
             </div>
         </div>
