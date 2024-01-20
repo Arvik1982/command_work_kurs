@@ -20,11 +20,13 @@
   "rules": {
     "no-nested-ternary":"off",
     "arrow-body-style":"off",
-    "react/jsx-filename-extension": [1, { "extensions": ".jsx"}],
+    "react/jsx-filename-extension": [".js", ".jsx"],
     "react/prop-types": 0,
     "react/destructuring-assignment": [0],
     "no-param-reassign":"off",
-    "no-useless-path-segments":"off"
+    "no-useless-path-segments":"off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off"
     
   }
 }
