@@ -1,41 +1,122 @@
 * {
     margin: 0;
     padding: 0;
-}
-
-a {
+  }
+  
+  a {
     text-decoration: none;
-}
-
-.course__page{
-  background-color: white;
-
-}
-
-.course__page_logo {
+  }
+  
+  .course__page{
+    width: 1440px;
+    height: 1623px;
+    background-color: white;
+  
+  }
+  
+  .course__page_logo{
     padding-top: 30px;
     padding-bottom: 75px;
+    /* padding-left: 140px; */
     width: 220px;
     height: 35px;
     flex-shrink: 0;
-}
-
-.course__page_image {
+  }
+  
+  .course__page_image{
+    /* margin-left: 140px; */
     margin-bottom: 75px;
     width: 1160px;
     height: 310px;
-}
-
-.center_text {
+  }
+  
+  .center_text{
+    /* margin-left: 140px; */
     display: flex;
     gap: 40px;
     flex-direction: column;
     color: #000;
-
-font-family: StratosSkyeng;
-font-size: 30px;
-font-style: normal;
-font-weight: 400;
-line-height: 48px; /* 120% */
-
-}
+  
+  font-family: StratosSkyeng;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 48px; /* 120% */
+  }
+  
+  .course__directions_text{
+    /* margin-left: 140px; */
+  padding-top: 107px;
+  color: #000;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: StratosSkyeng;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 48px; /* 120% */
+  }
+  
+  .course__directions_image{
+    padding-top: 22px;
+    padding-bottom: 75px;
+  display: flex;
+  gap: 200px;
+  
+  }
+  
+  .course__directions_info{
+    padding-bottom: 75px;
+    /* margin-left: 140px; */
+    width: 1160px;
+    color: #000;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: StratosSkyeng;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px; /* 133.333% */
+  }
+  
+  .info{
+    /* margin-left: 140px; */
+    border-radius: 30px;
+  background: #F9EBFF;
+    max-width: 1180px;
+  height: 300px;
+  flex-shrink: 0; 
+  display: flex;
+  flex-wrap: wrap;
+  }
+  
+  .info_text{
+    padding-top: 46px;
+    padding-left: 52px;
+    width: 823px;
+    color: #000;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: StratosSkyeng;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px; /* 125% */
+  }
+  
+  
+  .button{
+    /* margin-left: 192px; */
+    margin-bottom: 143px;
+    width: 275px;
+    height: 52px;
+    flex-shrink: 0;
+    border-radius: 46px;
+  background: var(--Palette-Purple-90, #580EA2);
+  }
+  
+  .button_text{
+  padding-left: 24px;
+  padding-top: 12px;
+  font-size: 18px;
+  border: none;
+  background: none;
+  color: #FFF;
+  }

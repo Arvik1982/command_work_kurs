@@ -13,7 +13,7 @@ import stretch from '../img/img_main/stratch_main_png.png';
 import dance from '../img/img_main/dance_main_png.png';
 import step from '../img/img_main/step_main_png.png'
 import body from '../img/img_main/body_main_png.png'
-import {styleBody} from "../styleBody";
+import styleBody from "../styleBody";
 import WhiteLogo from "../components/Logo/whiteLogo";
 import GoTop from '../components/GoTop/GoTop';
 
