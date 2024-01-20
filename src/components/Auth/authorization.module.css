@@ -5,8 +5,22 @@
 .element__visibility{
     display: none;
 }
+.error{
+    position: absolute;
+    width: 90%;
+    left: 5%;
+    text-align: center;
+    display: block;
+    box-sizing: border-box;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 5px;
+    color: red;
+    
+}
 
 .authorization__page{
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -104,3 +118,6 @@ color: #FFF;
         
     }
         }
+.button__disable{
+    pointer-events: none;
+}
