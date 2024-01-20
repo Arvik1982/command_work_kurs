@@ -3,13 +3,11 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase_auth';
 import styles from'./authorization.module.css';
 import logo from '../../img/logo_auth.png'
-
-import {styleBody} from "../../styleBody";
+import styleBody from "../../styleBody";
 
 export default function SignUpIn(){
 
 const [registrationRegime, setRegistrationRegime]=useState(false)
-
 const [login, setLogin]=useState('')
 const [pass, setPass]=useState('')
 const [pass2, setPass2]=useState('')
@@ -40,7 +38,6 @@ if(pass===''){
    return 
     
 }
-
 createUserWithEmailAndPassword(auth, login, pass)
 
 .then((response)=>{
@@ -48,14 +45,9 @@ createUserWithEmailAndPassword(auth, login, pass)
     setButtonDisabled(false)
     console.log(response)
     })
-
-
-
 .catch((newError)=>{
     setError(newError.message)
     setButtonDisabled(false)
-    
-
 })
 }
 
@@ -70,9 +62,7 @@ useEffect(()=>{
     </div>
     <div className={styles.authorization__page_inputs}>
         <input value={login} onChange={(e)=>{setLogin(e.target.value);setButtonDisabled(false)}} className={styles.page_input} type="text" placeholder={placeholderLogin} />
-
         <input value={pass} onChange={(e)=>{setPass(e.target.value);setButtonDisabled(false)}} className={styles.page_input} type="text" placeholder='Пароль'/>
-
         <div className={registrationRegime===false?styles.element__visibility:''} >
         <input value={pass2} onChange={(e)=>{setPass2(e.target.value);setButtonDisabled(false)}} className={styles.page_input} type="text" placeholder='Повторите пароль'/>
         </div>
@@ -89,24 +79,14 @@ useEffect(()=>{
         <button  onClick={()=>{
            
             
-           if (registrationRegime){
-
+        if (registrationRegime){
             disableButton()          
             registration()
-            setRegistrationRegime(true);}
-
-
-            else{setRegistrationRegime(true)}
-            
-            
+            setRegistrationRegime(true)}
+        else{setRegistrationRegime(true)}
             }} type='button' 
             className={registrationRegime?styles.button__register_on:styles.page__button_register}>Зарегистрироваться</button>
-
 </div>
     </div>
-
-
 </div>)
-
-
 }

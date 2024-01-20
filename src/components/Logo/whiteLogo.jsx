@@ -1,6 +1,7 @@
-import React from 'react';
-import logo from "../../img/logo.png";
+// import React from 'react';
 import {Link} from "react-router-dom";
+import logo from "../../img/logo.png";
+
 
 function WhiteLogo({route='/'}) {
     return (

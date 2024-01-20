@@ -1,18 +1,42 @@
-import logo from '../img/logo.svg'
+import {useEffect, useState} from "react";
+import getAllCourses from "../api";
+// import logo from '../img/logo.svg'
 import courseImg from '../img/skill card 17.png'
-import purposes from '../img/Group 48096488.png'
-import iogaNaw from '../img/iogaNaw.png'
-import iogaNew from '../img/iogaNew.png'
+// import purposes from '../img/Group 48096488.png'
+// import iogaNaw from '../img/iogaNaw.png'
+// import iogaNew from '../img/iogaNew.png'
 import info from '../img/info.png'
 import buttonImage from '../img/Group 48096487.svg'
-import styles from './css/ioga.module.css'
-import {useEffect} from "react";
-import {styleBody} from "../styleBody";
-import WhiteLogo from "../components/Logo/whiteLogo";
+import styles from './css/yoga.module.css'
+
+
+
+
+import styleBody from "../styleBody";
+// import WhiteLogo from "../components/Logo/whiteLogo";
 import BlackLogo from "../components/Logo/BlackLogo";
 
 export default function DescriptionPage() {
+
+    const [trainingsArray, setTrainingsArray]=useState([])
+    
+    const setPage =(arr)=>{setTrainingsArray(arr)}
+    let currentCourse =[]
+    
     useEffect(() => {
+        
+    getAllCourses().then((data)=>{
+        const arr = [...Object.values(data)]
+        setPage(arr)
+        currentCourse=arr
+        console.log(trainingsArray)
+        console.log(data)
+        const StepAirobic = currentCourse[0]
+        console.log(StepAirobic)
+        console.log(StepAirobic.description)
+        console.log(StepAirobic.fitting)
+        return data})
+
         styleBody('#fff')
     }, []);
     return (
@@ -26,14 +50,18 @@ export default function DescriptionPage() {
             <div className={styles.center_text}>
                 <h2>Подойдет для вас, если:</h2>
                 <div className={styles.course__ioga_image}>
-                    <img src={purposes} alt="purposes" />
+
+                    <div>text: FITTING </div>
+
                 </div>
             </div>
             <div>
                 <h2>Направления</h2>
+
                 <div className={styles.course__directions_image}>
-                    <img src={iogaNaw} alt="iogaNaw" />
-                    <img src={iogaNew} alt="iogaNew" />
+                    
+                    <div>text: DIRECTIONS - map.array </div>
+                    
                 </div>
                 
             </div>
