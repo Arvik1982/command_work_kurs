@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from'./../components/Auth/authorization.module.css';
+import styles from'../components/Auth/authorization.module.css';
 import logo from '../img/logo_auth.png'
 
 

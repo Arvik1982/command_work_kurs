@@ -3,7 +3,7 @@ import MainPage from "./pages/Main";
 import MyProfilePage from "./pages/Myprofile";
 import ErrPage  from "./pages/Err";
 import AuthorizationPage from "./pages/Authorization";
-import DescriptionPage from "./pages/Ioga";
+import DescriptionPage from "./pages/Description";
 import ChangePasswordPage from "./pages/ChangePassword";
 
 export default function AppRoutes () {
