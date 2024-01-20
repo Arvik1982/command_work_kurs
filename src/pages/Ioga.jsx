@@ -1,4 +1,4 @@
-import logo from '../img/logo.svg'
+import  { useEffect } from 'react';
 import courseImg from '../img/skill card 17.png'
 import purposes from '../img/Group 48096488.png'
 import iogaNaw from '../img/iogaNaw.png'
@@ -6,9 +6,9 @@ import iogaNew from '../img/iogaNew.png'
 import info from '../img/info.png'
 import buttonImage from '../img/Group 48096487.svg'
 import styles from './css/ioga.module.css'
-import {useEffect} from "react";
+
 import {styleBody} from "../styleBody";
-import WhiteLogo from "../components/Logo/whiteLogo";
+
 import BlackLogo from "../components/Logo/BlackLogo";
 
 export default function DescriptionPage() {
