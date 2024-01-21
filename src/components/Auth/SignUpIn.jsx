@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase_auth';
+import  auth  from '../../firebase_auth';
 import styles from'./authorization.module.css';
 import logo from '../../img/logo_auth.png'
 import styleBody from "../../styleBody";
