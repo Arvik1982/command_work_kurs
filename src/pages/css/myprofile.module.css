@@ -1,3 +1,11 @@
+/* Анимации */
+@keyframes blink {
+    0% { color: #580EA2; }
+    50% { color: #580ea290; } /* Цвет фона при "погашенном" состоянии */
+    100% { color: #580EA2; }
+}
+
+/* Основные стили */
 .wrapper {
     padding-top: 30px;
     color: #161616;
@@ -43,8 +51,8 @@
     cursor: pointer;
     width: 275px;
     height: 52px;
-    background-color: #580EA2;
-    border: 1px solid #580EA2;
+    background-color: #580ea2c4;
+    border: 1px solid #580ea2c4;
     border-radius: 42px;
     font-weight: 400;
     font-size: 18px;
@@ -65,7 +73,7 @@
 .main_button {
     position: absolute;
     bottom: 50px; /* Расстояние до нижнего края */
-    left: 35%; /* Горизонтальное выравнивание по центру */
+    left: 33%; /* Горизонтальное выравнивание по центру */
     transform: translateX(-50%); /* Для точного центрирования */
     background-color: #C7E957;
     border: 1px solid #C7E957;
@@ -106,7 +114,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 55px;
+    gap: 25px;
 }
 .main_button_one {
     cursor: pointer;
@@ -121,8 +129,10 @@
     transition: all .3s;
 }
 .main_info {
+    width: 280px;
     display: flex;
     flex-direction: column;
+    align-items: start;
     gap: 20px;
     font-size: 18px;
 }
@@ -131,7 +141,7 @@
     font-size: 18px;
 }
 .main_form {
-    width: 260px;
+    width: 280px;
     height: 30px;
     padding: 5px;
     color: #777676;
@@ -143,6 +153,10 @@
 }
 .main_form::placeholder {
     color: #D0CECE;
+}
+.main_criterion {
+    animation: blink 2s infinite;
+    font-size: 14px;
 }
 
 /* Наведение */
