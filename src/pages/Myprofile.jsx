@@ -1,24 +1,39 @@
+import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import getAllCourses from '../api';
+import { setCourseName } from '../store/sliceStore';
 import styles from './css/myprofile.module.css';
 import logo from '../img/logo.svg';
-import Yoga from '../img/img_profile/yoga_profile.png';
-import Stretch from '../img/img_profile/stretch_profile.png';
-import Bodyflex from '../img/img_profile/bodyflex_profile.png';
 import BlackLogo from '../components/Logo/BlackLogo';
+import yoga from '../img/img_profile/yoga_profile.png';
+import stretch from '../img/img_profile/stretch_profile.png';
+import body from '../img/img_profile/bodyflex_profile.png';
+import userPhoto from '../img/img_profile/user_photo.png';
 
 export default function MyProfilePage() {
+  const dispatch = useDispatch();
   // Стейт для отображения модального окна №1
   const [showModal, setShowModal] = useState(false);
   // Стейт для отображения модального окна №2
   const [showModalTwo, setShowModalTwo] = useState(false);
+  // Стейт для получения курсов
+  const [trainingsArray, setTrainingsArray] = useState([]);
+  // Стейт для хранения ошибок
+  const [error, setError] = useState('');
+  // Стейт отправки запроса на смену пароля
+  const [isSavingPassword, setIsSavingPassword] = useState(false);
+  // Стейт отправки запроса на смену логина
+  const [isSavingLogin, setIsSavingLogin] = useState(false);
   // Функция клика по кнопке "Смена логина"
   const handleEditLoginClick = () => {
     setShowModal(true);
+    setError('');
   };
   // Функция клика по кнопке "Смена пароля"
   const handleEditLoginClickTwo = () => {
     setShowModalTwo(true);
+    setError('');
   };
   // Функция для изоляции
   const handleModalClick = (event) => {
@@ -31,73 +46,123 @@ export default function MyProfilePage() {
       setShowModalTwo(false);
     }
   };
-  // Сохранение пароля
+  // Сохранение пароля (АПИ)
   const handleSavePasswordClick = () => {
     const newPassword = document.getElementById('password').value;
     const repeatPassword = document.getElementById('repeatPassword').value;
-    if (!newPassword.length || !repeatPassword.length) {
-      console.log('Заполните поля ввода');
-    } else if (newPassword.length < 6 && repeatPassword.length < 6) {
-      console.log('Слишком короткий пароль');
-    } else if (newPassword !== repeatPassword) {
-      console.log('Ваши пароли не совпадают');
-    } else {
-      fetch('/your-api-endpoint', {
-        method: 'PUTCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ password: newPassword }),
-      }).then((response) => {
-        // Обработка успешного ответа от сервера
-        if (response.ok) {
-          console.log('Пароль успешно обновлен');
-          setShowModalTwo(false); // Закрыть модальное окно
-        } else {
-          console.error('Ошибка при обновлении пароля');
-        }
-      }).catch((error) => {
-        console.error('Ошибка сети:', error);
-      });
+    const errors = [];
+    switch (true) {
+      case !newPassword.length || !repeatPassword.length:
+        errors.push('Заполните поля ввода');
+        break;
+      case newPassword.length < 6 && repeatPassword.length < 6:
+        errors.push('Слишком короткий пароль');
+        break;
+      case newPassword !== repeatPassword:
+        errors.push('Ваши пароли не совпадают');
+        break;
+      default:
+        // Сбрасываем ошибки, если они были ранее
+        setError('');
+        setIsSavingPassword(true);
+        fetch('/your-api-endpoint', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ password: newPassword }),
+        }).then((response) => {
+          // Обработка успешного ответа от сервера
+          if (response.ok) {
+            console.log('Пароль успешно обновлен');
+            setShowModalTwo(false);
+            setIsSavingPassword(false);
+          } else if (response.status === 404) {
+            errors.push('Ресурс не найден');
+            setError(errors.join(', '));
+            setIsSavingPassword(false);
+          } else {
+            errors.push('Ошибка при обновлении пароля');
+            setIsSavingPassword(false);
+          }
+        }).catch((err) => {
+          errors.push(`Ошибка сети: ${err.message}`);
+          setIsSavingPassword(false);
+        });
+    }
+    if (errors.length > 0) {
+      setError(errors.join(', '));
     }
   };
-  // Сохранение логина
+  // Сохранение логина (АПИ)
   const handleSaveLoginClick = () => {
     const newLogin = document.getElementById('username').value;
-    const validUsername = /^[a-zA-Z][a-zA-Z0-9]*$/;
-    if (!newLogin) {
-      console.log('Заполните поле ввода');
-    } else if (!newLogin.match(validUsername)) {
-      console.log('Логин должен содержать только латинские буквы, цифры и не начинаться с дефиса или подчеркивания');
-    } else {
-      // Отправка запроса на обновление пароля
-      fetch('/your-api-endpoint', {
-        method: 'PUTCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ login: newLogin }),
-      }).then((response) => {
-        // Обработка успешного ответа от сервера
-        if (response.ok) {
-          console.log('Пароль успешно обновлен');
-          setShowModalTwo(false); // Закрыть модальное окно
-        } else {
-          console.error('Ошибка при обновлении пароля');
-        }
-      }).catch((error) => {
-        console.error('Ошибка сети:', error);
-      });
+    const validUsername = /^[a-zA-Z][a-zA-Z0-9._@]*$/;
+    const errors = [];
+    switch (true) {
+      case !newLogin:
+        errors.push('Заполните поля ввода');
+        break;
+      case !newLogin.match(validUsername):
+        errors.push('Логин должен содержать только латинские буквы, цифры и не начинаться с дефиса или подчеркивания');
+        break;
+      default:
+      // Сбрасываем ошибки, если они были ранее
+        setError('');
+        setIsSavingLogin(true);
+        fetch('/your-api-endpoint', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ login: newLogin }),
+        }).then((response) => {
+          // Обработка успешного ответа от сервера
+          if (response.ok) {
+            console.log('Пароль успешно обновлен');
+            setShowModalTwo(false);
+            setIsSavingLogin(false);
+          } else if (response.status === 404) {
+            errors.push('Ресурс не найден');
+            setIsSavingLogin(false);
+            setError(errors.join(', '));
+          } else if (response.status === 400) {
+            errors.push('Логин неправильного формата');
+            setError(errors.join(', '));
+            setIsSavingLogin(false);
+          } else {
+            errors.push('Ошибка при обновлении пароля');
+            setIsSavingLogin(false);
+          }
+        }).catch((err) => {
+          errors.push(`Ошибка сети: ${err.message}`);
+          setIsSavingLogin(false);
+        });
     }
-  }
+    if (errors.length > 0) {
+      setError(errors.join(', '));
+    }
+  };
+  // Получение курсов (АПИ)
+  useEffect(() => {
+    getAllCourses().then((data) => {
+      const arr = [...Object.values(data)];
+      setTrainingsArray(arr);
+      return data;
+    });
+  }, []);
   return (
     <div className={styles.wrapper} onClick={handleClickOutside}>
       <div className={styles.header}>
         <BlackLogo route="/profile" />
-        <div className={styles.header_profile}>
-          <div className={styles.header_photo} />
+        <Link className={styles.header_profile} to="/profile">
+          <img
+            className={styles.header_photo}
+            src={userPhoto}
+            alt="profile"
+          />
           <div>Профиль</div>
-        </div>
+        </Link>
       </div>
       <div className={styles.header_bottom}>
         <span className={styles.header_title}>Мой профиль</span>
@@ -113,7 +178,7 @@ export default function MyProfilePage() {
               <img src={logo} alt="logo" />
               <div className={styles.main_info}>
                 <span className={styles.main_text}>Новый логин:</span>
-                <input className={styles.main_form} type="text" id="username" name="username" placeholder="Введите новый логин" />
+                <input className={styles.main_form} type="text" id="username" name="username" placeholder="ivan.ivanov@gmail.ru" />
                 <div
                   className={styles.main_criterion}
                 >
@@ -125,8 +190,16 @@ export default function MyProfilePage() {
                   ❖ Логин должен содержать латинские буквы
                 </div>
               </div>
-              <button className={styles.main_button_one} onClick={handleSaveLoginClick} type="button">Сохранить</button>
+              <button className={`${styles.main_button_one} ${isSavingLogin ? styles.disabled : ''}`} onClick={handleSaveLoginClick} type="button">{isSavingLogin ? 'Меняем ваш логин...' : 'Сохранить'}</button>
             </div>
+          </div>
+          <div className={styles.main_err_plase}>
+            {/* Отображение ошибки */}
+            {error && (
+              <div className={styles.main_err}>
+                <div className={styles.main_err_massage}>{error}</div>
+              </div>
+            )}
           </div>
         </form>
         )}
@@ -153,28 +226,49 @@ export default function MyProfilePage() {
                   ❖ Ваши пароли должны совпадать
                 </div>
               </div>
-              <button className={styles.main_button_one} onClick={handleSavePasswordClick} type="button">Сохранить</button>
+              <button className={`${styles.main_button_one} ${isSavingPassword ? styles.disabled : ''}`} onClick={handleSavePasswordClick} type="button">{isSavingPassword ? 'Меняем ваш пароль...' : 'Сохранить'}</button>
             </div>
+          </div>
+          <div className={styles.main_err_plase}>
+            {/* Отображение ошибки */}
+            {error && (
+              <div className={styles.main_err}>
+                <div className={styles.main_err_massage}>{error}</div>
+              </div>
+            )}
           </div>
         </form>
         )}
       </div>
-      <div>
-        <span className={styles.header_title}>Мои курсы</span>
-        <div className={styles.main}>
-          <div className={styles.main_nav}>
-            <img className={styles.main_direct} src={Yoga} alt="logo" />
-            <Link to="/description" className={styles.main_button}>Перейти →</Link>
-          </div>
-          <div className={styles.main_nav}>
-            <img className={styles.main_direct} src={Stretch} alt="logo" />
-            <Link to="/description" className={styles.main_button}>Перейти →</Link>
-          </div>
-          <div className={styles.main_nav}>
-            <img className={styles.main_direct} src={Bodyflex} alt="logo" />
-            <Link to="/description" className={styles.main_button}>Перейти →</Link>
-          </div>
-        </div>
+      <span className={styles.header_title}>Мои курсы</span>
+      <div className={styles.main}>
+        {Object.values(trainingsArray).slice(1, 4).map((e) => {
+          return (
+            <div
+              className={styles.main_direct}
+              key={e.nameEN}
+            >
+              <div>
+                <div
+                  onClick={() => {
+                    dispatch(setCourseName(e.nameEN));
+                  }}
+                >
+                  <img
+                    key={e.nameEN}
+                    src={
+                      e.nameEN === 'Yoga' ? yoga
+                        : e.nameEN === 'Stretching' ? stretch
+                          : e.nameEN === 'BodyFlex' ? body : ''
+                    }
+                    alt="img"
+                  />
+                  <Link to={`/description/${e.nameEN}`} className={styles.main_button}>Перейти →</Link>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

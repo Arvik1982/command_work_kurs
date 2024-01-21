@@ -1,8 +1,8 @@
 /* Анимации */
 @keyframes blink {
-    0% { color: #580EA2; }
-    50% { color: #580ea290; } /* Цвет фона при "погашенном" состоянии */
-    100% { color: #580EA2; }
+    0% { color: #da2549; }
+    50% { color: #6e0ea290; } /* Цвет фона при "погашенном" состоянии */
+    100% { color: #da2549; }
 }
 
 /* Основные стили */
@@ -24,16 +24,15 @@
     gap: 10px;
 }
 .header_photo {
-    background-color: #D9D9D9;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50px;
 }
 .header_bottom {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding-bottom: 75px;
+    padding-bottom: 40px;
 }
 .header_title {
     color: black;
@@ -60,15 +59,14 @@
     transition: all .3s;
 }
 .main {
+    padding-top: 35px;
     display: flex;
-    flex-wrap: wrap;
-}
-.main_nav{
-    position: relative;
+    justify-content: center;
+    gap: 25px;
 }
 .main_direct {
+    position: relative;
     width: 400px;
-    margin-top: 30px;
 }
 .main_button {
     position: absolute;
@@ -98,6 +96,7 @@
     backdrop-filter: blur(5px);
     background-color: rgba(72, 3, 162, 0.171); /* Полупрозрачный фон */
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 9999; /* Назначение высокого z-index */
@@ -158,6 +157,38 @@
     animation: blink 2s infinite;
     font-size: 14px;
 }
+.main_err_plase {
+    margin-top: 10px;
+    width: 380px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.main_err{
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #f9d1d1;
+    border-radius: 20px;
+    margin-top: 10px;
+    width: 390px;
+    height: 80px;
+    background-color: #f9e4e4;
+}
+.main_err_massage {
+    text-align: center;
+    color: #c20101;
+    font-size: 16px;
+}
+.disabled {
+    background-color: #A9A9A9; /* Серый цвет */
+    cursor: not-allowed;
+    border: 1px solid #A9A9A9; /* Изменение цвета рамки */
+}
 
 /* Наведение */
 .header_button:hover {
@@ -184,4 +215,9 @@
 .main_button_one:active {
     background-color: #271A58;
     border: 1px solid #271A58;
+}
+.disabled:hover {
+    background-color: #A9A9A9; /* Серый цвет */
+    cursor: not-allowed;
+    border: 1px solid #A9A9A9; /* Изменение цвета рамки */
 }
