@@ -77,7 +77,7 @@ export default function MyProfilePage() {
         ).then((response) => {
           // Обработка успешного ответа от сервера
           if (response.ok) {
-            console.log('Пароль успешно обновлен');
+            // console.log('Пароль успешно обновлен');
             setShowModalTwo(false);
             setIsSavingPassword(false);
           } else if (response.status === 404) {
@@ -122,7 +122,7 @@ export default function MyProfilePage() {
         }).then((response) => {
           // Обработка успешного ответа от сервера
           if (response.ok) {
-            console.log('Логин успешно обновлен');
+            // console.log('Логин успешно обновлен');
             setShowModal(false);
             setIsSavingLogin(false);
           } else if (response.status === 404) {
