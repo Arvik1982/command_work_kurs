@@ -102,7 +102,7 @@ export default function SignUpIn() {
             navigate('/profile', { replace: true })
             return id
           })
-          .catch((error) => setError(error.message))
+          .catch((newError) => setError(newError.message))
       })
 
       .catch((newError) => {
