@@ -46,7 +46,7 @@ export default function MyProfilePage() {
       setShowModalTwo(false);
     }
   };
-  // Сохранение пароля (АПИ)
+  // Сохранение пароля (АПИ) недоделан
   const handleSavePasswordClick = () => {
     const newPassword = document.getElementById('password').value;
     const repeatPassword = document.getElementById('repeatPassword').value;
@@ -65,13 +65,16 @@ export default function MyProfilePage() {
         // Сбрасываем ошибки, если они были ранее
         setError('');
         setIsSavingPassword(true);
-        fetch('/your-api-endpoint', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
+        fetch(
+          'https://fitness-pro-5a801-default-rtdb.europe-west1.firebasedatabase.app/users/2/password.json',
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ password: newPassword }),
           },
-          body: JSON.stringify({ password: newPassword }),
-        }).then((response) => {
+        ).then((response) => {
           // Обработка успешного ответа от сервера
           if (response.ok) {
             console.log('Пароль успешно обновлен');
@@ -94,7 +97,7 @@ export default function MyProfilePage() {
       setError(errors.join(', '));
     }
   };
-  // Сохранение логина (АПИ)
+  // Сохранение логина (АПИ) обновляется в БД
   const handleSaveLoginClick = () => {
     const newLogin = document.getElementById('username').value;
     const validUsername = /^[a-zA-Z][a-zA-Z0-9._@]*$/;
@@ -110,17 +113,17 @@ export default function MyProfilePage() {
       // Сбрасываем ошибки, если они были ранее
         setError('');
         setIsSavingLogin(true);
-        fetch('/your-api-endpoint', {
-          method: 'PUT',
+        fetch('https://fitness-pro-5a801-default-rtdb.europe-west1.firebasedatabase.app/users/VTzEuBAUq4OENpadTglXOSAwilQ2.json', {
+          method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ login: newLogin }),
+          body: JSON.stringify({ email: newLogin, username: newLogin }),
         }).then((response) => {
           // Обработка успешного ответа от сервера
           if (response.ok) {
             console.log('Пароль успешно обновлен');
-            setShowModalTwo(false);
+            setShowModal(false);
             setIsSavingLogin(false);
           } else if (response.status === 404) {
             errors.push('Ресурс не найден');
