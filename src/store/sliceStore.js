@@ -1,25 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit"; 
+import { createSlice } from '@reduxjs/toolkit'
 
-const sliceStore =createSlice({
-    name: "store",
-
-    initialState:{
-        testData:'redux works',
-        courseName:''
+const sliceStore = createSlice({
+  name: 'store',
+  initialState: {
+    courseName: '',
+    currentUserUid: [],
+  },
+  reducers: {
+    testRegimeReducer(state) {
+      state.testData = 'clicked'
     },
-    reducers:{
-
-       testRegimeReducer(state) {
-       state.testData='clicked';
-
-        },
-
-        setCourseName (state, actions) {
-            state.courseName=actions.payload;
-            console.log(state.courseName)
-             },
+    setCourseName(state, actions) {
+      state.courseName = actions.payload
+      console.log(state.courseName)
     },
+    setCurrentUser(state, actions) {
+      state.currentUserUid = actions.payload
+      console.log(state.currentUserUid)
+    },
+  },
 })
 
-export const{testRegimeReducer,setCourseName}=sliceStore.actions;
+export const { testRegimeReducer, setCourseName, setCurrentUser } =
+  sliceStore.actions
 export default sliceStore.reducer
