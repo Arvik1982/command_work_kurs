@@ -27,7 +27,9 @@
       "no-useless-path-segments":"off",
       "linebreak-style":"off",
       "no-console":"off",
-      "prefer-default-export":"off"
-      
+      "prefer-default-export":"off",
+      "prefer-template":"off",
+      "object-shorthand":"off",
+      "prefer-destructuring":"off"
     }
   }
