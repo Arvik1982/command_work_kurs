@@ -1,42 +1,17 @@
-import {useEffect, useState} from "react";
-import getAllCourses from "../api";
-// import logo from '../img/logo.svg'
+import  { useEffect } from 'react';
 import courseImg from '../img/skill card 17.png'
-// import purposes from '../img/Group 48096488.png'
-// import iogaNaw from '../img/iogaNaw.png'
-// import iogaNew from '../img/iogaNew.png'
+import purposes from '../img/Group 48096488.png'
+import iogaNaw from '../img/iogaNaw.png'
+import iogaNew from '../img/iogaNew.png'
 import info from '../img/info.png'
 import buttonImage from '../img/Group 48096487.svg'
-import styles from './css/yoga.module.css'
-
-
-
-
+import styles from './css/ioga.module.css'
 import styleBody from "../styleBody";
-// import WhiteLogo from "../components/Logo/whiteLogo";
+
 import BlackLogo from "../components/Logo/BlackLogo";
 
 export default function DescriptionPage() {
-
-    const [trainingsArray, setTrainingsArray]=useState([])
-    
-    const setPage =(arr)=>{setTrainingsArray(arr)}
-    let currentCourse =[]
-    
     useEffect(() => {
-        
-    getAllCourses().then((data)=>{
-        const arr = [...Object.values(data)]
-        setPage(arr)
-        currentCourse=arr
-        console.log(trainingsArray)
-        console.log(data)
-        const StepAirobic = currentCourse[0]
-        console.log(StepAirobic)
-        console.log(StepAirobic.description)
-        console.log(StepAirobic.fitting)
-        return data})
-
         styleBody('#fff')
     }, []);
     return (
@@ -50,35 +25,31 @@ export default function DescriptionPage() {
             <div className={styles.center_text}>
                 <h2>Подойдет для вас, если:</h2>
                 <div className={styles.course__ioga_image}>
-
-                    <div>text: FITTING </div>
-
+                    <img src={purposes} alt="purposes" />
                 </div>
             </div>
-            <div>
+            <div className={styles.course__directions_text}>
                 <h2>Направления</h2>
-
                 <div className={styles.course__directions_image}>
-                    
-                    <div>text: DIRECTIONS - map.array </div>
-                    
+                    <img src={iogaNaw} alt="iogaNaw" />
+                    <img src={iogaNew} alt="iogaNew" />
                 </div>
                 
             </div>
-            <div>
+            <div className={styles.course__directions_info}>
                 <img src={info} alt="info" />
             </div>
             <div>
-                <div>
-                    <h2>
+                <div className={styles.info}>
+                    <h2 className={styles.info_text}>
                         Оставьте заявку на пробное занятие, мы свяжемся с вами, поможем с выбором направления и тренера, с которым тренировки принесут здоровье и радость!
                     </h2>
-                    <div>
+                    <div className={styles.info_image}>
                         <img src={buttonImage} alt="buttonImage" />
                     </div>
                 </div>
-                <div className='button' >
-                    <button type='button' className='button'>Записаться на тренировку</button>
+                <div className={styles.button} >
+                    <button type='button' className={styles.button_text}>Записаться на тренировку</button>
                 </div>
             </div>
         </div>

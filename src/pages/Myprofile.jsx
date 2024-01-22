@@ -8,7 +8,9 @@ import Bodyflex from '../img/img_profile/bodyflex_profile.png'
 import BlackLogo from "../components/Logo/BlackLogo";
 
 export default function MyProfilePage() {
-    // Стейт для отображения модального окна №1
+
+
+     // Стейт для отображения модального окна №1
     const [showModal, setShowModal] = useState(false);
     // Стейт для отображения модального окна №2
     const [showModalTwo, setShowModalTwo] = useState(false);
@@ -29,7 +31,7 @@ export default function MyProfilePage() {
         <div className={styles.header_profile}>
             <div className={styles.header_photo}/>
             <div>Профиль</div>
-        </div>
+          </div>
       </div>
       <div className={styles.header_bottom}>
         <span className={styles.header_title}>Мой профиль</span>
