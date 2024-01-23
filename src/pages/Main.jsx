@@ -56,7 +56,7 @@ export default function MainPage() {
           <img className={styles.main__header_sale} src={sale} alt="sale" />
         </div>
       </header>
-      <div className={styles.main__trainings_grid}>
+      <div className={`${styles.main__trainings_grid} ${styles.blur}`}>
         {trainingsArray.map((el) => {
           return (
             <div className="trainings__grid_element" key={el.nameEN}>

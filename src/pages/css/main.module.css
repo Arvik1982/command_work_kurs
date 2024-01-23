@@ -10,6 +10,9 @@ a {
     height: 100%;
     width: 100%;
 } */
+.blur{
+    backdrop-filter: blur(5px);
+}
 
 .main {
     background: #271A58;
@@ -123,6 +126,7 @@ margin-top: 40px;
     left: 140px;
     border-radius: 30px;
     background-color: #fff;
+     
 }
 .grid__element_yoga{
     padding: 30px;
