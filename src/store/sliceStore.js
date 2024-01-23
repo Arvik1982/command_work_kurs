@@ -4,7 +4,7 @@ const sliceStore = createSlice({
   name: 'store',
   initialState: {
     courseName: '',
-    currentUserUid: [],
+    currentUserUid:'' 
   },
   reducers: {
     testRegimeReducer(state) {

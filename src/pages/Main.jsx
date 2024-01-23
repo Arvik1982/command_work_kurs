@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 //  redux
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setCourseName } from '../store/sliceStore'
 //
 import { getAllCourses, getAllUsers } from '../api'
@@ -16,9 +16,11 @@ import body from '../img/img_main/body_main_png.png'
 import styleBody from '../styleBody'
 import WhiteLogo from '../components/Logo/whiteLogo'
 import GoTop from '../components/GoTop/GoTop'
-import UserUid from '../components/UserUid/UserUid'
+
 
 export default function MainPage() {
+  const userUid = useSelector(state=>state.store.currentUserUid)
+  console.log(Boolean(userUid))
   const dispatch = useDispatch()
   const [trainingsArray, setTrainingsArray] = useState([])
 
@@ -45,12 +47,11 @@ export default function MainPage() {
           <h2 className={styles.main__title}>
             Начните заниматься спортом и улучшите качество жизни
           </h2>
-          <UserUid />
-        </div>
+          </div>
         <div className={styles.main__header_right}>
           <Link to="/auth">
             <button type="button" className={styles.main__header_button}>
-              Вoйти
+              {userUid?"Выйти":"Вoйти"}
             </button>
           </Link>
           <img className={styles.main__header_sale} src={sale} alt="sale" />

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch} from 'react-redux'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -15,6 +15,7 @@ import { setCurrentUser } from '../../store/sliceStore'
 
 export default function SignUpIn() {
   const dispatch = useDispatch()
+  
   const [registrationRegime, setRegistrationRegime] = useState(false)
   const [login, setLogin] = useState('')
   const [pass, setPass] = useState('')
