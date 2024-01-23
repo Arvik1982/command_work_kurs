@@ -1,6 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { updatePassword, updateEmail } from 'firebase/auth';
+import { auth } from '../firebase_auth';
 import { getAllCourses } from '../api';
 import { clearUserData, setCourseName } from '../store/sliceStore';
 import styles from './css/myprofile.module.css';
@@ -9,15 +11,12 @@ import BlackLogo from '../components/Logo/BlackLogo';
 import yoga from '../img/img_profile/yoga_profile.png';
 import stretch from '../img/img_profile/stretch_profile.png';
 import body from '../img/img_profile/bodyflex_profile.png';
-// import userPhoto from '../img/img_profile/user_photo.png';
 import styleBody from '../styleBody';
 
 export default function MyProfilePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // Получение значения UID из глобального состояния
-  const currentUser = useSelector((state) => state.store.currentUserUid);
-    // Получение значения UID из local Storage
+  // Получение значения UID из local Storage
   const localUser = localStorage.getItem('userUid');
   // Стейт для отображения модального окна №1
   const [showModal, setShowModal] = useState(false);
@@ -61,10 +60,11 @@ export default function MyProfilePage() {
       setShowModalTwo(false);
     }
   };
-  // Сохранение пароля (АПИ) недоделан
+  // Сохранение пароля (АПИ)
   const handleSavePasswordClick = () => {
     const newPassword = document.getElementById('password').value;
     const repeatPassword = document.getElementById('repeatPassword').value;
+    const user = auth.currentUser;
     const errors = [];
     switch (true) {
       case !newPassword.length || !repeatPassword.length:
@@ -80,33 +80,18 @@ export default function MyProfilePage() {
         // Сбрасываем ошибки, если они были ранее
         setError('');
         setIsSavingPassword(true);
-        fetch(
-          'https://fitness-pro-5a801-default-rtdb.europe-west1.firebasedatabase.app/users/2/password.json',
-          {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ password: newPassword }),
-          },
-        ).then((response) => {
-          // Обработка успешного ответа от сервера
-          if (response.ok) {
-            // console.log('Пароль успешно обновлен');
+        if (user) {
+          updatePassword(user, newPassword ).then(() => {
+            // Пароль успешно обновлен
             setShowModalTwo(false);
             setIsSavingPassword(false);
-          } else if (response.status === 404) {
-            errors.push('Ресурс не найден');
+          }).catch((err) => {
+            // Обработка ошибок при обновлении пароля
+            errors.push(`Ошибка при обновлении пароля: ${err.message}`);
+            setIsSavingPassword(false);
             setError(errors.join(', '));
-            setIsSavingPassword(false);
-          } else {
-            errors.push('Ошибка при обновлении пароля');
-            setIsSavingPassword(false);
-          }
-        }).catch((err) => {
-          errors.push(`Ошибка сети: ${err.message}`);
-          setIsSavingPassword(false);
-        });
+          });
+        }
     }
     if (errors.length > 0) {
       setError(errors.join(', '));
@@ -116,6 +101,7 @@ export default function MyProfilePage() {
   const handleSaveLoginClick = () => {
     const newLogin = document.getElementById('username').value;
     const validUsername = /^[a-zA-Z][a-zA-Z0-9._@]*$/;
+    const user = auth.currentUser;
     const errors = [];
     switch (true) {
       case !newLogin:
@@ -128,34 +114,40 @@ export default function MyProfilePage() {
       // Сбрасываем ошибки, если они были ранее
         setError('');
         setIsSavingLogin(true);
-        fetch('https://fitness-pro-5a801-default-rtdb.europe-west1.firebasedatabase.app/users/VTzEuBAUq4OENpadTglXOSAwilQ2.json', {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email: newLogin, username: newLogin }),
-        }).then((response) => {
-          // Обработка успешного ответа от сервера
-          if (response.ok) {
-            // console.log('Логин успешно обновлен');
-            setShowModal(false);
-            setIsSavingLogin(false);
-          } else if (response.status === 404) {
-            errors.push('Ресурс не найден');
+        if (user) {
+          updateEmail(user, newLogin ).then(() => {
+            const updatedUser = auth.currentUser;
+            console.log('Новый email:', updatedUser.email);
+            // Логин успешно обновлен в Firebase Authentication
+            return fetch(`https://fitness-pro-5a801-default-rtdb.europe-west1.firebasedatabase.app/users/${localUser}.json`, {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ email: newLogin, username: newLogin }),
+            });
+          }).then((response) => {
+            // Обработка успешного ответа от сервера
+            if (response.ok) {
+              // Логин успешно обновлен в Realtime Database
+              setShowModal(false);
+              setIsSavingLogin(false);
+            } else if (response.status === 404 || response.status === 400) {
+              errors.push('Ошибка при обновлении логина');
+              setIsSavingLogin(false);
+              setError(errors.join(', '));
+            } else {
+              errors.push('Ошибка сети');
+              setIsSavingLogin(false);
+              setError(errors.join(', '));
+            }
+          }).catch((err) => {
+            errors.push(`Ошибка при обновлении логина: ${err.message}`);
+            console.log(`${err.message}`);
             setIsSavingLogin(false);
             setError(errors.join(', '));
-          } else if (response.status === 400) {
-            errors.push('Логин неправильного формата');
-            setError(errors.join(', '));
-            setIsSavingLogin(false);
-          } else {
-            errors.push('Ошибка при обновлении пароля');
-            setIsSavingLogin(false);
-          }
-        }).catch((err) => {
-          errors.push(`Ошибка сети: ${err.message}`);
-          setIsSavingLogin(false);
-        });
+          });
+        }
     }
     if (errors.length > 0) {
       setError(errors.join(', '));
