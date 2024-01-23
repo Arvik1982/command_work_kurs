@@ -1,7 +1,13 @@
-import { useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase_auth';
-import styles from'./authorization.module.css';
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth'
+import { useNavigate } from "react-router-dom";
+import { getDatabase, ref, set } from 'firebase/database'
+import { auth } from '../../firebase_auth'
+import styles from './authorization.module.css'
 import logo from '../../img/logo_auth.png'
 import styleBody from '../../styleBody'
 import { getAllUsers } from '../../api'
@@ -10,7 +16,6 @@ import { setCurrentUser } from '../../store/sliceStore'
 
 export default function SignUpIn() {
   const dispatch = useDispatch()
-
   const [registrationRegime, setRegistrationRegime] = useState(false)
   const [login, setLogin] = useState('')
   const [pass, setPass] = useState('')
@@ -18,8 +23,7 @@ export default function SignUpIn() {
   const [error, setError] = useState(null)
   const [buttonDisabled, setButtonDisabled] = useState(false)
   const [placeholderLogin, setPlaseholderLogin] = useState('Логин')
-  const navigate=useNavigate()
-
+  const navigate = useNavigate()
 
   useEffect(() => {
     styleBody('#271A58')
@@ -41,15 +45,19 @@ export default function SignUpIn() {
 
   function userLogin() {
     console.log('login')
-    signInWithEmailAndPassword(auth, login, pass).then((response) => {
-      const currentUserArr = [...Object.values(response)]
-      const currentUserUid = currentUserArr[0].uid
-      dispatch(setCurrentUser(currentUserUid))
-      localStorage.setItem('userUid', currentUserUid)
-      
-      // refresh = localStorage.getItem('refresh')
-      navigate("/",{replace:true})
-    }).catch((newError)=>{setError(newError.message)})
+    signInWithEmailAndPassword(auth, login, pass)
+      .then((response) => {
+        const currentUserArr = [...Object.values(response)]
+        const currentUserUid = currentUserArr[0].uid
+        dispatch(setCurrentUser(currentUserUid))
+        localStorage.setItem('userUid', currentUserUid)
+
+        // refresh = localStorage.getItem('refresh')
+        navigate('/', { replace: true })
+      })
+      .catch((newError) => {
+        setError(newError.message)
+      })
   }
 
   function registration() {
@@ -82,18 +90,20 @@ export default function SignUpIn() {
 
       .then((responseNewUser) => {
         let id = []
-        getAllUsers().then((data) => {
-          id = [...Object.values(data)]
-          const uid = responseNewUser[0].uid
-          console.log(...responseNewUser)
-          const userId = uid
-          const imageUrl = ''
-          const name = responseNewUser[0].email
-          const email = responseNewUser[0].email
-          writeUserData(userId, name, email, imageUrl, id.length)
-          navigate("/profile",{replace:true})
-          return id
-        })
+        getAllUsers()
+          .then((data) => {
+            id = [...Object.values(data)]
+            const uid = responseNewUser[0].uid
+            console.log(...responseNewUser)
+            const userId = uid
+            const imageUrl = ''
+            const name = responseNewUser[0].email
+            const email = responseNewUser[0].email
+            writeUserData(userId, name, email, imageUrl, id.length)
+            navigate('/profile', { replace: true })
+            return id
+          })
+          .catch((newError) => setError(newError.message))
       })
 
       .catch((newError) => {
@@ -101,7 +111,6 @@ export default function SignUpIn() {
         setButtonDisabled(false)
       })
   }
-
   return (
     <div className={styles.authorization__page}>
       <div className={styles.authorization__page_logo}>

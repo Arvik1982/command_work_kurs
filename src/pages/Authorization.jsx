@@ -1,7 +1,5 @@
-import SignUpIn from "../components/Auth/SignUpIn"
+import SignUpIn from '../components/Auth/SignUpIn'
 
-export default function AuthorizationPage(){
-    
-    return <SignUpIn/>
-        
+export default function AuthorizationPage() {
+  return <SignUpIn />
 }

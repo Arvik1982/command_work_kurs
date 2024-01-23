@@ -1,14 +1,19 @@
+import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { getAllCourses } from '../api';
+import { setCourseName } from '../store/sliceStore';
 import styles from './css/myprofile.module.css';
-import logo from '../img/logo.svg';
-import Yoga from '../img/img_profile/yoga_profile.png';
-import Stretch from '../img/img_profile/stretch_profile.png';
-import Bodyflex from '../img/img_profile/bodyflex_profile.png';
-import BlackLogo from '../components/Logo/BlackLogo';
+import logo from '../img/logo.svg'
+import Yoga from '../img/img_profile/yoga_profile.png'
+import Stretch from '../img/img_profile/stretch_profile.png'
+import Bodyflex from '../img/img_profile/bodyflex_profile.png'
+import BlackLogo from "../components/Logo/BlackLogo";
 
 export default function MyProfilePage() {
-    // Стейт для отображения модального окна №1
+
+
+     // Стейт для отображения модального окна №1
     const [showModal, setShowModal] = useState(false);
     // Стейт для отображения модального окна №2
     const [showModalTwo, setShowModalTwo] = useState(false);
@@ -25,11 +30,11 @@ export default function MyProfilePage() {
   return (
     <div className={styles.wrapper} onClick={handleClickOutside}>
       <div className={styles.header}>
-        <BlackLogo route="/profile" />
+        <BlackLogo route='/profile'/>
         <div className={styles.header_profile}>
             <div className={styles.header_photo}/>
             <div>Профиль</div>
-        </div>
+          </div>
       </div>
       <div className={styles.header_bottom}>
         <span className={styles.header_title}>Мой профиль</span>
@@ -46,22 +51,12 @@ export default function MyProfilePage() {
               <div className={styles.main_info}>
                 <span className={styles.main_text}>Новый логин:</span>
                 <input className={styles.main_form} type="text" id="username" name="username" placeholder="Введите новый логин" />
-                <div
-                  className={styles.main_criterion}
-                >
-                  ❖ Логин не может начинаться с дефиса или подчеркивания
-                </div>
-                <div
-                  className={styles.main_criterion}
-                >
-                  ❖ Логин должен содержать латинские буквы
-                </div>
               </div>
-              <button className={styles.main_button_one} onClick={handleSaveLoginClick} type="button">Сохранить</button>
+              <button className={styles.main_button_one} onClick={() => setShowModal(false)}  type='button'>Сохранить</button>
             </div>
           </div>
-        </form>
-        )}
+        </div>
+      }
         <button className={styles.header_button} onClick={handleEditLoginClickTwo} type="button">Редактировать пароль</button>
         {showModalTwo && (
         <form className={styles.modalOverlay}>
@@ -85,28 +80,41 @@ export default function MyProfilePage() {
                   ❖ Ваши пароли должны совпадать
                 </div>
               </div>
-              <button className={styles.main_button_one} onClick={handleSavePasswordClick} type="button">Сохранить</button>
+              <button className={styles.main_button_one} onClick={() => setShowModalTwo(false)}  type='button'>Сохранить</button>
             </div>
           </div>
-        </form>
-        )}
-      </div>
-      <div>
-        <span className={styles.header_title}>Мои курсы</span>
-        <div className={styles.main}>
-          <div className={styles.main_nav}>
-            <img className={styles.main_direct} src={Yoga} alt="logo" />
-            <Link to="/description" className={styles.main_button}>Перейти →</Link>
-          </div>
-          <div className={styles.main_nav}>
-            <img className={styles.main_direct} src={Stretch} alt="logo" />
-            <Link to="/description" className={styles.main_button}>Перейти →</Link>
-          </div>
-          <div className={styles.main_nav}>
-            <img className={styles.main_direct} src={Bodyflex} alt="logo" />
-            <Link to="/description" className={styles.main_button}>Перейти →</Link>
-          </div>
         </div>
+      }
+      </div>
+      <span className={styles.header_title}>Мои курсы</span>
+      <div className={styles.main}>
+        {Object.values(trainingsArray).slice(1, 4).map((e) => {
+          return (
+            <div
+              className={styles.main_direct}
+              key={e.nameEN}
+            >
+              <div>
+                <div
+                  onClick={() => {
+                    dispatch(setCourseName(e.nameEN));
+                  }}
+                >
+                  <img
+                    key={e.nameEN}
+                    src={
+                      e.nameEN === 'Yoga' ? yoga
+                        : e.nameEN === 'Stretching' ? stretch
+                          : e.nameEN === 'BodyFlex' ? body : ''
+                    }
+                    alt="img"
+                  />
+                  <Link to={`/description/${e.nameEN}`} className={styles.main_button}>Перейти →</Link>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
