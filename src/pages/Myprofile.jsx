@@ -1,18 +1,24 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAllCourses } from '../api';
-import { setCourseName } from '../store/sliceStore';
+import { clearUserData, setCourseName } from '../store/sliceStore';
 import styles from './css/myprofile.module.css';
 import logo from '../img/logo.svg';
 import BlackLogo from '../components/Logo/BlackLogo';
 import yoga from '../img/img_profile/yoga_profile.png';
 import stretch from '../img/img_profile/stretch_profile.png';
 import body from '../img/img_profile/bodyflex_profile.png';
-import userPhoto from '../img/img_profile/user_photo.png';
+// import userPhoto from '../img/img_profile/user_photo.png';
+import styleBody from '../styleBody';
 
 export default function MyProfilePage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // Получение значения UID из глобального состояния
+  const currentUser = useSelector((state) => state.store.currentUserUid);
+    // Получение значения UID из local Storage
+  const localUser = localStorage.getItem('userUid');
   // Стейт для отображения модального окна №1
   const [showModal, setShowModal] = useState(false);
   // Стейт для отображения модального окна №2
@@ -25,6 +31,15 @@ export default function MyProfilePage() {
   const [isSavingPassword, setIsSavingPassword] = useState(false);
   // Стейт отправки запроса на смену логина
   const [isSavingLogin, setIsSavingLogin] = useState(false);
+  // Функция клика по кнопке "выйти"
+  const handleLogout = () => {
+    // Очистка данных из состояния хранилища
+    dispatch(clearUserData());
+    // Очистка данных из локального хранилища
+    localStorage.removeItem('userUid');
+    // Редирект на страницу авторизации
+    navigate('/auth');
+  };
   // Функция клика по кнопке "Смена логина"
   const handleEditLoginClick = () => {
     setShowModal(true);
@@ -148,6 +163,7 @@ export default function MyProfilePage() {
   };
   // Получение курсов (АПИ)
   useEffect(() => {
+    styleBody('#FAFAFA')
     getAllCourses().then((data) => {
       const arr = [...Object.values(data)];
       setTrainingsArray(arr);
@@ -158,14 +174,12 @@ export default function MyProfilePage() {
     <div className={styles.wrapper} onClick={handleClickOutside}>
       <div className={styles.header}>
         <BlackLogo route="/profile" />
-        <Link className={styles.header_profile} to="/profile">
-          <img
-            className={styles.header_photo}
-            src={userPhoto}
-            alt="profile"
-          />
-          <div>Профиль</div>
-        </Link>
+        <div className={styles.header_links}>
+          <Link className={styles.header_links_main}  to="/">На главную</Link>
+          <Link className={styles.header_profile} to="/profile">
+            <div className={styles.header_links_profile} onClick={handleLogout}>Выйти</div>
+          </Link>
+        </div>
       </div>
       <div className={styles.header_bottom}>
         <span className={styles.header_title}>Мой профиль</span>

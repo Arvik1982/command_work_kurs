@@ -18,9 +18,13 @@ const sliceStore = createSlice({
       state.currentUserUid = actions.payload
       console.log(state.currentUserUid)
     },
+    clearUserData(state) {
+      state.courseName = '';
+      state.currentUserUid = [];
+    },
   },
 })
 
-export const { testRegimeReducer, setCourseName, setCurrentUser } =
+export const { testRegimeReducer, setCourseName, setCurrentUser, clearUserData } =
   sliceStore.actions
 export default sliceStore.reducer
