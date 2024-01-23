@@ -7,6 +7,7 @@ import styleBody from '../../styleBody'
 import { getAllUsers } from '../../api'
 import { setCurrentUser } from '../../store/sliceStore'
 
+
 export default function SignUpIn() {
   const dispatch = useDispatch()
 
