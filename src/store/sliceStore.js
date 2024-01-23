@@ -4,8 +4,8 @@ const sliceStore =createSlice({
     name: "store",
 
     initialState:{
-        testData:'redux works',
-        courseName:''
+        courseName:'',
+        currentUserUid:[1],
     },
     reducers:{
 
@@ -18,8 +18,12 @@ const sliceStore =createSlice({
             state.courseName=actions.payload;
             console.log(state.courseName)
              },
+        setCurrentUser (state, actions) {
+                state.currentUserUid=actions.payload;
+                console.log(state.currentUserUid)
+                 },
     },
 })
 
-export const{testRegimeReducer,setCourseName}=sliceStore.actions;
+export const{testRegimeReducer,setCourseName,setCurrentUser}=sliceStore.actions;
 export default sliceStore.reducer

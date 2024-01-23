@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {setCourseName} from '../store/sliceStore';
 // 
-import getAllCourses from '../api';
+import {getAllCourses, getAllUsers} from '../api';
 // import logo from '../img/logo.png'
 import sale from '../img/Sale sticker.png'
 import styles from './css/main.module.css';
@@ -16,6 +16,7 @@ import body from '../img/img_main/body_main_png.png'
 import styleBody from "../styleBody";
 import WhiteLogo from "../components/Logo/whiteLogo";
 import GoTop from '../components/GoTop/GoTop';
+import UserUid from '../components/UserUid/UserUid';
 
 export default function MainPage() {
     const dispatch = useDispatch()
@@ -24,6 +25,7 @@ export default function MainPage() {
     useEffect(() => {
 
         styleBody('#271A58')
+        getAllUsers().then((response)=>{console.log(response)})
         getAllCourses().then((data) => {
             const arr = [...Object.values(data)]
             setTrainingsArray(arr)
@@ -37,6 +39,7 @@ export default function MainPage() {
                     <WhiteLogo/>
                     <h3 className={styles.main__description}>Онлайн-тренировки для занятий дома</h3>
                     <h2 className={styles.main__title}>Начните заниматься спортом и улучшите качество жизни</h2>
+                <UserUid/>
                 </div>
                 <div className={styles.main__header_right}>
                     <Link to='/auth'>

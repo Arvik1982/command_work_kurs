@@ -8,95 +8,27 @@ import Bodyflex from '../img/img_profile/bodyflex_profile.png';
 import BlackLogo from '../components/Logo/BlackLogo';
 
 export default function MyProfilePage() {
-  // Стейт для отображения модального окна №1
-  const [showModal, setShowModal] = useState(false);
-  // Стейт для отображения модального окна №2
-  const [showModalTwo, setShowModalTwo] = useState(false);
-  // Функция клика по кнопке "Смена логина"
-  const handleEditLoginClick = () => {
-    setShowModal(true);
-  };
-  // Функция клика по кнопке "Смена пароля"
-  const handleEditLoginClickTwo = () => {
-    setShowModalTwo(true);
-  };
-  // Функция для изоляции
-  const handleModalClick = (event) => {
-    event.stopPropagation();
-  };
-  // Функция для закрытия модального окна
-  const handleClickOutside = (event) => {
-    if ((showModal || showModalTwo) && !event.target.closest(`.${styles.modal}`)) {
-      setShowModal(false);
-      setShowModalTwo(false);
+    // Стейт для отображения модального окна №1
+    const [showModal, setShowModal] = useState(false);
+    // Стейт для отображения модального окна №2
+    const [showModalTwo, setShowModalTwo] = useState(false);
+
+    // Функция клика по кнопке "Смена логина"
+    const handleEditLoginClick = () => {
+      setShowModal(true);
     }
-  };
-  // Сохранение пароля
-  const handleSavePasswordClick = () => {
-    const newPassword = document.getElementById('password').value;
-    const repeatPassword = document.getElementById('repeatPassword').value;
-    if (!newPassword.length || !repeatPassword.length) {
-      console.log('Заполните поля ввода');
-    } else if (newPassword.length < 6 && repeatPassword.length < 6) {
-      console.log('Слишком короткий пароль');
-    } else if (newPassword !== repeatPassword) {
-      console.log('Ваши пароли не совпадают');
-    } else {
-      fetch('/your-api-endpoint', {
-        method: 'PUTCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ password: newPassword }),
-      }).then((response) => {
-        // Обработка успешного ответа от сервера
-        if (response.ok) {
-          console.log('Пароль успешно обновлен');
-          setShowModalTwo(false); // Закрыть модальное окно
-        } else {
-          console.error('Ошибка при обновлении пароля');
-        }
-      }).catch((error) => {
-        console.error('Ошибка сети:', error);
-      });
-    }
-  };
-  // Сохранение логина
-  const handleSaveLoginClick = () => {
-    const newLogin = document.getElementById('username').value;
-    const validUsername = /^[a-zA-Z][a-zA-Z0-9]*$/;
-    if (!newLogin) {
-      console.log('Заполните поле ввода');
-    } else if (!newLogin.match(validUsername)) {
-      console.log('Логин должен содержать только латинские буквы, цифры и не начинаться с дефиса или подчеркивания');
-    } else {
-      // Отправка запроса на обновление пароля
-      fetch('/your-api-endpoint', {
-        method: 'PUTCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ login: newLogin }),
-      }).then((response) => {
-        // Обработка успешного ответа от сервера
-        if (response.ok) {
-          console.log('Пароль успешно обновлен');
-          setShowModalTwo(false); // Закрыть модальное окно
-        } else {
-          console.error('Ошибка при обновлении пароля');
-        }
-      }).catch((error) => {
-        console.error('Ошибка сети:', error);
-      });
-    }
-  }
+    // Функция клика по кнопке "Смена пароля"
+    const handleEditLoginClickTwo = () => {
+        setShowModalTwo(true);
+      }
+  
   return (
     <div className={styles.wrapper} onClick={handleClickOutside}>
       <div className={styles.header}>
         <BlackLogo route="/profile" />
         <div className={styles.header_profile}>
-          <div className={styles.header_photo} />
-          <div>Профиль</div>
+            <div className={styles.header_photo}/>
+            <div>Профиль</div>
         </div>
       </div>
       <div className={styles.header_bottom}>
