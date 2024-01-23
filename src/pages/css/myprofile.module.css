@@ -1,11 +1,3 @@
-/* Анимации */
-@keyframes blink {
-    0% { color: #da2549; }
-    50% { color: #6e0ea290; } /* Цвет фона при "погашенном" состоянии */
-    100% { color: #da2549; }
-}
-
-/* Основные стили */
 .wrapper {
     padding-top: 30px;
     color: #161616;
@@ -131,7 +123,6 @@
     width: 280px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: 20px;
     font-size: 18px;
 }
@@ -152,42 +143,6 @@
 }
 .main_form::placeholder {
     color: #D0CECE;
-}
-.main_criterion {
-    animation: blink 2s infinite;
-    font-size: 14px;
-}
-.main_err_plase {
-    margin-top: 10px;
-    width: 380px;
-    height: 80px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.main_err{
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #f9d1d1;
-    border-radius: 20px;
-    margin-top: 10px;
-    width: 390px;
-    height: 80px;
-    background-color: #f9e4e4;
-}
-.main_err_massage {
-    text-align: center;
-    color: #c20101;
-    font-size: 16px;
-}
-.disabled {
-    background-color: #A9A9A9; /* Серый цвет */
-    cursor: not-allowed;
-    border: 1px solid #A9A9A9; /* Изменение цвета рамки */
 }
 
 /* Наведение */

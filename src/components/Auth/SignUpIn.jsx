@@ -4,7 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from 'firebase/auth'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import { getDatabase, ref, set } from 'firebase/database'
 import { auth } from '../../firebase_auth'
 import styles from './authorization.module.css'
@@ -12,6 +12,7 @@ import logo from '../../img/logo_auth.png'
 import styleBody from '../../styleBody'
 import { getAllUsers } from '../../api'
 import { setCurrentUser } from '../../store/sliceStore'
+
 
 export default function SignUpIn() {
   const dispatch = useDispatch()
