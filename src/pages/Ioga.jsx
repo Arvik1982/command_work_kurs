@@ -1,5 +1,6 @@
+
+import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-// import { Link } from 'react-router-dom';
 import styleBody from "../styleBody";
 import BlackLogo from "../components/Logo/BlackLogo";
 import courseImg from '../img/skill card 17.png';
@@ -11,12 +12,6 @@ import buttonImage from '../img/Group 48096487.svg';
 import styles from './css/ioga.module.css';
 
 export default function DescriptionPage() {
-    const handleClick = () => {
-        // Логика обработки клика
-        console.log('Button clicked');
-        // Ваша логика обработки клика здесь
-    };
-
     useEffect(() => {
         styleBody('#fff')
     }, []);
@@ -50,14 +45,15 @@ export default function DescriptionPage() {
                 <h2 className={styles.info_text}>
                     Оставьте заявку на пробное занятие, мы свяжемся с вами, поможем с выбором направления и тренера, с которым тренировки принесут здоровье и радость!
                 </h2>
-                <div className={styles.button} >
-                    <button className={styles.button_text}
-                        onClick={() => handleClick()} type='button'>Записаться на тренировку</button>
+                <div className={styles.button}>
+                    <Link to="/SignUpIn" className={styles.button_text}>
+                        Записаться на тренировку
+                    </Link>
                 </div>
                 <div className={styles.info_image}>
                     <img src={buttonImage} alt="buttonImage" />
                 </div>
-                
+
             </div>
         </div>
     )
