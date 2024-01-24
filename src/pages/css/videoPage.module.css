@@ -1,0 +1,107 @@
+.wrapper {
+    padding-top: 30px;
+    color: #161616;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 400;
+    font-size: 24px;
+    padding-bottom: 75px;
+}
+.header_profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.header_photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    background: #D9D9D9;
+}
+
+.video__title {
+    font-variant-numeric: lining-nums proportional-nums;
+    font-family: StratosSkyeng;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 56px;
+    margin-bottom: 40px;
+}
+
+.video__lesson {
+    font-variant-numeric: lining-nums proportional-nums;
+    font-family: StratosSkyeng;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px;
+    margin-bottom: 40px;
+}
+
+.video__play {
+    width: 100%;
+    min-height: 639px;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 75px;
+}
+
+.play__text {
+    color: #FFFFFF;
+}
+
+.video__box{
+    display: flex;
+    justify-content: space-between;
+}
+
+.video__left {
+
+}
+
+.left__title {
+    color: #000;
+    font-variant-numeric: lining-nums proportional-nums;
+    font-family: StratosSkyeng;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px;
+    margin-bottom: 30px;
+}
+
+.left__lessons {
+    margin-bottom: 40px;
+    margin-left: 30px;
+}
+
+.left__lessons li {
+    font-variant-numeric: lining-nums proportional-nums;
+    font-family: StratosSkyeng;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px;
+}
+
+.left__btn {
+    color: #FAFAFA;
+    font-variant-numeric: lining-nums proportional-nums;
+    font-family: StratosSkyeng;
+    border: none;
+    background: #580EA2;
+    padding: 12px 27px;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.05px;
+    border-radius: 46px;
+    margin-bottom: 46px;
+}
