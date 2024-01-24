@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { updatePassword, updateEmail } from 'firebase/auth';
+import { reauthenticateWithCredential, EmailAuthProvider, updatePassword, updateEmail } from 'firebase/auth';
 import { auth } from '../firebase_auth';
 import { getAllCourses } from '../api';
 import { clearUserData, setCourseName } from '../store/sliceStore';
@@ -17,7 +17,7 @@ export default function MyProfilePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // Получение значения UID из local Storage
-  const localUser = localStorage.getItem('userUid');
+  // const localUser = localStorage.getItem('userUid');
   // Стейт для отображения модального окна №1
   const [showModal, setShowModal] = useState(false);
   // Стейт для отображения модального окна №2
@@ -65,33 +65,35 @@ export default function MyProfilePage() {
     const newPassword = document.getElementById('password').value;
     const repeatPassword = document.getElementById('repeatPassword').value;
     const user = auth.currentUser;
+    const accessToken = user.stsTokenManager.accessToken;
+    console.log(accessToken) // токен
+    console.log(user) // пользователь
     const errors = [];
-    switch (true) {
-      case !newPassword.length || !repeatPassword.length:
-        errors.push('Заполните поля ввода');
-        break;
-      case newPassword.length < 6 && repeatPassword.length < 6:
-        errors.push('Слишком короткий пароль');
-        break;
-      case newPassword !== repeatPassword:
-        errors.push('Ваши пароли не совпадают');
-        break;
-      default:
-        // Сбрасываем ошибки, если они были ранее
-        setError('');
-        setIsSavingPassword(true);
-        if (user) {
-          updatePassword(user, newPassword ).then(() => {
-            // Пароль успешно обновлен
-            setShowModalTwo(false);
-            setIsSavingPassword(false);
-          }).catch((err) => {
-            // Обработка ошибок при обновлении пароля
-            errors.push(`Ошибка при обновлении пароля: ${err.message}`);
-            setIsSavingPassword(false);
-            setError(errors.join(', '));
-          });
-        }
+    if (!newPassword.length || !repeatPassword.length) {
+      errors.push('Заполните поля ввода');
+    } else if (newPassword.length < 6 || repeatPassword.length < 6) {
+      errors.push('Слишком короткий пароль');
+    } else if (newPassword !== repeatPassword) {
+      errors.push('Ваши пароли не совпадают');
+    } else {
+      setError('');
+      setIsSavingPassword(true);
+      if (user) {
+        reauthenticateWithCredential(EmailAuthProvider.credential(user.email))
+        .then(() => {
+          return updatePassword(user, newPassword);
+        })
+        .then(() => {
+          setShowModalTwo(false);
+          setIsSavingPassword(false);
+        })
+        .catch((err) => {
+          errors.push(`Ошибка при обновлении пароля: ${err.message}`);
+          console.log(`${err.message}`)
+          setIsSavingPassword(false);
+          setError(errors.join(', '));
+        });
+      }
     }
     if (errors.length > 0) {
       setError(errors.join(', '));
@@ -102,7 +104,16 @@ export default function MyProfilePage() {
     const newLogin = document.getElementById('username').value;
     const validUsername = /^[a-zA-Z][a-zA-Z0-9._@]*$/;
     const user = auth.currentUser;
+    const email = user.email;
+    const password = document.getElementById('password').value;
     const errors = [];
+    const cred = EmailAuthProvider.credential(
+      email,
+      password
+    );
+    console.log(email)
+    console.log(password)
+    console.log(newLogin)
     switch (true) {
       case !newLogin:
         errors.push('Заполните поля ввода');
@@ -111,44 +122,22 @@ export default function MyProfilePage() {
         errors.push('Логин должен содержать только латинские буквы, цифры и не начинаться с дефиса или подчеркивания');
         break;
       default:
-      // Сбрасываем ошибки, если они были ранее
+        // Сбрасываем ошибки, если они были ранее
         setError('');
         setIsSavingLogin(true);
-        if (user) {
-          updateEmail(user, newLogin ).then(() => {
+        reauthenticateWithCredential(cred).then(() => {
+          updateEmail( newLogin ).then(() => {
             const updatedUser = auth.currentUser;
             console.log('Новый email:', updatedUser.email);
             // Логин успешно обновлен в Firebase Authentication
-            return fetch(`https://fitness-pro-5a801-default-rtdb.europe-west1.firebasedatabase.app/users/${localUser}.json`, {
-              method: 'PATCH',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ email: newLogin, username: newLogin }),
-            });
-          }).then((response) => {
-            // Обработка успешного ответа от сервера
-            if (response.ok) {
-              // Логин успешно обновлен в Realtime Database
-              setShowModal(false);
-              setIsSavingLogin(false);
-            } else if (response.status === 404 || response.status === 400) {
-              errors.push('Ошибка при обновлении логина');
-              setIsSavingLogin(false);
-              setError(errors.join(', '));
-            } else {
-              errors.push('Ошибка сети');
-              setIsSavingLogin(false);
-              setError(errors.join(', '));
-            }
-          }).catch((err) => {
-            errors.push(`Ошибка при обновлении логина: ${err.message}`);
-            console.log(`${err.message}`);
-            setIsSavingLogin(false);
-            setError(errors.join(', '));
-          });
-        }
-    }
+          })
+        }).catch((err) => {
+          errors.push(`Ошибка при обновлении логина: ${err.message}`);
+          console.log(`${err.message}`);
+          setIsSavingLogin(false);
+          setError(errors.join(', '));
+        });   
+      }
     if (errors.length > 0) {
       setError(errors.join(', '));
     }
@@ -168,9 +157,9 @@ export default function MyProfilePage() {
         <BlackLogo route="/profile" />
         <div className={styles.header_links}>
           <Link className={styles.header_links_main}  to="/">На главную</Link>
-          <Link className={styles.header_profile} to="/profile">
+          <div className={styles.header_profile}>
             <div className={styles.header_links_profile} onClick={handleLogout}>Выйти</div>
-          </Link>
+          </div>
         </div>
       </div>
       <div className={styles.header_bottom}>
@@ -186,6 +175,8 @@ export default function MyProfilePage() {
               {/* ... (форма или другие элементы для редактирования логина) */}
               <img src={logo} alt="logo" />
               <div className={styles.main_info}>
+                <span className={styles.main_text}>Текущий пароль:</span>
+                <input className={styles.main_form} type="password" id="password" name="password" placeholder="Введите пароль" />
                 <span className={styles.main_text}>Новый логин:</span>
                 <input className={styles.main_form} type="text" id="username" name="username" placeholder="ivan.ivanov@gmail.ru" />
                 <div
@@ -221,18 +212,15 @@ export default function MyProfilePage() {
               {/* ... (форма или другие элементы для редактирования пароля) */}
               <img src={logo} alt="logo" />
               <div className={styles.main_info}>
+              <span className={styles.main_text}>Текущий пароль:</span>
+                <input className={styles.main_form} type="password" id="password" name="password" placeholder="Введите пароль" />
                 <span className={styles.main_text}>Новый пароль:</span>
-                <input className={styles.main_form} type="text" id="password" name="username" placeholder="Введите новый пароль" />
+                <input className={styles.main_form} type="text" id="newpassword" name="username" placeholder="Введите новый пароль" />
                 <input className={styles.main_form} type="text" id="repeatPassword" name="username" placeholder="Повторите пароль" />
                 <div
                   className={styles.main_criterion}
                 >
                   ❖ Пароль не должен быть короче 6 символов
-                </div>
-                <div
-                  className={styles.main_criterion}
-                >
-                  ❖ Ваши пароли должны совпадать
                 </div>
               </div>
               <button className={`${styles.main_button_one} ${isSavingPassword ? styles.disabled : ''}`} onClick={handleSavePasswordClick} type="button">{isSavingPassword ? 'Меняем ваш пароль...' : 'Сохранить'}</button>
