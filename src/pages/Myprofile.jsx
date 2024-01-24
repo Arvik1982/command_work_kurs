@@ -28,94 +28,95 @@ export default function MyProfilePage() {
       }
   
   return (
-    <div className={styles.wrapper} onClick={handleClickOutside}>
-      <div className={styles.header}>
-        <BlackLogo route='/profile'/>
-        <div className={styles.header_profile}>
-            <div className={styles.header_photo}/>
-            <div>Профиль</div>
-          </div>
-      </div>
-      <div className={styles.header_bottom}>
-        <span className={styles.header_title}>Мой профиль</span>
-        <span className={styles.header_info}>Логин: LapaBelka</span>
-        <span className={styles.header_info}>Пароль: 123456789</span>
-        <button className={styles.header_button} onClick={handleEditLoginClick} type="submit">Редактировать логин</button>
-        {showModal && (
-        <form className={styles.modalOverlay}>
-          <div className={styles.modal} onClick={handleModalClick}>
-            {/* Содержимое модального окна */}
-            <div className={styles.modalContent}>
-              {/* ... (форма или другие элементы для редактирования логина) */}
-              <img src={logo} alt="logo" />
-              <div className={styles.main_info}>
-                <span className={styles.main_text}>Новый логин:</span>
-                <input className={styles.main_form} type="text" id="username" name="username" placeholder="Введите новый логин" />
-              </div>
-              <button className={styles.main_button_one} onClick={() => setShowModal(false)}  type='button'>Сохранить</button>
-            </div>
-          </div>
-        </div>
-      }
-        <button className={styles.header_button} onClick={handleEditLoginClickTwo} type="button">Редактировать пароль</button>
-        {showModalTwo && (
-        <form className={styles.modalOverlay}>
-          <div className={styles.modal} onClick={handleModalClick}>
-            {/* Содержимое модального окна */}
-            <div className={styles.modalContent}>
-              {/* ... (форма или другие элементы для редактирования пароля) */}
-              <img src={logo} alt="logo" />
-              <div className={styles.main_info}>
-                <span className={styles.main_text}>Новый пароль:</span>
-                <input className={styles.main_form} type="text" id="password" name="username" placeholder="Введите новый пароль" />
-                <input className={styles.main_form} type="text" id="repeatPassword" name="username" placeholder="Повторите пароль" />
-                <div
-                  className={styles.main_criterion}
-                >
-                  ❖ Пароль не должен быть короче 6 символов
-                </div>
-                <div
-                  className={styles.main_criterion}
-                >
-                  ❖ Ваши пароли должны совпадать
-                </div>
-              </div>
-              <button className={styles.main_button_one} onClick={() => setShowModalTwo(false)}  type='button'>Сохранить</button>
-            </div>
-          </div>
-        </div>
-      }
-      </div>
-      <span className={styles.header_title}>Мои курсы</span>
-      <div className={styles.main}>
-        {Object.values(trainingsArray).slice(1, 4).map((e) => {
-          return (
-            <div
-              className={styles.main_direct}
-              key={e.nameEN}
-            >
-              <div>
-                <div
-                  onClick={() => {
-                    dispatch(setCourseName(e.nameEN));
-                  }}
-                >
-                  <img
-                    key={e.nameEN}
-                    src={
-                      e.nameEN === 'Yoga' ? yoga
-                        : e.nameEN === 'Stretching' ? stretch
-                          : e.nameEN === 'BodyFlex' ? body : ''
-                    }
-                    alt="img"
-                  />
-                  <Link to={`/description/${e.nameEN}`} className={styles.main_button}>Перейти →</Link>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+      <div>eif</div>
+  //   <div className={styles.wrapper} onClick={handleClickOutside}>
+  //     <div className={styles.header}>
+  //       <BlackLogo route='/profile'/>
+  //       <div className={styles.header_profile}>
+  //           <div className={styles.header_photo}/>
+  //           <div>Профиль</div>
+  //         </div>
+  //     </div>
+  //     <div className={styles.header_bottom}>
+  //       <span className={styles.header_title}>Мой профиль</span>
+  //       <span className={styles.header_info}>Логин: LapaBelka</span>
+  //       <span className={styles.header_info}>Пароль: 123456789</span>
+  //       <button className={styles.header_button} onClick={handleEditLoginClick} type="submit">Редактировать логин</button>
+  //       {showModal && (
+  //       <form className={styles.modalOverlay}>
+  //         <div className={styles.modal} onClick={handleModalClick}>
+  //           {/* Содержимое модального окна */}
+  //           <div className={styles.modalContent}>
+  //             {/* ... (форма или другие элементы для редактирования логина) */}
+  //             <img src={logo} alt="logo" />
+  //             <div className={styles.main_info}>
+  //               <span className={styles.main_text}>Новый логин:</span>
+  //               <input className={styles.main_form} type="text" id="username" name="username" placeholder="Введите новый логин" />
+  //             </div>
+  //             <button className={styles.main_button_one} onClick={() => setShowModal(false)}  type='button'>Сохранить</button>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     }
+  //       <button className={styles.header_button} onClick={handleEditLoginClickTwo} type="button">Редактировать пароль</button>
+  //       {showModalTwo && (
+  //       <form className={styles.modalOverlay}>
+  //         <div className={styles.modal} onClick={handleModalClick}>
+  //           {/* Содержимое модального окна */}
+  //           <div className={styles.modalContent}>
+  //             {/* ... (форма или другие элементы для редактирования пароля) */}
+  //             <img src={logo} alt="logo" />
+  //             <div className={styles.main_info}>
+  //               <span className={styles.main_text}>Новый пароль:</span>
+  //               <input className={styles.main_form} type="text" id="password" name="username" placeholder="Введите новый пароль" />
+  //               <input className={styles.main_form} type="text" id="repeatPassword" name="username" placeholder="Повторите пароль" />
+  //               <div
+  //                 className={styles.main_criterion}
+  //               >
+  //                 ❖ Пароль не должен быть короче 6 символов
+  //               </div>
+  //               <div
+  //                 className={styles.main_criterion}
+  //               >
+  //                 ❖ Ваши пароли должны совпадать
+  //               </div>
+  //             </div>
+  //             <button className={styles.main_button_one} onClick={() => setShowModalTwo(false)}  type='button'>Сохранить</button>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     }
+  //     </div>
+  //     <span className={styles.header_title}>Мои курсы</span>
+  //     <div className={styles.main}>
+  //       {Object.values(trainingsArray).slice(1, 4).map((e) => {
+  //         return (
+  //           <div
+  //             className={styles.main_direct}
+  //             key={e.nameEN}
+  //           >
+  //             <div>
+  //               <div
+  //                 onClick={() => {
+  //                   dispatch(setCourseName(e.nameEN));
+  //                 }}
+  //               >
+  //                 <img
+  //                   key={e.nameEN}
+  //                   src={
+  //                     e.nameEN === 'Yoga' ? yoga
+  //                       : e.nameEN === 'Stretching' ? stretch
+  //                         : e.nameEN === 'BodyFlex' ? body : ''
+  //                   }
+  //                   alt="img"
+  //                 />
+  //                 <Link to={`/description/${e.nameEN}`} className={styles.main_button}>Перейти →</Link>
+  //               </div>
+  //             </div>
+  //           </div>
+  //         );
+  //       })}
+  //     </div>
+  //   </div>
   );
 }
