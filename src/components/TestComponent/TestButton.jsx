@@ -1,7 +1,8 @@
-import changeLogin from '../components/TestComponent/Test'
+// import changeLogin from '../components/TestComponent/Test'
+import { Link } from 'react-router-dom'
 
 export function TestButton(){
-    return(
-    <button type='button' onClick={()=>{changeLogin()}}>change login name</button>
+    return(<Link to='/test'>
+    <button type='button'>'go to test page'</button></Link>
     )
 }

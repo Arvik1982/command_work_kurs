@@ -6,7 +6,12 @@
 a {
     text-decoration: none;
 }
-
+.block__error{
+ color: red;   
+}
+.hide{
+    display: none;
+}
 .main__trainings_grid{
     display: grid;
     grid-template-columns: 360px 360px 360px;
@@ -32,7 +37,7 @@ a {
 }
 
 .paginateButtons{
-margin-top: 15px;
+margin-top: 35px;
 cursor: pointer;
 width: 80%;
 height: 40px;
@@ -50,4 +55,10 @@ color:  rgba(199, 233, 87, 1);
 }
 .paginateActive{
    color: rgb(238, 239, 233); 
+}
+.block__center{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }

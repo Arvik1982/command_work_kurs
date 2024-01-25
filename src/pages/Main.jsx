@@ -1,7 +1,8 @@
 import { useEffect} from 'react'
+
 //  redux
 import { useDispatch} from 'react-redux'
-import { setTrainingsArray} from '../store/sliceStore'
+import { setTrainingsArray, setConnectionError} from '../store/sliceStore'
 //
 import { getAllCourses } from '../api'
 import styles from './css/main.module.css'
@@ -19,7 +20,10 @@ export default function MainPage() {
     getAllCourses().then((data) => {
       const arr = [...Object.values(data)]
       dispatch(setTrainingsArray(arr))
+      dispatch(setConnectionError(''))
       return data
+    }).catch((error)=>{dispatch(setConnectionError(error))
+
     })
   }, [])
 
