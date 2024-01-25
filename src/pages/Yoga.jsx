@@ -1,5 +1,6 @@
 
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import styleBody from "../styleBody";
 import BlackLogo from "../components/Logo/BlackLogo";
@@ -12,6 +13,10 @@ import buttonImage from '../img/Group 48096487.svg';
 import styles from './css/ioga.module.css';
 
 export default function DescriptionPage() {
+    const { courseId } = useParams();
+    const courses = useSelector(state => state.courses);
+    const courseData = courses.find(course => course.id === courseId);
+
     useEffect(() => {
         styleBody('#fff')
     }, []);
@@ -22,7 +27,7 @@ export default function DescriptionPage() {
                 <BlackLogo />
             </div>
             <div className={styles.course__page_image}>
-                <img src={courseImg} alt="courseimage" />
+                <img src={courseData.image} alt="courseimage" />
             </div>
             <div className={styles.center_text}>
                 <h2>Подойдет для вас, если:</h2>
@@ -33,17 +38,16 @@ export default function DescriptionPage() {
             <div className={styles.course__directions_text}>
                 <h2>Направления</h2>
                 <div className={styles.course__directions_image}>
-                    <img src={iogaNaw} alt="iogaNaw" />
-                    <img src={iogaNew} alt="iogaNew" />
+                    <img src={courseData.directions[0].image} alt="iogaNaw" />
+                    <img src={courseData.directions[1].image} alt="iogaNew" />
                 </div>
-
             </div>
             <div className={styles.course__directions_info}>
                 <img src={info} alt="info" />
             </div>
             <div className={styles.info_block}>
                 <h2 className={styles.info_text}>
-                    Оставьте заявку на пробное занятие, мы свяжемся с вами, поможем с выбором направления и тренера, с которым тренировки принесут здоровье и радость!
+                    {courseData.description}
                 </h2>
                 <div className={styles.button}>
                     <Link to="/SignUpIn" className={styles.button_text}>
@@ -53,8 +57,7 @@ export default function DescriptionPage() {
                 <div className={styles.info_image}>
                     <img src={buttonImage} alt="buttonImage" />
                 </div>
-
             </div>
         </div>
-    )
+    );
 }

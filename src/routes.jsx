@@ -19,7 +19,8 @@ export default function AppRoutes() {
       
       <Route path="/auth" element={<AuthorizationPage />} />
       <Route path="/change_password" element={<ChangePasswordPage />} />
-      <Route path="/description" element={<DescriptionPage />} />
+      {/* <Route path="/course/:id" element={<DescriptionPage />} /> */}
+      <Route path="/description/:courseId" element={<DescriptionPage />} />
       <Route path="*" element={<ErrPage />} />
       <Route path="/workout/video" element={<VideoPage/>} />
 {/*доступ только залогиненым*/}
