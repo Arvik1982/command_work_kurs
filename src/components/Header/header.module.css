@@ -1,0 +1,166 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+/* body{
+    height: 100%;
+    width: 100%;
+} */
+
+
+.main {
+    background: #271A58;
+}
+
+.main__content{
+    display: block;
+    position: absolute;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    background-color: #271A58;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: flex-start;
+    padding-left: 140px;
+    
+}
+.main__header{
+    padding-top: 30px;
+    display: flex;
+    justify-content: flex-start;
+}
+.main__header_right{
+    margin-left: 170px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.main__header_sale{
+margin-top: 40px;
+}
+.main__description{
+    margin-top: 35px;
+    margin-bottom: 17px;
+    width: 363px;
+    height: 23px;
+    top: 100px;
+    left: 140px;
+    opacity: 0.5px;
+    font-family: StratosSkyeng;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23px;
+    letter-spacing: -0.05px;
+    text-align: left;
+    color: #918d8d;
+  
+}
+.main__title{
+    margin-bottom: 52px;
+    margin-top: 35px;
+    width: 830px;
+    height: 110px;
+    top: 140px;
+    left: 140px;
+    font-family: StratosSkyeng;
+    font-size: 60px;
+    font-weight: 400;
+    line-height: 55px;
+    letter-spacing: -1px;
+    text-align: left;
+    color: rgba(244, 244, 255, 1);
+
+
+}
+.main__header_button{
+    border: #140D40 solid 0;
+    background: #140D40;
+    border-radius: 46px;
+
+/* Text */
+    width: 77px;
+    height: 36px;
+    font-family: 'StratosSkyeng';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+/* identical to box height, or 150% */
+    text-align: center;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    color: #FFFFFF;
+/* Inside auto layout */
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    padding: 5px, 16px, 7px, 16px;
+
+    &:hover{
+        background-color:   #2D1F79;
+    }
+    &:active{
+        background-color: #3B29A1;
+    }
+}
+.main__trainings_grid{
+    display: grid;
+    grid-template-columns: 360px 360px 360px;
+    row-gap: 37px;
+    column-gap: 44px;
+    align-items: center;
+    justify-items: center;
+}
+.trainings__grid_element{
+    width: 360px;
+    height: 480px;
+    top: 302px;
+    left: 140px;
+    border-radius: 30px;
+    background-color: #fff;
+     
+}
+.grid__element_yoga{
+    padding: 30px;
+    width: 400px;
+    height: 550px; 
+}
+
+
+.grid__element_step{
+    margin-bottom: 0;
+    padding-bottom: 0;
+    padding: 30px;
+    width: 400px;
+    height: 550px;
+
+}
+
+
+.grid__element_name{
+    text-align: left;
+    font-style: 'Abhaya Libre ExtraBold';
+    font-weight: 800;
+    font-size: 36px;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+}
+
+.main__footer{
+    /* padding-left: 40%; */
+    margin-top: 34px;
+    display: flex;
+    justify-content: center;
+}
+
+
+
