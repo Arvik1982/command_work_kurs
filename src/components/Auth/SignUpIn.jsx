@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch} from 'react-redux'
 import {
+  
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  
 } from 'firebase/auth'
 import { useNavigate } from "react-router-dom";
 import { getDatabase, ref, set } from 'firebase/database'
@@ -15,6 +17,8 @@ import { setCurrentUser } from '../../store/sliceStore'
 
 
 export default function SignUpIn() {
+   
+  
   const dispatch = useDispatch()
   const [registrationRegime, setRegistrationRegime] = useState(false)
   const [login, setLogin] = useState('')
@@ -26,6 +30,7 @@ export default function SignUpIn() {
   const navigate = useNavigate()
 
   useEffect(() => {
+    
     styleBody('#271A58')
   }, [])
 
@@ -33,13 +38,20 @@ export default function SignUpIn() {
     setButtonDisabled(true)
   }
 
-  function writeUserData(userId, name, email, imageUrl, id) {
+
+
+
+
+
+
+  function writeUserData(userId, name, email, imageUrl, id, courses) {
     const db = getDatabase()
     set(ref(db, 'users/' + userId), {
       username: name,
       email: email,
       profile_picture: imageUrl,
       id: id,
+      courses:courses,
     })
   }
 
@@ -72,7 +84,7 @@ export default function SignUpIn() {
       return
     }
     if (pass === '') {
-      setPlaseholderLogin('Введите пароль')
+      //  setPlaseholderLogin('Введите пароль')
       setError('Введите пароль')
       return
     }
@@ -90,16 +102,18 @@ export default function SignUpIn() {
 
       .then((responseNewUser) => {
         let id = []
+        let courses =[]
         getAllUsers()
           .then((data) => {
             id = [...Object.values(data)]
+            courses =[0]
             const uid = responseNewUser[0].uid
             console.log(...responseNewUser)
             const userId = uid
             const imageUrl = ''
             const name = responseNewUser[0].email
             const email = responseNewUser[0].email
-            writeUserData(userId, name, email, imageUrl, id.length)
+            writeUserData(userId, name, email, imageUrl, id.length,courses)
             navigate('/profile', { replace: true })
             return id
           })
@@ -112,12 +126,15 @@ export default function SignUpIn() {
       })
   }
   return (
-    <div className={styles.authorization__page}>
+    <div 
+     className={styles.authorization__page}>
       <div className={styles.authorization__page_logo}>
         <img src={logo} alt="logo" />
       </div>
-      <div className={styles.authorization__page_inputs}>
-        <input
+      <div
+      
+      className={styles.authorization__page_inputs}>
+        <input 
           value={login}
           onChange={(e) => {
             setLogin(e.target.value)
@@ -127,7 +144,7 @@ export default function SignUpIn() {
           type="text"
           placeholder={placeholderLogin}
         />
-        <input
+        <input 
           value={pass}
           onChange={(e) => {
             setPass(e.target.value)
@@ -137,7 +154,7 @@ export default function SignUpIn() {
           type="text"
           placeholder="Пароль"
         />
-        <div
+        <div 
           className={
             registrationRegime === false ? styles.element__visibility : ''
           }
@@ -163,7 +180,7 @@ export default function SignUpIn() {
             registrationRegime !== false ? styles.element__visibility : ''
           }
         >
-          <button
+          <button onKeyDown={(e)=>{if(e==='Enter')userLogin()}}
             onClick={() => {
               userLogin()
             }}
@@ -174,7 +191,7 @@ export default function SignUpIn() {
           </button>
         </div>
         <div className={buttonDisabled ? styles.button__disable : ''}>
-          <button
+          <button onKeyDown={(e)=>{if(e==='Enter')registration()}}
             onClick={() => {
               if (registrationRegime) {
                 disableButton()
@@ -193,6 +210,7 @@ export default function SignUpIn() {
           >
             Зарегистрироваться
           </button>
+          
         </div>
       </div>
     </div>
