@@ -3,7 +3,7 @@ import MainPage from './pages/Main'
 import MyProfilePage from './pages/Myprofile'
 import ErrPage from './pages/Err'
 import AuthorizationPage from './pages/Authorization'
-import DescriptionPage from './pages/Ioga'
+import DescriptionPage from './pages/Yoga'
 import ChangePasswordPage from './pages/ChangePassword'
 import VideoPage from "./pages/VideoPage";
 import TestPage from './pages/TestPage'
