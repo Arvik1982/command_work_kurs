@@ -12,13 +12,13 @@ import body from '../../img/img_main/body_main_png.png'
 import { setCourseName } from '../../store/sliceStore'
 
 export default function MainCourses() {
-
+const courseName='Yoga'
     const dispatch = useDispatch()
     const trainingsArray = useSelector(state=>state.store.trainingsArray)
     const error= useSelector(state=>state.store.connectionError)
     const [pageNumber, setPageNumber]=useState(0)
     const onPageChange = ({selected})=>{setPageNumber(selected)}
-    const coursesOnPage = 3
+    const coursesOnPage = 5
     const pagesVisited = pageNumber * coursesOnPage
     const displayCoursesArray = trainingsArray.slice(pagesVisited, pagesVisited + coursesOnPage)
     const pageCount=Math.ceil(trainingsArray.length/coursesOnPage)
@@ -35,10 +35,8 @@ return(
             onClick={() => {
               dispatch(setCourseName(el.nameEN))
             }}
-            to="/description"
+            to={`/description/${el.nameEN}`}
           >
-
-            
             <img
               key={el.nameEN}
               src={
