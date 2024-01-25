@@ -6,7 +6,7 @@ import {
   signInWithEmailAndPassword,
   
 } from 'firebase/auth'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import { getDatabase, ref, set } from 'firebase/database'
 import { auth } from '../../firebase_auth'
 import styles from './authorization.module.css'
