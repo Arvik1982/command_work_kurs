@@ -11,12 +11,11 @@ import step from '../../img/img_main/step_main_png.png'
 import body from '../../img/img_main/body_main_png.png'
 import { setCourseName } from '../../store/sliceStore'
 
-
-
 export default function MainCourses() {
 
     const dispatch = useDispatch()
     const trainingsArray = useSelector(state=>state.store.trainingsArray)
+    const error= useSelector(state=>state.store.connectionError)
     const [pageNumber, setPageNumber]=useState(0)
     const onPageChange = ({selected})=>{setPageNumber(selected)}
     const coursesOnPage = 3
@@ -25,7 +24,8 @@ export default function MainCourses() {
     const pageCount=Math.ceil(trainingsArray.length/coursesOnPage)
     
 return(
-  <>
+  <div className={styles.block__center}>
+    <h1 className={error!==''?styles.block__error:styles.hide}>{error}</h1>
     <div className={styles.main__trainings_grid}>
     {displayCoursesArray.map((el) => {
       return (
@@ -63,7 +63,8 @@ return(
 
 
   </div>
-  <ReactPaginate 
+
+   <ReactPaginate 
   previousLabel='Предыдущая'
   nextLabel="Следующая"
   pageCount={pageCount} 
@@ -72,9 +73,8 @@ return(
   previousClassName='paginatePrevButtons'
   nextClassName='paginateNextButtons'
   disabledClassName='paginateDisabled'
-  
   activeClassName={styles.paginateActive}
   />
-  </>
+  </div>
 )
 }
