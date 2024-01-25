@@ -13,9 +13,10 @@ import buttonImage from '../img/Group 48096487.svg';
 import styles from './css/ioga.module.css';
 
 export default function DescriptionPage() {
-    const { courseId } = useParams();
-    const courses = useSelector(state => state.courses);
-    const courseData = courses.find(course => course.id === courseId);
+
+    const courseId = useParams();
+    const courses = useSelector(state => state.store.trainingsArray);
+    const courseData = courses.find(course => course.nameEN === courseId.id);
 
     useEffect(() => {
         styleBody('#fff')
