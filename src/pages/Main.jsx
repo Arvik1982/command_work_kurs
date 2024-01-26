@@ -13,6 +13,8 @@ import MainHeader from '../components/Header/HeaderMain'
 
 
 export default function MainPage() {
+  // const userLocalLogin = localStorage.getItem('userLogin')
+  // const userLocalPass = localStorage.getItem('userPass')
   const dispatch = useDispatch()
     useEffect(() => {
     styleBody('#271A58')

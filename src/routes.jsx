@@ -11,8 +11,8 @@ import { useSelector } from 'react-redux'
 import { ProtectedRoute } from './components/Protected/Index'
 
 export default function AppRoutes() {
-  const user = useSelector(state=>state.store.currentUserUid)
-  console.log (Boolean(user))
+  // const user = useSelector(state=>state.store.currentUserUid)
+  const user = localStorage.getItem('userUid')
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />

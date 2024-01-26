@@ -32,20 +32,14 @@ const errTextLogin ='Firebase: Error (auth/invalid-email).'
 const errTextNoUser ='Firebase: Error (auth/user-not-found).'
 const errTextNoPass ='Firebase: Error (auth/missing-password).'
 const errTextPassLenght='Firebase: Password should be at least 6 characters (auth/weak-password).'
-  useEffect(() => {
-    
-    styleBody('#271A58')
+  
+useEffect(() => {
+       styleBody('#271A58')
   }, [])
 
   const disableButton = () => {
     setButtonDisabled(true)
   }
-
-
-
-
-
-
 
   function writeUserData(userId, name, email, imageUrl, id, courses) {
     const db = getDatabase()
@@ -66,7 +60,7 @@ const errTextPassLenght='Firebase: Password should be at least 6 characters (aut
         const currentUserUid = currentUserArr[0].uid
         dispatch(setCurrentUser(currentUserUid))
         localStorage.setItem('userUid', currentUserUid)
-
+        
         // refresh = localStorage.getItem('refresh')
         navigate('/profile', { replace: true })
       })
@@ -99,7 +93,7 @@ const errTextPassLenght='Firebase: Password should be at least 6 characters (aut
         const newUserUid = newUserArr[0].uid
         dispatch(setCurrentUser(newUserUid))
         localStorage.setItem('userUid', newUserUid)
-
+        navigate('/profile', { replace: true })
         return newUserArr
       })
 
@@ -187,6 +181,8 @@ const errTextPassLenght='Firebase: Password should be at least 6 characters (aut
           <button onKeyDown={(e)=>{if(e==='Enter')userLogin()}}
             onClick={() => {
               userLogin()
+              localStorage.setItem('userLogin', login)
+              localStorage.setItem('userPass', pass)
             }}
             type="button"
             className={styles.page__button_enter}
@@ -201,6 +197,8 @@ const errTextPassLenght='Firebase: Password should be at least 6 characters (aut
                 disableButton()
                 registration()
                 setRegistrationRegime(true)
+                localStorage.setItem('userLogin', login)
+                localStorage.setItem('userPass', pass)
               } else {
                 setRegistrationRegime(true)
               }
