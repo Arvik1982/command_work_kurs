@@ -112,6 +112,7 @@ export default function MyProfilePage() {
       password
     );
     console.log(email)
+    console.log(user)
     console.log(password)
     console.log(newLogin)
     switch (true) {
@@ -125,10 +126,13 @@ export default function MyProfilePage() {
         // Сбрасываем ошибки, если они были ранее
         setError('');
         setIsSavingLogin(true);
-        reauthenticateWithCredential(cred).then(() => {
-          updateEmail( newLogin ).then(() => {
+        reauthenticateWithCredential(user, cred).then(() => {
+          console.log('Вы вошли в систему')
+          updateEmail(user, newLogin).then(() => {
             const updatedUser = auth.currentUser;
             console.log('Новый email:', updatedUser.email);
+            setIsSavingLogin(false);
+            setShowModal(false);
             // Логин успешно обновлен в Firebase Authentication
           })
         }).catch((err) => {
@@ -183,11 +187,6 @@ export default function MyProfilePage() {
                   className={styles.main_criterion}
                 >
                   ❖ Логин не может начинаться с дефиса или подчеркивания
-                </div>
-                <div
-                  className={styles.main_criterion}
-                >
-                  ❖ Логин должен содержать латинские буквы
                 </div>
               </div>
               <button className={`${styles.main_button_one} ${isSavingLogin ? styles.disabled : ''}`} onClick={handleSaveLoginClick} type="button">{isSavingLogin ? 'Меняем ваш логин...' : 'Сохранить'}</button>
