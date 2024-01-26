@@ -16,7 +16,7 @@
     align-items: center;
     font-weight: 400;
     font-size: 24px;
-    padding-bottom: 75px;
+    padding-bottom: 52px;
 }
 .header_links {
     display: flex;
@@ -26,7 +26,7 @@
 }
 .header_links_main{
     padding: 15px;
-    border: 1px solid #580ea2c4;
+    border: 1px solid transparent;
     border-radius: 40px;
     background-color: #580ea2c4;
     color: #fafafa;
@@ -34,6 +34,7 @@
     transition: all .3s;
 }
 .header_links_profile {
+    cursor: pointer;
     padding: 15px;
     border: 2px solid #580ea2c4;
     border-radius: 40px;
@@ -54,7 +55,7 @@
 .header_bottom {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     padding-bottom: 40px;
 }
 .header_title {
@@ -64,17 +65,29 @@
     padding-bottom: 20px;
 }
 .header_info {
+    width: 500px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
     color: black;
     font-weight: 400;
     font-size: 24px;
-    color: black;
+}
+.header_info_text {
+    width: 90px;
+}
+.header_info_login {
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    background-color: #c7e957b3;
 }
 .header_button {
     cursor: pointer;
     width: 275px;
     height: 52px;
     background-color: #580ea2c4;
-    border: 1px solid #580ea2c4;
+    border: 1px solid transparent;
     border-radius: 42px;
     font-weight: 400;
     font-size: 20px;

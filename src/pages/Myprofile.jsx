@@ -16,8 +16,6 @@ import styleBody from '../styleBody';
 export default function MyProfilePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // Получение значения UID из local Storage
-  // const localUser = localStorage.getItem('userUid');
   // Стейт для отображения модального окна №1
   const [showModal, setShowModal] = useState(false);
   // Стейт для отображения модального окна №2
@@ -30,12 +28,15 @@ export default function MyProfilePage() {
   const [isSavingPassword, setIsSavingPassword] = useState(false);
   // Стейт отправки запроса на смену логина
   const [isSavingLogin, setIsSavingLogin] = useState(false);
+   // Стейт для хранения информации о текущем пользователе
+  const [currentUser, setCurrentUser] = useState(null);
   // Функция клика по кнопке "выйти"
   const handleLogout = () => {
     // Очистка данных из состояния хранилища
     dispatch(clearUserData());
     // Очистка данных из локального хранилища
     localStorage.removeItem('userUid');
+    localStorage.removeItem('currentUserEmail');
     // Редирект на страницу авторизации
     navigate('/auth');
   };
@@ -60,7 +61,7 @@ export default function MyProfilePage() {
       setShowModalTwo(false);
     }
   };
-  // Сохранение пароля (АПИ)
+  // Сохранение пароля (АПИ) обновляется в БД
   const handleSavePasswordClick = () => {
     const password = document.getElementById('password').value;
     const newPassword = document.getElementById('newpassword').value;
@@ -73,8 +74,8 @@ export default function MyProfilePage() {
       password
     );
     switch(true) {
-      case(!newPassword.length || !repeatPassword.length):
-      errors.push('Заполните поля ввода');
+      case(!newPassword.length || !repeatPassword.length || !password):
+      errors.push('Заполните все поля ввода');
       break;
       case(newPassword.length < 6 || repeatPassword.length < 6):
       errors.push('Слишком короткий пароль');
@@ -94,7 +95,7 @@ export default function MyProfilePage() {
             // Логин успешно обновлен в Firebase Authentication
           })
         }).catch((err) => {
-          errors.push(`Ошибка при обновлении пароля: ${err.message}`);
+          errors.push(`Пожалуйста, повторите попытку позже!`);
           console.log(`${err.message}`);
           setIsSavingPassword(false);
           setError(errors.join(', '));
@@ -118,8 +119,8 @@ export default function MyProfilePage() {
     );
     const localUser = user.uid;
     switch (true) {
-      case !newLogin:
-        errors.push('Заполните поля ввода');
+      case !newLogin || !password:
+        errors.push('Заполните все поля ввода');
         break;
       case !newLogin.match(validUsername):
         errors.push('Логин должен содержать только латинские буквы, цифры и не начинаться с дефиса или подчеркивания');
@@ -143,11 +144,12 @@ export default function MyProfilePage() {
             const updatedUser = auth.currentUser;
             console.log('Новый email:', updatedUser.email);
             setIsSavingLogin(false);
+            setCurrentUser({ email: updatedUser.email });
             setShowModal(false);
             // Логин успешно обновлен в Firebase Authentication
           })
         }).catch((err) => {
-          errors.push(`Ошибка при обновлении логина: ${err.message}`);
+          errors.push(`Пожалуйста, повторите попытку позже!`);
           console.log(`${err.message}`);
           setIsSavingLogin(false);
           setError(errors.join(', '));
@@ -166,6 +168,23 @@ export default function MyProfilePage() {
       return data;
     });
   }, []);
+  // Получение информации о текущем пользователе при загрузке страницы
+  useEffect(() => {
+    const user = auth.currentUser;
+    if (user) {
+      setCurrentUser({
+        email: user.email,
+      });
+      // Сохранение электронной почты пользователя в локальное хранилище
+      localStorage.setItem('currentUserEmail', user.email);
+    }
+  }, []);
+  useEffect(() => {
+    const userEmailFromStorage = localStorage.getItem('currentUserEmail');
+    if (userEmailFromStorage) {
+      setCurrentUser({ email: userEmailFromStorage });
+    }
+  }, []);
   return (
     <div className={styles.wrapper} onClick={handleClickOutside}>
       <div className={styles.header}>
@@ -178,9 +197,17 @@ export default function MyProfilePage() {
         </div>
       </div>
       <div className={styles.header_bottom}>
-        <span className={styles.header_title}>Мой профиль</span>
-        <span className={styles.header_info}>Логин: LapaBelka</span>
-        <span className={styles.header_info}>Пароль: 123456789</span>
+        <div className={styles.header_bottom}>
+          <span className={styles.header_title}>Мой профиль</span>
+          <div className={styles.header_info}>
+            <span className={styles.header_info_text}>Логин:</span>
+            <span className={styles.header_info_login}>{currentUser?.email}</span>
+          </div>
+          <div className={styles.header_info}>
+            <span className={styles.header_info_text}>Пароль:</span>
+            <span className={styles.header_info_login}>{currentUser?.email}</span>
+          </div>
+        </div>
         <button className={styles.header_button} onClick={handleEditLoginClick} type="submit">Редактировать логин</button>
         {showModal && (
         <form className={styles.modalOverlay}>
