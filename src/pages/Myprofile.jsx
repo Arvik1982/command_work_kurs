@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { reauthenticateWithCredential, EmailAuthProvider, updatePassword, updateEmail } from 'firebase/auth';
 import { auth } from '../firebase_auth';
 import { getAllCourses } from '../api';
-import { clearUserData, setCourseName } from '../store/sliceStore';
+import { setCurrentUser, setCourseName } from '../store/sliceStore';
 import styles from './css/myprofile.module.css';
 import logo from '../img/logo.svg';
 import BlackLogo from '../components/Logo/BlackLogo';
@@ -33,7 +33,7 @@ export default function MyProfilePage() {
   // Функция клика по кнопке "выйти"
   const handleLogout = () => {
     // Очистка данных из состояния хранилища
-    dispatch(clearUserData());
+    dispatch(setCurrentUser());
     // Очистка данных из локального хранилища
     localStorage.removeItem('userUid');
     localStorage.removeItem('currentUserEmail');
