@@ -94,6 +94,9 @@ export default function MyProfilePage() {
             console.log('Ваш пароль обновлен')
             setIsSavingPassword(false);
             setShowModalTwo(false);
+            setCurrentUser({ email: user.email, password: newPassword });
+            localStorage.setItem('userLogin', user.email);
+            localStorage.setItem('userPass', newPassword);
             // Логин успешно обновлен в Firebase Authentication
           })
         }).catch((err) => {
@@ -146,8 +149,10 @@ export default function MyProfilePage() {
             const updatedUser = auth.currentUser;
             console.log('Новый email:', updatedUser.email);
             setIsSavingLogin(false);
-            setCurrentUser({ email: updatedUser.email });
+            setCurrentUser({ email: updatedUser.email, password: password  });
             setShowModal(false);
+            localStorage.setItem('userLogin', user.email);
+            localStorage.setItem('userPass', password);
             // Логин успешно обновлен в Firebase Authentication
           })
         }).catch((err) => {
@@ -178,15 +183,16 @@ export default function MyProfilePage() {
         email: user.email,
       });
       // Сохранение электронной почты пользователя в локальное хранилище
-      localStorage.setItem('currentUserEmail', user.email);
+      localStorage.setItem('userLogin', user.email);
 
       
     }
   }, []);
   useEffect(() => {
-    const userEmailFromStorage = localStorage.getItem('currentUserEmail');
+    const userEmailFromStorage = localStorage.getItem('userLogin');
+    const userPasswordFromStorage = localStorage.getItem('userPass');
     if (userEmailFromStorage) {
-      setCurrentUser({ email: userEmailFromStorage });
+      setCurrentUser({ email: userEmailFromStorage, password: userPasswordFromStorage });
     }
   }, []);
   return (
@@ -197,6 +203,7 @@ export default function MyProfilePage() {
           <Link className={styles.header_links_main}  to="/">На главную</Link>
           <div className={styles.header_profile}>
             <div className={styles.header_links_profile} onClick={handleLogout}>Выйти</div>
+            <span className={styles.header_info_login}>{currentUser?.email}</span>
           </div>
         </div>
       </div>
@@ -209,7 +216,7 @@ export default function MyProfilePage() {
           </div>
           <div className={styles.header_info}>
             <span className={styles.header_info_text}>Пароль:</span>
-            <span className={styles.header_info_login}>{currentUser?.email}</span>
+            <span className={styles.header_info_login}>{currentUser?.password}</span>
           </div>
         </div>
         <button className={styles.header_button} onClick={handleEditLoginClick} type="submit">Редактировать логин</button>
