@@ -14,19 +14,19 @@ const sliceStore = createSlice({
     },
     setCourseName(state, actions) {
       state.courseName = actions.payload
-      console.log(state.courseName)
+      
     },
     setCurrentUser(state, actions) {
       state.currentUserUid = actions.payload
-      console.log(state.currentUserUid)
+     
     },
     setTrainingsArray(state, actions) {
       state.trainingsArray = actions.payload
-      console.log(state.trainingsArray)
+      
     },
     setConnectionError(state, actions) {
       state.connectionError = actions.payload
-      console.log(state.connectionError)
+      
     },
   },
 })

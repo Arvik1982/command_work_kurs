@@ -14,6 +14,8 @@ import body from '../img/img_profile/bodyflex_profile.png';
 import styleBody from '../styleBody';
 
 export default function MyProfilePage() {
+  // const userLocalLogin = localStorage.getItem('userLogin')
+  // const userLocalPass = localStorage.getItem('userPass')
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // Стейт для отображения модального окна №1
@@ -33,7 +35,7 @@ export default function MyProfilePage() {
   // Функция клика по кнопке "выйти"
   const handleLogout = () => {
     // Очистка данных из состояния хранилища
-    dispatch(setCurrentUser());
+    // dispatch(setCurrentUser(null));
     // Очистка данных из локального хранилища
     localStorage.removeItem('userUid');
     localStorage.removeItem('currentUserEmail');
@@ -177,6 +179,8 @@ export default function MyProfilePage() {
       });
       // Сохранение электронной почты пользователя в локальное хранилище
       localStorage.setItem('currentUserEmail', user.email);
+
+      
     }
   }, []);
   useEffect(() => {

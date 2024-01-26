@@ -6,7 +6,10 @@ import styles from './header.module.css'
 
 
 export default function MainHeader() {
-    const userUid = useSelector(state=>state.store.currentUserUid)
+  // const userUid = useSelector(state=>state.store.currentUserUid)
+  const userUid = localStorage.getItem('userUid')
+  const userLocalLogin = localStorage.getItem('userLogin')
+
 return(
 <header className={styles.main__header}>
 <div className={styles.main__header_left}>
@@ -19,11 +22,22 @@ return(
   </h2>
   </div>
 <div className={styles.main__header_right}>
+
+<div className={styles.header__buttons_nav}>
+
+<Link className={!userUid?styles.display:''} to="/profile">
+  <div className={styles.button__user}>
+    <button className={styles.header__button_user} type="button" />
+    <h2>{userLocalLogin}</h2> 
+  </div>  
+</Link>
+  
   <Link to="/auth">
-    <button type="button" className={styles.main__header_button}>
+    <button type="button" className={userUid?styles.display:styles.main__header_button}>
       {userUid?"Выйти":"Вoйти"}
     </button>
   </Link>
+</div>
   <img className={styles.main__header_sale} src={sale} alt="sale" />
 </div>
 </header>

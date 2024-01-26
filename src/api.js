@@ -9,7 +9,7 @@ export async function getAllCourses() {
     throw new Error('Ошибка сервера')
   }
   const newData = await response.json()
-  console.log(newData)
+  
   return newData
 }
 export async function getAllUsers() {
@@ -24,6 +24,6 @@ export async function getAllUsers() {
     throw new Error('Ошибка сервера')
   }
   const newData = await response.json()
-  console.log(newData)
+  
   return newData
 }
