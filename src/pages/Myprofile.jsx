@@ -62,38 +62,43 @@ export default function MyProfilePage() {
   };
   // Сохранение пароля (АПИ)
   const handleSavePasswordClick = () => {
-    const newPassword = document.getElementById('password').value;
+    const password = document.getElementById('password').value;
+    const newPassword = document.getElementById('newpassword').value;
     const repeatPassword = document.getElementById('repeatPassword').value;
     const user = auth.currentUser;
-    const accessToken = user.stsTokenManager.accessToken;
-    console.log(accessToken) // токен
-    console.log(user) // пользователь
+    const email = user.email;
     const errors = [];
-    if (!newPassword.length || !repeatPassword.length) {
+    const cred = EmailAuthProvider.credential(
+      email,
+      password
+    );
+    switch(true) {
+      case(!newPassword.length || !repeatPassword.length):
       errors.push('Заполните поля ввода');
-    } else if (newPassword.length < 6 || repeatPassword.length < 6) {
+      break;
+      case(newPassword.length < 6 || repeatPassword.length < 6):
       errors.push('Слишком короткий пароль');
-    } else if (newPassword !== repeatPassword) {
+      break;
+      case(newPassword !== repeatPassword):
       errors.push('Ваши пароли не совпадают');
-    } else {
-      setError('');
-      setIsSavingPassword(true);
-      if (user) {
-        reauthenticateWithCredential(EmailAuthProvider.credential(user.email))
-        .then(() => {
-          return updatePassword(user, newPassword);
-        })
-        .then(() => {
-          setShowModalTwo(false);
-          setIsSavingPassword(false);
-        })
-        .catch((err) => {
+      break;
+      default:
+        setError('');
+        setIsSavingPassword(true);
+        reauthenticateWithCredential(user, cred).then(() => {
+          console.log('Вы вошли в систему')
+          updatePassword(user, newPassword).then(() => {
+            console.log('Ваш пароль обновлен')
+            setIsSavingPassword(false);
+            setShowModalTwo(false);
+            // Логин успешно обновлен в Firebase Authentication
+          })
+        }).catch((err) => {
           errors.push(`Ошибка при обновлении пароля: ${err.message}`);
-          console.log(`${err.message}`)
+          console.log(`${err.message}`);
           setIsSavingPassword(false);
           setError(errors.join(', '));
-        });
-      }
+        });  
     }
     if (errors.length > 0) {
       setError(errors.join(', '));
@@ -111,10 +116,7 @@ export default function MyProfilePage() {
       email,
       password
     );
-    console.log(email)
-    console.log(user)
-    console.log(password)
-    console.log(newLogin)
+    const localUser = user.uid;
     switch (true) {
       case !newLogin:
         errors.push('Заполните поля ввода');
@@ -126,9 +128,18 @@ export default function MyProfilePage() {
         // Сбрасываем ошибки, если они были ранее
         setError('');
         setIsSavingLogin(true);
-        reauthenticateWithCredential(user, cred).then(() => {
+        reauthenticateWithCredential(user, cred)
+        .then(() => {
           console.log('Вы вошли в систему')
-          updateEmail(user, newLogin).then(() => {
+          updateEmail(user, newLogin)
+          .then(() => {
+            fetch (`https://fitness-pro-5a801-default-rtdb.europe-west1.firebasedatabase.app/users/${localUser}.json`, {
+              method: 'PATCH',
+              headers: {
+                'Content-type': 'application/json',
+              },
+              body: JSON.stringify({email: newLogin, username: newLogin}),
+            })
             const updatedUser = auth.currentUser;
             console.log('Новый email:', updatedUser.email);
             setIsSavingLogin(false);
@@ -215,7 +226,7 @@ export default function MyProfilePage() {
                 <input className={styles.main_form} type="password" id="password" name="password" placeholder="Введите пароль" />
                 <span className={styles.main_text}>Новый пароль:</span>
                 <input className={styles.main_form} type="text" id="newpassword" name="username" placeholder="Введите новый пароль" />
-                <input className={styles.main_form} type="text" id="repeatPassword" name="username" placeholder="Повторите пароль" />
+                <input className={styles.main_form} type="text" id="repeatPassword" name="repeatPassword" placeholder="Повторите пароль" />
                 <div
                   className={styles.main_criterion}
                 >
