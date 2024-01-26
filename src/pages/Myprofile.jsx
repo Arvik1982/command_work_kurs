@@ -12,6 +12,9 @@ import yoga from '../img/img_profile/yoga_profile.png';
 import stretch from '../img/img_profile/stretch_profile.png';
 import body from '../img/img_profile/bodyflex_profile.png';
 import styleBody from '../styleBody';
+import profile from '../img/img_profile/user.png';
+import open from '../img/img_profile/bot.png';
+import close from '../img/img_profile/top.png';
 
 export default function MyProfilePage() {
   // const userLocalLogin = localStorage.getItem('userLogin')
@@ -32,6 +35,8 @@ export default function MyProfilePage() {
   const [isSavingLogin, setIsSavingLogin] = useState(false);
    // Стейт для хранения информации о текущем пользователе
   const [currentUser, setCurrentUser] = useState(null);
+  // Стейт для бургер-меню
+  const [isOpen, setIsOpen] = useState(false);
   // Функция клика по кнопке "выйти"
   const handleLogout = () => {
     // Очистка данных из состояния хранилища
@@ -184,8 +189,6 @@ export default function MyProfilePage() {
       });
       // Сохранение электронной почты пользователя в локальное хранилище
       localStorage.setItem('userLogin', user.email);
-
-      
     }
   }, []);
   useEffect(() => {
@@ -195,16 +198,26 @@ export default function MyProfilePage() {
       setCurrentUser({ email: userEmailFromStorage, password: userPasswordFromStorage });
     }
   }, []);
+  // Бургер меню
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div className={styles.wrapper} onClick={handleClickOutside}>
       <div className={styles.header}>
         <BlackLogo route="/profile" />
-        <div className={styles.header_links}>
-          <Link className={styles.header_links_main}  to="/">На главную</Link>
-          <div className={styles.header_profile}>
-            <div className={styles.header_links_profile} onClick={handleLogout}>Выйти</div>
-            <span className={styles.header_info_login}>{currentUser?.email}</span>
+        <div className={styles.header_links}  style={{ position: 'relative' }}>
+          <div className={styles.header_profile} onClick={toggleMenu}>
+            <img src={profile} className={styles.header_photo}/>
+            <span>{currentUser?.email}</span>
+            <img src={isOpen ? close : open} className={styles.header_burger_open}/>
           </div>
+          {isOpen && (
+            <div className={styles.dropdownMenu} style={{ position: 'absolute', top: 90, right: 0 }}>
+              <Link className={styles.header_links_main}  to="/">На главную</Link>
+              <div className={styles.header_links_main} onClick={handleLogout}>Выйти</div>
+            </div>
+          )}
         </div>
       </div>
       <div className={styles.header_bottom}>

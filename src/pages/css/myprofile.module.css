@@ -23,29 +23,20 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
-}
-.header_links_main{
-    padding: 15px;
-    border: 1px solid transparent;
-    border-radius: 40px;
-    background-color: #580ea2c4;
-    color: #fafafa;
-    font-size: 20px;
-    transition: all .3s;
-}
-.header_links_profile {
-    cursor: pointer;
-    padding: 15px;
-    border: 2px solid #580ea2c4;
-    border-radius: 40px;
-    color: #580ea2c4;
-    font-size: 20px;
     transition: all .3s;
 }
 .header_profile {
+    padding: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: auto;
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid transparent;
+    border-radius: 35px;
+    background-color: #c7e957b3;
 }
 .header_photo {
     width: 60px;
@@ -75,6 +66,15 @@
 }
 .header_info_text {
     width: 90px;
+}
+.header_photo {
+    width: 50px;
+    height: 50px;
+}
+.header_burger_open {
+   margin-left: 5px;
+    width: 20px;
+    height: 20px;
 }
 .header_info_login {
     padding: 15px;
@@ -119,6 +119,29 @@
     display: inline-block;
     font-size: 20px;
     cursor: pointer;
+    transition: all .3s;
+}
+/* Бургер меню */
+.dropdownMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 5px;
+    width: 200px;
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    background-color: #c7e957b3;
+}
+.header_links_main{
+    cursor: pointer;
+    width: 150px;
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    color: #121212;
+    font-size: 20px;
     transition: all .3s;
 }
 
@@ -228,24 +251,13 @@
 
 /* Наведение */
 .header_links_main:hover {
-    background-color: #3F007D;
-    border: 1px solid #3F007D;
+    border: 1px solid #161616;
+    border-radius: 30px;
 }
 .header_links_main:active {
     transform: scale(0.95);
-    background-color: #271A58;
-    border: 1px solid #271A58;
-}
-.header_links_profile:hover {
-    background-color: #271A58;
-    border: 2px solid transparent;
-    color: #fafafa;
-}
-.header_links_profile:active {
-    transform: scale(0.95);
-    background-color: #271A58;
-    border: 2px solid transparent;
-    color: #fafafa;
+    border: 1px solid #161616;
+    border-radius: 30px;
 }
 .header_button:hover {
     background-color: #3F007D;
