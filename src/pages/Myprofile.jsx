@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { reauthenticateWithCredential, EmailAuthProvider, updatePassword, updateEmail } from 'firebase/auth';
 import { auth } from '../firebase_auth';
 import { getAllCourses } from '../api';
-import { setCurrentUser, setCourseName } from '../store/sliceStore';
+import { setCourseName } from '../store/sliceStore';
 import styles from './css/myprofile.module.css';
 import logo from '../img/logo.svg';
 import BlackLogo from '../components/Logo/BlackLogo';
@@ -12,6 +12,9 @@ import yoga from '../img/img_profile/yoga_profile.png';
 import stretch from '../img/img_profile/stretch_profile.png';
 import body from '../img/img_profile/bodyflex_profile.png';
 import styleBody from '../styleBody';
+import profile from '../img/img_profile/user.png';
+import open from '../img/img_profile/bot.png';
+import close from '../img/img_profile/top.png';
 
 export default function MyProfilePage() {
   // const userLocalLogin = localStorage.getItem('userLogin')
@@ -32,6 +35,8 @@ export default function MyProfilePage() {
   const [isSavingLogin, setIsSavingLogin] = useState(false);
    // Стейт для хранения информации о текущем пользователе
   const [currentUser, setCurrentUser] = useState(null);
+  // Стейт для бургер-меню
+  const [isOpen, setIsOpen] = useState(false);
   // Функция клика по кнопке "выйти"
   const handleLogout = () => {
     // Очистка данных из состояния хранилища
@@ -68,6 +73,7 @@ export default function MyProfilePage() {
     const password = document.getElementById('password').value;
     const newPassword = document.getElementById('newpassword').value;
     const repeatPassword = document.getElementById('repeatPassword').value;
+    const storedPassword = localStorage.getItem('userPass');
     const user = auth.currentUser;
     const email = user.email;
     const errors = [];
@@ -76,6 +82,9 @@ export default function MyProfilePage() {
       password
     );
     switch(true) {
+      case password !== storedPassword:
+        errors.push('Неверный пароль!');
+        break;
       case(!newPassword.length || !repeatPassword.length || !password):
       errors.push('Заполните все поля ввода');
       break;
@@ -94,7 +103,24 @@ export default function MyProfilePage() {
             console.log('Ваш пароль обновлен')
             setIsSavingPassword(false);
             setShowModalTwo(false);
+            setCurrentUser({ email: user.email, password: newPassword });
+            localStorage.setItem('userLogin', user.email);
+            localStorage.setItem('userPass', newPassword);
             // Логин успешно обновлен в Firebase Authentication
+          }).catch((err) => {
+            if (err.response.status === 400) {
+              errors.push('Ошибка 400: Неверный запрос');
+              return;
+            } else if (err.response.status === 404) {
+              errors.push('Ошибка 404: Ресурс не найден');
+              return;
+            } else if (err.response.status === 500) {
+              errors.push('Ошибка 500: Внутренняя ошибка сервера');
+              return;
+            } else {
+              errors.push(`Необработанная ошибка: ${err.message}`);
+              return;
+            }
           })
         }).catch((err) => {
           errors.push(`Пожалуйста, повторите попытку позже!`);
@@ -114,6 +140,7 @@ export default function MyProfilePage() {
     const user = auth.currentUser;
     const email = user.email;
     const password = document.getElementById('password').value;
+    const storedPassword = localStorage.getItem('userPass');
     const errors = [];
     const cred = EmailAuthProvider.credential(
       email,
@@ -121,6 +148,9 @@ export default function MyProfilePage() {
     );
     const localUser = user.uid;
     switch (true) {
+      case password !== storedPassword:
+        errors.push('Неверный пароль!');
+        break;
       case !newLogin || !password:
         errors.push('Заполните все поля ввода');
         break;
@@ -131,31 +161,33 @@ export default function MyProfilePage() {
         // Сбрасываем ошибки, если они были ранее
         setError('');
         setIsSavingLogin(true);
-        reauthenticateWithCredential(user, cred)
-        .then(() => {
-          console.log('Вы вошли в систему')
-          updateEmail(user, newLogin)
-          .then(() => {
-            fetch (`https://fitness-pro-5a801-default-rtdb.europe-west1.firebasedatabase.app/users/${localUser}.json`, {
-              method: 'PATCH',
-              headers: {
-                'Content-type': 'application/json',
-              },
-              body: JSON.stringify({email: newLogin, username: newLogin}),
-            })
-            const updatedUser = auth.currentUser;
-            console.log('Новый email:', updatedUser.email);
-            setIsSavingLogin(false);
-            setCurrentUser({ email: updatedUser.email });
-            setShowModal(false);
-            // Логин успешно обновлен в Firebase Authentication
-          })
+        reauthenticateWithCredential(user, cred).then(() => {
+          console.log('Вы вошли в систему');
+          return updateEmail(user, newLogin);
+        }).then(() => {
+          return fetch(`https://fitness-pro-5a801-default-rtdb.europe-west1.firebasedatabase.app/users/${localUser}.json`, {
+            method: 'PATCH',
+            headers: {
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify({ email: newLogin, username: newLogin }),
+          });
+        }).then(() => {
+          const updatedUser = auth.currentUser;
+          console.log('Новый email:', updatedUser.email);
+          setIsSavingLogin(false);
+          setCurrentUser({ email: updatedUser.email, password: password });
+          setShowModal(false);
+          localStorage.setItem('userLogin', user.email);
+          localStorage.setItem('userPass', password);
         }).catch((err) => {
-          errors.push(`Пожалуйста, повторите попытку позже!`);
+          if (err.message !== 'Server error') {
+            errors.push(`Неверные данные!`);
+          }
           console.log(`${err.message}`);
           setIsSavingLogin(false);
           setError(errors.join(', '));
-        });   
+        });
       }
     if (errors.length > 0) {
       setError(errors.join(', '));
@@ -178,26 +210,36 @@ export default function MyProfilePage() {
         email: user.email,
       });
       // Сохранение электронной почты пользователя в локальное хранилище
-      localStorage.setItem('currentUserEmail', user.email);
-
-      
+      localStorage.setItem('userLogin', user.email);
     }
   }, []);
   useEffect(() => {
-    const userEmailFromStorage = localStorage.getItem('currentUserEmail');
+    const userEmailFromStorage = localStorage.getItem('userLogin');
+    const userPasswordFromStorage = localStorage.getItem('userPass');
     if (userEmailFromStorage) {
-      setCurrentUser({ email: userEmailFromStorage });
+      setCurrentUser({ email: userEmailFromStorage, password: userPasswordFromStorage });
     }
   }, []);
+  // Бургер меню
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div className={styles.wrapper} onClick={handleClickOutside}>
       <div className={styles.header}>
         <BlackLogo route="/profile" />
-        <div className={styles.header_links}>
-          <Link className={styles.header_links_main}  to="/">На главную</Link>
-          <div className={styles.header_profile}>
-            <div className={styles.header_links_profile} onClick={handleLogout}>Выйти</div>
+        <div className={styles.header_links}  style={{ position: 'relative' }}>
+          <div className={styles.header_profile} onClick={toggleMenu}>
+            <img src={profile} className={styles.header_photo}/>
+            <span>{currentUser?.email}</span>
+            <img src={isOpen ? close : open} className={styles.header_burger_open}/>
           </div>
+          {isOpen && (
+            <div className={styles.dropdownMenu} style={{ position: 'absolute', top: 90, right: 0 }}>
+              <Link className={styles.header_links_main}  to="/">На главную</Link>
+              <div className={styles.header_links_main} onClick={handleLogout}>Выйти</div>
+            </div>
+          )}
         </div>
       </div>
       <div className={styles.header_bottom}>
@@ -209,7 +251,7 @@ export default function MyProfilePage() {
           </div>
           <div className={styles.header_info}>
             <span className={styles.header_info_text}>Пароль:</span>
-            <span className={styles.header_info_login}>{currentUser?.email}</span>
+            <span className={styles.header_info_login}>{currentUser?.password}</span>
           </div>
         </div>
         <button className={styles.header_button} onClick={handleEditLoginClick} type="submit">Редактировать логин</button>
