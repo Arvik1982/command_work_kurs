@@ -15,6 +15,8 @@ import styleBody from '../styleBody';
 import profile from '../img/img_profile/user.png';
 import open from '../img/img_profile/bot.png';
 import close from '../img/img_profile/top.png';
+import done from '../img/img_profile/Done.png';
+import Modal from '../components/Modal';
 
 export default function MyProfilePage() {
   // const userLocalLogin = localStorage.getItem('userLogin')
@@ -37,6 +39,10 @@ export default function MyProfilePage() {
   const [currentUser, setCurrentUser] = useState(null);
   // Стейт для бургер-меню
   const [isOpen, setIsOpen] = useState(false);
+  // Стейт для кнопки "Перейти"
+  const [isOpenModalNext, setIsOpenModalNext] = useState(false);
+  // Стейт для передачи названия курса
+  const [selectedTraining, setSelectedTraining] = useState(null);
   // Функция клика по кнопке "выйти"
   const handleLogout = () => {
     // Очистка данных из состояния хранилища
@@ -46,6 +52,15 @@ export default function MyProfilePage() {
     localStorage.removeItem('currentUserEmail');
     // Редирект на страницу авторизации
     navigate('/auth');
+  };
+  // Функция клика по кнопке "Перейти"
+  const handleToTraining = (trainingType) => {
+    setSelectedTraining(trainingType);
+    setIsOpenModalNext(true);
+  };
+  // Функция для 
+  const handleModalClickThree = () => {
+    setIsOpenModalNext(false);
   };
   // Функция клика по кнопке "Смена логина"
   const handleEditLoginClick = () => {
@@ -63,9 +78,10 @@ export default function MyProfilePage() {
   };
   // Функция для закрытия модального окна
   const handleClickOutside = (event) => {
-    if ((showModal || showModalTwo) && !event.target.closest(`.${styles.modal}`)) {
+    if ((showModal || showModalTwo ||isOpenModalNext) && !event.target.closest(`.${styles.modal}`)) {
       setShowModal(false);
       setShowModalTwo(false);
+      setIsOpenModalNext(false);
     }
   };
   // Сохранение пароля (АПИ) обновляется в БД
@@ -237,6 +253,7 @@ export default function MyProfilePage() {
           {isOpen && (
             <div className={styles.dropdownMenu} style={{ position: 'absolute', top: 90, right: 0 }}>
               <Link className={styles.header_links_main}  to="/">На главную</Link>
+              <Link className={styles.header_links_main}  to="/profile">Профиль</Link>
               <div className={styles.header_links_main} onClick={handleLogout}>Выйти</div>
             </div>
           )}
@@ -343,12 +360,14 @@ export default function MyProfilePage() {
                     }
                     alt="img"
                   />
-                  <Link to={`/description/${e.nameEN}`} className={styles.main_button}>Перейти →</Link>
+                  {/* <Link to={`/description/${e.nameEN}`} className={styles.main_button}>Перейти →</Link> */}
+                  <div className={styles.main_button} onClick={() => handleToTraining(e.nameEN)}>Перейти →</div>
                 </div>
               </div>
             </div>
           );
         })}
+        <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} selectedTraining={selectedTraining} />
       </div>
     </div>
   );
