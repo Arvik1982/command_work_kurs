@@ -12,7 +12,7 @@ import body from '../../img/img_main/body_main_png.png'
 import { setCourseName } from '../../store/sliceStore'
 
 export default function MainCourses() {
-const courseName='Yoga'
+    const courseName='Yoga'
     const dispatch = useDispatch()
     const trainingsArray = useSelector(state=>state.store.trainingsArray)
     const error= useSelector(state=>state.store.connectionError)

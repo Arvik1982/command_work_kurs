@@ -13,10 +13,11 @@ import { ProtectedRoute } from './components/Protected/Index'
 export default function AppRoutes() {
   // const user = useSelector(state=>state.store.currentUserUid)
   const user = localStorage.getItem('userUid')
+  console.log(localStorage.getItem('userName'))
+  
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />
-      
       <Route path="/auth" element={<AuthorizationPage />} />
       <Route path="/change_password" element={<ChangePasswordPage />} />
       <Route path="/description/:id" element={<DescriptionPage />} />

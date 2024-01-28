@@ -26,13 +26,13 @@ export default function SignUpIn() {
   const [pass2, setPass2] = useState('')
   const [error, setError] = useState(null)
   const [buttonDisabled, setButtonDisabled] = useState(false)
-  const [placeholderLogin, setPlaseholderLogin] = useState('Логин')
+  const [placeholderLogin, setPlaseholderLogin] = useState('Логин: mail@email.com')
   const navigate = useNavigate()
 const errTextLogin ='Firebase: Error (auth/invalid-email).'
 const errTextNoUser ='Firebase: Error (auth/user-not-found).'
 const errTextNoPass ='Firebase: Error (auth/missing-password).'
 const errTextPassLenght='Firebase: Password should be at least 6 characters (auth/weak-password).'
-  
+const wrongPass='Firebase: Error (auth/wrong-password).'  
 useEffect(() => {
        styleBody('#271A58')
   }, [])
@@ -61,9 +61,7 @@ useEffect(() => {
         dispatch(setCurrentUser(currentUserUid))
         localStorage.setItem('userUid', currentUserUid)
         
-        // refresh = localStorage.getItem('refresh')
-        navigate('/profile', { replace: true })
-      })
+      }).then(()=>{navigate('/profile', { replace: true })})
       .catch((newError) => {
         setError(newError.message)
       })
@@ -148,7 +146,7 @@ useEffect(() => {
           }}
           className={styles.page_input}
           type="text"
-          placeholder="Пароль"
+          placeholder="Пароль (не менее 6 символов)"
         />
         <div 
           className={
@@ -170,7 +168,11 @@ useEffect(() => {
       <div className={error === null ? styles.element__visibility : ''}>
         <div className={styles.error}>{error
         ===errTextLogin?'Формат логина не соответствует email mail@email.com':
-        error===errTextNoUser?'Пользователь с таким логином не найден':error===errTextNoPass?'Введите пароль':error===errTextPassLenght?'Пароль должен быть не меньше 6 символов':error}</div>
+        error===errTextNoUser?'Пользователь с таким логином не найден':
+        error===errTextNoPass?'Введите пароль':
+        error===errTextPassLenght?'Пароль должен быть не меньше 6 символов':
+        error===wrongPass?'Неверный пароль':
+        error}</div>
       </div>
       <div className={styles.authorization__page_buttons}>
         <div
