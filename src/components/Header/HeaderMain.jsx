@@ -6,7 +6,9 @@ import styles from './header.module.css'
 
 
 export default function MainHeader() {
-    const userUid = useSelector(state=>state.store.currentUserUid)
+    const userUid = localStorage.getItem('userName')
+    // useSelector(state=>state.store.currentUserUid)
+
 return(
 <header className={styles.main__header}>
 <div className={styles.main__header_left}>

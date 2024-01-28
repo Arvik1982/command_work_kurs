@@ -26,7 +26,7 @@ export default function SignUpIn() {
   const [pass2, setPass2] = useState('')
   const [error, setError] = useState(null)
   const [buttonDisabled, setButtonDisabled] = useState(false)
-  const [placeholderLogin, setPlaseholderLogin] = useState('Логин')
+  const [placeholderLogin, setPlaseholderLogin] = useState('Логин: mail@email.com')
   const navigate = useNavigate()
 const errTextLogin ='Firebase: Error (auth/invalid-email).'
 const errTextNoUser ='Firebase: Error (auth/user-not-found).'
@@ -146,7 +146,7 @@ useEffect(() => {
           }}
           className={styles.page_input}
           type="text"
-          placeholder="Пароль"
+          placeholder="Пароль (не менее 6 символов)"
         />
         <div 
           className={
