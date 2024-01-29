@@ -15,7 +15,7 @@ import styles from './css/ioga.module.css';
 
 
 export default function DescriptionPage() {
-
+    const userIsRegistered = useSelector(state => state.store.trainingsArray);
     const courseId = useParams();
     const courses = useSelector(state => state.store.trainingsArray);
     const courseData = courses.find(course => course.nameEN === courseId.id);
@@ -53,10 +53,16 @@ export default function DescriptionPage() {
                 <img src={info_button} alt="info_button" />
                 </h2>
                 <div className={styles.button}>
+                {userIsRegistered ? (
+                    <Link to="/MyProfilePage" className={styles.button_text}>
+                        Начать тренировку
+                    </Link>
+                ) : (
                     <Link to="/SignUpIn" className={styles.button_text}>
                         Записаться на тренировку
                     </Link>
-                </div>
+                )}
+            </div>
                 <div className={styles.info_image}>
                     <img src={buttonImage} alt="buttonImage" />
                 </div>
