@@ -28,6 +28,7 @@
     margin-bottom: 75px;
     width: 1160px;
     height: 310px;
+    
   }
   
   .center_text{
@@ -109,6 +110,7 @@
   }
   
   .button{
+    padding-top: 12px;
     margin-top: 34px;
     width: 275px;
     height: 52px;
@@ -119,7 +121,7 @@
   
   .button_text{
   padding-left: 24px;
-  padding-top: 12px;
+  padding-top: 12px ;
   font-size: 18px;
   border: none;
   background: none;
