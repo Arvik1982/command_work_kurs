@@ -9,8 +9,10 @@ import purposes from '../img/Group 48096488.png';
 import iogaNaw from '../img/iogaNaw.png';
 import iogaNew from '../img/iogaNew.png';
 import info from '../img/info.png';
+import info_button from '../img/info_button.svg'
 import buttonImage from '../img/Group 48096487.svg';
 import styles from './css/ioga.module.css';
+
 
 export default function DescriptionPage() {
 
@@ -28,7 +30,7 @@ export default function DescriptionPage() {
                 <BlackLogo />
             </div>
             <div className={styles.course__page_image}>
-                <img src={courseData.image} alt="courseimage" />
+                <img src={courseImg} alt="courseimage" />
             </div>
             <div className={styles.center_text}>
                 <h2>Подойдет для вас, если:</h2>
@@ -39,8 +41,8 @@ export default function DescriptionPage() {
             <div className={styles.course__directions_text}>
                 <h2>Направления</h2>
                 <div className={styles.course__directions_image}>
-                    <img src={courseData.directions[0].image} alt="iogaNaw" />
-                    <img src={courseData.directions[1].image} alt="iogaNew" />
+                    <img src={iogaNaw} alt="iogaNaw" />
+                    <img src={iogaNew} alt="iogaNew" />
                 </div>
             </div>
             <div className={styles.course__directions_info}>
@@ -48,7 +50,7 @@ export default function DescriptionPage() {
             </div>
             <div className={styles.info_block}>
                 <h2 className={styles.info_text}>
-                    {courseData.description}
+                <img src={info_button} alt="info_button" />
                 </h2>
                 <div className={styles.button}>
                     <Link to="/SignUpIn" className={styles.button_text}>
