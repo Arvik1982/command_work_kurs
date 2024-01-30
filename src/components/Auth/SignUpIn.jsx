@@ -41,14 +41,14 @@ useEffect(() => {
     setButtonDisabled(true)
   }
 
-  function writeUserData(userId, name, email, imageUrl, id, courses) {
+  function writeUserData(userId, name, email, imageUrl, id, progress) {
     const db = getDatabase()
     set(ref(db, 'users/' + userId), {
       username: name,
       email: email,
       profile_picture: imageUrl,
       id: id,
-      courses:courses,
+      progress:progress,
     })
   }
 
@@ -97,17 +97,18 @@ useEffect(() => {
 
       .then((responseNewUser) => {
         let id = []
-        let courses =[]
+        let progress =[]
         getAllUsers()
           .then((data) => {
             id = [...Object.values(data)]
-            courses =[0]
+            progress ={yoga:'',stratch:'', step:'',body:'',dance:''}
             const uid = responseNewUser[0].uid
             const userId = uid
             const imageUrl = ''
             const name = responseNewUser[0].email
             const email = responseNewUser[0].email
-            writeUserData(userId, name, email, imageUrl, id.length,courses)
+
+            writeUserData(userId, name, email, imageUrl, id.length,progress)
             navigate('/profile', { replace: true })
             return id
           })
