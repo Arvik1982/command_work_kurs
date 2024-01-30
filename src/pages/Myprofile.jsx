@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { reauthenticateWithCredential, EmailAuthProvider, updatePassword, updateEmail } from 'firebase/auth';
 import { auth } from '../firebase_auth';
 import { getAllCourses } from '../api';
@@ -12,17 +11,13 @@ import yoga from '../img/img_profile/yoga_profile.png';
 import stretch from '../img/img_profile/stretch_profile.png';
 import body from '../img/img_profile/bodyflex_profile.png';
 import styleBody from '../styleBody';
-import profile from '../img/img_profile/user.png';
-import open from '../img/img_profile/bot.png';
-import close from '../img/img_profile/top.png';
-import done from '../img/img_profile/Done.png';
 import Modal from '../components/Modal';
+import Burger from '../components/Burger';
 
 export default function MyProfilePage() {
   // const userLocalLogin = localStorage.getItem('userLogin')
   // const userLocalPass = localStorage.getItem('userPass')
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   // Стейт для отображения модального окна №1
   const [showModal, setShowModal] = useState(false);
   // Стейт для отображения модального окна №2
@@ -37,30 +32,14 @@ export default function MyProfilePage() {
   const [isSavingLogin, setIsSavingLogin] = useState(false);
    // Стейт для хранения информации о текущем пользователе
   const [currentUser, setCurrentUser] = useState(null);
-  // Стейт для бургер-меню
-  const [isOpen, setIsOpen] = useState(false);
   // Стейт для кнопки "Перейти"
   const [isOpenModalNext, setIsOpenModalNext] = useState(false);
   // Стейт для передачи названия курса
   const [selectedTraining, setSelectedTraining] = useState(null);
-  // Функция клика по кнопке "выйти"
-  const handleLogout = () => {
-    // Очистка данных из состояния хранилища
-    // dispatch(setCurrentUser(null));
-    // Очистка данных из локального хранилища
-    localStorage.removeItem('userUid');
-    localStorage.removeItem('currentUserEmail');
-    // Редирект на страницу авторизации
-    navigate('/auth');
-  };
   // Функция клика по кнопке "Перейти"
   const handleToTraining = (trainingType) => {
     setSelectedTraining(trainingType);
     setIsOpenModalNext(true);
-  };
-  // Функция для 
-  const handleModalClickThree = () => {
-    setIsOpenModalNext(false);
   };
   // Функция клика по кнопке "Смена логина"
   const handleEditLoginClick = () => {
@@ -236,28 +215,12 @@ export default function MyProfilePage() {
       setCurrentUser({ email: userEmailFromStorage, password: userPasswordFromStorage });
     }
   }, []);
-  // Бургер меню
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+
   return (
     <div className={styles.wrapper} onClick={handleClickOutside}>
       <div className={styles.header}>
         <BlackLogo route="/profile" />
-        <div className={styles.header_links}  style={{ position: 'relative' }}>
-          <div className={styles.header_profile} onClick={toggleMenu}>
-            <img src={profile} className={styles.header_photo}/>
-            <span>{currentUser?.email}</span>
-            <img src={isOpen ? close : open} className={styles.header_burger_open}/>
-          </div>
-          {isOpen && (
-            <div className={styles.dropdownMenu} style={{ position: 'absolute', top: 90, right: 0 }}>
-              <Link className={styles.header_links_main}  to="/">На главную</Link>
-              <Link className={styles.header_links_main}  to="/profile">Профиль</Link>
-              <div className={styles.header_links_main} onClick={handleLogout}>Выйти</div>
-            </div>
-          )}
-        </div>
+        <Burger currentUser={currentUser} />
       </div>
       <div className={styles.header_bottom}>
         <div className={styles.header_bottom}>
