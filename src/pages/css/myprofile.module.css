@@ -18,31 +18,6 @@
     font-size: 24px;
     padding-bottom: 52px;
 }
-.header_links {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    transition: all .3s;
-}
-.header_profile {
-    padding: 10px;
-    padding-right: 15px;
-    padding-left: 15px;
-    width: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    border: 1px solid transparent;
-    border-radius: 35px;
-    background-color: #c7e957b3;
-}
-.header_photo {
-    width: 60px;
-    height: 60px;
-    border-radius: 50px;
-}
 .header_bottom {
     display: flex;
     flex-direction: column;
@@ -70,11 +45,6 @@
 .header_photo {
     width: 50px;
     height: 50px;
-}
-.header_burger_open {
-   margin-left: 5px;
-    width: 20px;
-    height: 20px;
 }
 .header_info_login {
     padding: 15px;
@@ -324,15 +294,6 @@
 
 
 /* Наведение */
-.header_links_main:hover {
-    border: 1px solid #161616;
-    border-radius: 30px;
-}
-.header_links_main:active {
-    transform: scale(0.95);
-    border: 1px solid #161616;
-    border-radius: 30px;
-}
 .header_button:hover {
     background-color: #3F007D;
     border: 1px solid #3F007D;
