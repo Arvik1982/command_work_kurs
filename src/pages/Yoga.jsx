@@ -28,6 +28,7 @@ export default function DescriptionPage() {
         <div className={styles.course__page}>
             <div className={styles.course__page_logo}>
                 <BlackLogo />
+                <Burger currentUser={currentUser} />
             </div>
             <div className={styles.course__page_image}>
                 <img src={courseImg} alt="courseimage" />
