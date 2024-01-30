@@ -16,7 +16,6 @@ import styles from './css/ioga.module.css';
 
 export default function DescriptionPage() {
     const userIsRegistered = localStorage.getItem('userUid')
-    // примерно так вот как то так 
     const courseId = useParams();
     const courses = useSelector(state => state.store.trainingsArray);
     const courseData = courses.find(course => course.nameEN === courseId.id);
