@@ -6,8 +6,7 @@ import AuthorizationPage from './pages/Authorization'
 import DescriptionPage from './pages/Yoga'
 import ChangePasswordPage from './pages/ChangePassword'
 import VideoPage from "./pages/VideoPage";
-import TestPage from './pages/TestPage'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 import { ProtectedRoute } from './components/Protected/Index'
 
 export default function AppRoutes() {
@@ -23,7 +22,7 @@ export default function AppRoutes() {
       <Route path="/description/:id" element={<DescriptionPage />} />
       <Route path="*" element={<ErrPage />} />
       <Route path="/workout/video" element={<VideoPage/>} />
-      <Route path="/test" element={<TestPage/>} />
+      
 {/*доступ только залогиненым*/}
       <Route element ={<ProtectedRoute isAllowed={Boolean(user)}/>}>
       <Route path="/profile" element={<MyProfilePage />} />
