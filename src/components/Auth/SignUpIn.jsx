@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
-  
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  
 } from 'firebase/auth'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 import { getDatabase, ref, set } from 'firebase/database'
 import { auth } from '../../firebase_auth'
 import styles from './authorization.module.css'
@@ -15,10 +13,7 @@ import styleBody from '../../styleBody'
 import { getAllUsers } from '../../api'
 import { setCurrentUser } from '../../store/sliceStore'
 
-
 export default function SignUpIn() {
-   
-  
   const dispatch = useDispatch()
   const [registrationRegime, setRegistrationRegime] = useState(false)
   const [login, setLogin] = useState('')
@@ -26,17 +21,20 @@ export default function SignUpIn() {
   const [pass2, setPass2] = useState('')
   const [error, setError] = useState(null)
   const [buttonDisabled, setButtonDisabled] = useState(false)
-  const [placeholderLogin, setPlaseholderLogin] = useState('Логин: mail@email.com')
+  const [placeholderLogin, setPlaseholderLogin] = useState(
+    'Логин: mail@email.com',
+  )
   const navigate = useNavigate()
-const errTextLogin ='Firebase: Error (auth/invalid-email).'
-const errTextNoUser ='Firebase: Error (auth/user-not-found).'
-const errTextNoPass ='Firebase: Error (auth/missing-password).'
-const errTextPassLenght='Firebase: Password should be at least 6 characters (auth/weak-password).'
-const wrongPass='Firebase: Error (auth/wrong-password).' 
-const loginInUse='Firebase: Error (auth/email-already-in-use).' 
+  const errTextLogin = 'Firebase: Error (auth/invalid-email).'
+  const errTextNoUser = 'Firebase: Error (auth/user-not-found).'
+  const errTextNoPass = 'Firebase: Error (auth/missing-password).'
+  const errTextPassLenght =
+    'Firebase: Password should be at least 6 characters (auth/weak-password).'
+  const wrongPass = 'Firebase: Error (auth/wrong-password).'
+  const loginInUse = 'Firebase: Error (auth/email-already-in-use).'
 
-useEffect(() => {
-       styleBody('#271A58')
+  useEffect(() => {
+    styleBody('#271A58')
   }, [])
 
   const disableButton = () => {
@@ -50,7 +48,7 @@ useEffect(() => {
       email: email,
       profile_picture: imageUrl,
       id: id,
-      progress:progress,
+      progress: progress,
     })
   }
 
@@ -62,8 +60,10 @@ useEffect(() => {
         const currentUserUid = currentUserArr[0].uid
         dispatch(setCurrentUser(currentUserUid))
         localStorage.setItem('userUid', currentUserUid)
-        
-      }).then(()=>{navigate('/profile', { replace: true })})
+      })
+      .then(() => {
+        navigate('/profile', { replace: true })
+      })
       .catch((newError) => {
         setError(newError.message)
       })
@@ -81,7 +81,6 @@ useEffect(() => {
       return
     }
     if (pass === '') {
-      //  setPlaseholderLogin('Введите пароль')
       setError('Введите пароль')
       return
     }
@@ -99,45 +98,40 @@ useEffect(() => {
 
       .then((responseNewUser) => {
         let id = []
-        let progress =[]
+        let progress = []
         getAllUsers()
           .then((data) => {
             id = [...Object.values(data)]
-            progress ={
-                yoga:0,
-                stratch:0,
-                step:0,
-                body:0,
-                dance:0
-              }
+            progress = {
+              yoga: 0,
+              stratch: 0,
+              step: 0,
+              body: 0,
+              dance: 0,
+            }
             const uid = responseNewUser[0].uid
             const userId = uid
             const imageUrl = ''
             const name = responseNewUser[0].email
             const email = responseNewUser[0].email
-
-            writeUserData(userId, name, email, imageUrl, id.length,progress)
+            writeUserData(userId, name, email, imageUrl, id.length, progress)
             navigate('/profile', { replace: true })
             return id
           })
           .catch((newError) => setError(newError.message))
       })
-
       .catch((newError) => {
         setError(newError.message)
         setButtonDisabled(false)
       })
   }
   return (
-    <div 
-     className={styles.authorization__page}>
+    <div className={styles.authorization__page}>
       <div className={styles.authorization__page_logo}>
         <img src={logo} alt="logo" />
       </div>
-      <div
-      
-      className={styles.authorization__page_inputs}>
-        <input 
+      <div className={styles.authorization__page_inputs}>
+        <input
           value={login}
           onChange={(e) => {
             setLogin(e.target.value)
@@ -147,7 +141,7 @@ useEffect(() => {
           type="text"
           placeholder={placeholderLogin}
         />
-        <input 
+        <input
           value={pass}
           onChange={(e) => {
             setPass(e.target.value)
@@ -157,7 +151,7 @@ useEffect(() => {
           type="text"
           placeholder="Пароль (не менее 6 символов)"
         />
-        <div 
+        <div
           className={
             registrationRegime === false ? styles.element__visibility : ''
           }
@@ -175,13 +169,21 @@ useEffect(() => {
         </div>
       </div>
       <div className={error === null ? styles.element__visibility : ''}>
-        <div className={styles.error}>{error
-        ===errTextLogin?'Формат логина не соответствует email mail@email.com':
-        error===errTextNoUser?'Пользователь с таким логином не найден':
-        error===errTextNoPass?'Введите пароль':
-        error===errTextPassLenght?'Пароль должен быть не меньше 6 символов':
-        error===wrongPass?'Неверный пароль':
-        error===loginInUse?'Логин занят':error}</div>
+        <div className={styles.error}>
+          {error === errTextLogin
+            ? 'Формат логина не соответствует email mail@email.com'
+            : error === errTextNoUser
+              ? 'Пользователь с таким логином не найден'
+              : error === errTextNoPass
+                ? 'Введите пароль'
+                : error === errTextPassLenght
+                  ? 'Пароль должен быть не меньше 6 символов'
+                  : error === wrongPass
+                    ? 'Неверный пароль'
+                    : error === loginInUse
+                      ? 'Пользователь уже зарегистрирован'
+                      : error}
+        </div>
       </div>
       <div className={styles.authorization__page_buttons}>
         <div
@@ -189,7 +191,10 @@ useEffect(() => {
             registrationRegime !== false ? styles.element__visibility : ''
           }
         >
-          <button onKeyDown={(e)=>{if(e==='Enter')userLogin()}}
+          <button
+            onKeyDown={(e) => {
+              if (e === 'Enter') userLogin()
+            }}
             onClick={() => {
               userLogin()
               localStorage.setItem('userLogin', login)
@@ -202,7 +207,10 @@ useEffect(() => {
           </button>
         </div>
         <div className={buttonDisabled ? styles.button__disable : ''}>
-          <button onKeyDown={(e)=>{if(e==='Enter')registration()}}
+          <button
+            onKeyDown={(e) => {
+              if (e === 'Enter') registration()
+            }}
             onClick={() => {
               if (registrationRegime) {
                 disableButton()
@@ -223,7 +231,6 @@ useEffect(() => {
           >
             Зарегистрироваться
           </button>
-          
         </div>
       </div>
     </div>

@@ -22,7 +22,7 @@ export default function MainHeader() {
       </div>
       <div className={styles.main__header_right}>
         {userUid && (
-          <div className="user__logined">
+          <div className={styles.burger}>
             <Burger currentUser={currentUser}/>
           </div>
         )}

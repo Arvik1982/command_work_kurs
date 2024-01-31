@@ -54,6 +54,7 @@
     font-weight: 400;
 }
 .page_input{
+    outline:none;
     padding-top: 15px;
     box-sizing: border-box;
     height: 30px;
@@ -62,7 +63,9 @@
     border-left: 1px;
     border-right: 1px;
     border-bottom-color: rgb(212, 208, 208);
-   
+   &:hover{ 
+    border-radius: 5px;
+    background-color: rgb(242, 240, 240);}
     
 }
 
