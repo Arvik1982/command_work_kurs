@@ -112,7 +112,9 @@
   }
   
   .button{
-    padding-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-top: 34px;
     width: 275px;
     height: 52px;
