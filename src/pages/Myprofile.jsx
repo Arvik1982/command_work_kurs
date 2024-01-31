@@ -32,11 +32,10 @@ export default function MyProfilePage() {
   const [currentUser, setCurrentUser] = useState(null);
   // Стейт для кнопки "Перейти"
   const [isOpenModalNext, setIsOpenModalNext] = useState(false);
-  // Стейт для передачи названия курса
-  const [selectedTraining, setSelectedTraining] = useState(null);
   // Функция клика по кнопке "Перейти"
   const handleToTraining = (trainingType) => {
-    setSelectedTraining(trainingType);
+    console.log(trainingType)
+    dispatch(setCourseName(trainingType))
     setIsOpenModalNext(true);
   };
   // Функция клика по кнопке "Смена логина"
@@ -328,7 +327,7 @@ export default function MyProfilePage() {
             </div>
           );
         })}
-        <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} selectedTraining={selectedTraining} />
+        <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick}/>
       </div>
     </div>
   );

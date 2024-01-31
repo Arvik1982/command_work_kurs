@@ -1,8 +1,11 @@
 import React from 'react';
-import styles from './Modal.module.css'; // подключите стили для модального окна
+import { useSelector } from 'react-redux';
+import styles from './Modal.module.css';
 import done from '../../img/img_profile/Done.png';
 
-const Modal = ({ isOpenModalNext, handleModalClick, selectedTraining }) => {
+const Modal = ({ isOpenModalNext, handleModalClick}) => {
+  // Получаем название курса из Redux Store
+  const courseName = useSelector(state => state.store.courseName);
   // Заполнение контента для СТЕП-АЭРОБИКИ (сделано)
   const stepAirobicContent = [
     { text: 'Урок 1', info: 'Основы' },
@@ -55,11 +58,11 @@ const Modal = ({ isOpenModalNext, handleModalClick, selectedTraining }) => {
           <div className={styles.modalContentTwo}>
             <span className={styles.modalContentTitle}>Выберите тренировку</span>
             <div className={styles.modalContentMainBottom}>
-              {selectedTraining === 'StepAirobic' && getContent(stepAirobicContent)}
-              {selectedTraining === 'Yoga' && getContent(yogaContent)}
-              {selectedTraining === 'Stretching' && getContent(stretchingContent)}
-              {selectedTraining === 'BodyFlex' && getContent(bodyFlexContent)}
-              {selectedTraining === 'DanceFitness' && getContent(DanceFitness)}
+              {courseName === 'StepAirobic' && getContent(stepAirobicContent)}
+              {courseName === 'Yoga' && getContent(yogaContent)}
+              {courseName === 'Stretching' && getContent(stretchingContent)}
+              {courseName === 'BodyFlex' && getContent(bodyFlexContent)}
+              {courseName === 'DanceFitness' && getContent(DanceFitness)}
             </div>
           </div>
         </div>
