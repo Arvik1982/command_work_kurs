@@ -24,7 +24,6 @@ const sliceStore = createSlice({
     },
     setAllWorkoutsArray(state, actions) {
       state.workoutsArray = actions.payload
-      console.log(state.workoutsArray)
     },
   },
 })

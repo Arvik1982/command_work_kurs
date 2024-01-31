@@ -23,6 +23,7 @@ export default function DescriptionPage() {
     const courseData = courses.find(course => course.nameEN === courseId.id);
 
     useEffect(() => {
+        
         styleBody('#fff')
     }, []);
 

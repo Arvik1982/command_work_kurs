@@ -24,7 +24,7 @@ export async function getAllWorkouts() {
     throw new Error('Ошибка сервера')
   }
   const newData = await response.json()
-  console.log(newData)
+  
   return newData
 }
 
