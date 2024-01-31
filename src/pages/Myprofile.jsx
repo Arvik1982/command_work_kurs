@@ -219,7 +219,7 @@ export default function MyProfilePage() {
   return (
     <div className={styles.wrapper} onClick={handleClickOutside}>
       <div className={styles.header}>
-        <BlackLogo route="/profile" />
+        <BlackLogo route="/" />
         <Burger currentUser={currentUser} />
       </div>
       <div className={styles.header_bottom}>

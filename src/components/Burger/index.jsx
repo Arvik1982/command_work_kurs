@@ -4,6 +4,9 @@ import styles from './style.module.css';
 import profile from '../../img/img_profile/user.png';
 import open from '../../img/img_profile/bot.png';
 import close from '../../img/img_profile/top.png';
+import home from '../../img/img_profile/home.png';
+import me from '../../img/img_profile/me.png';
+import exit from '../../img/img_profile/exit.png';
 
 const Burger = ({ currentUser }) => {
     const navigate = useNavigate();
@@ -32,9 +35,27 @@ const Burger = ({ currentUser }) => {
       </div>
       {isOpen && (
         <div className={styles.dropdownMenu} style={{ position: 'absolute', top: 90, right: 0 }}>
-          <Link className={styles.header_links_main} to="/">На главную</Link>
-          <Link className={styles.header_links_main} to="/profile">Профиль</Link>
-          <div className={styles.header_links_main} onClick={handleLogout}>Выйти</div>
+            <Link className={styles.dropdownMenu_block} to="/">
+              <div className={styles.dropdownMenu_block_img}>
+                <img src={home} className={styles.header_photo_two} />
+              </div>
+              <div className={styles.header_links_main}>На главную</div>
+            </Link>
+            <Link className={styles.dropdownMenu_block} to="/profile">
+              <div className={styles.dropdownMenu_block_img}>
+                <img src={me} className={styles.header_photo_two} />
+              </div>
+              <div className={styles.header_links_main}>Профиль</div>
+            </Link>
+            <Link className={styles.dropdownMenu_block} onClick={handleLogout}>
+              <div className={styles.dropdownMenu_block_img}>
+                <img src={exit} className={styles.header_photo_two} />
+              </div>
+              <div className={styles.header_links_main} >Выйти</div>
+            </Link>
+          
+          
+          
         </div>
       )}
     </div>
