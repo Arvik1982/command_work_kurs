@@ -32,7 +32,9 @@ const errTextLogin ='Firebase: Error (auth/invalid-email).'
 const errTextNoUser ='Firebase: Error (auth/user-not-found).'
 const errTextNoPass ='Firebase: Error (auth/missing-password).'
 const errTextPassLenght='Firebase: Password should be at least 6 characters (auth/weak-password).'
-const wrongPass='Firebase: Error (auth/wrong-password).'  
+const wrongPass='Firebase: Error (auth/wrong-password).' 
+const loginInUse='Firebase: Error (auth/email-already-in-use).' 
+
 useEffect(() => {
        styleBody('#271A58')
   }, [])
@@ -41,14 +43,14 @@ useEffect(() => {
     setButtonDisabled(true)
   }
 
-  function writeUserData(userId, name, email, imageUrl, id, courses) {
+  function writeUserData(userId, name, email, imageUrl, id, progress) {
     const db = getDatabase()
     set(ref(db, 'users/' + userId), {
       username: name,
       email: email,
       profile_picture: imageUrl,
       id: id,
-      courses:courses,
+      progress:progress,
     })
   }
 
@@ -97,17 +99,24 @@ useEffect(() => {
 
       .then((responseNewUser) => {
         let id = []
-        let courses =[]
+        let progress =[]
         getAllUsers()
           .then((data) => {
             id = [...Object.values(data)]
-            courses =[0]
+            progress ={
+                yoga:0,
+                stratch:0,
+                step:0,
+                body:0,
+                dance:0
+              }
             const uid = responseNewUser[0].uid
             const userId = uid
             const imageUrl = ''
             const name = responseNewUser[0].email
             const email = responseNewUser[0].email
-            writeUserData(userId, name, email, imageUrl, id.length,courses)
+
+            writeUserData(userId, name, email, imageUrl, id.length,progress)
             navigate('/profile', { replace: true })
             return id
           })
@@ -172,7 +181,7 @@ useEffect(() => {
         error===errTextNoPass?'Введите пароль':
         error===errTextPassLenght?'Пароль должен быть не меньше 6 символов':
         error===wrongPass?'Неверный пароль':
-        error}</div>
+        error===loginInUse?'Логин занят':error}</div>
       </div>
       <div className={styles.authorization__page_buttons}>
         <div

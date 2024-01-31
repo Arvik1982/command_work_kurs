@@ -65,6 +65,7 @@ export default function MainCourses() {
             </div>
           )
         })}
+       
       </div>
 
       <ReactPaginate
@@ -73,9 +74,9 @@ export default function MainCourses() {
         pageCount={pageCount}
         onPageChange={onPageChange}
         containerClassName={styles.paginateButtons}
-        previousClassName="paginatePrevButtons"
-        nextClassName="paginateNextButtons"
-        disabledClassName="paginateDisabled"
+        previousClassName={styles.paginatePrevButtons}
+        nextClassName={styles.paginateNextButtons}
+        disabledClassName={pageCount<=1?styles.paginateDisabled:''}
         activeClassName={styles.paginateActive}
       />
     </div>
