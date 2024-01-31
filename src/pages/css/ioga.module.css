@@ -11,13 +11,15 @@
     width: 1440px;
     height: 1623px;
     background-color: white;
-  
   }
-  
+
   .course__page_logo{
-    padding-top: 30px;
+    align-items: center;
+    display: flex;
+    align-content: center;
+    padding-top: 60px;
     padding-bottom: 75px;
-    /* padding-left: 140px; */
+    gap: 780px;
     width: 220px;
     height: 35px;
     flex-shrink: 0;
@@ -61,7 +63,7 @@
     padding-top: 22px;
     padding-bottom: 75px;
   display: flex;
-  gap: 200px;
+  gap: 230px;
   
   }
   
@@ -120,10 +122,13 @@
   }
   
   .button_text{
-  padding-left: 24px;
-  padding-top: 12px ;
+
+
   font-size: 18px;
   border: none;
   background: none;
   color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   }
