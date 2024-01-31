@@ -47,15 +47,12 @@ const Burger = ({ currentUser }) => {
               </div>
               <div className={styles.header_links_main}>Профиль</div>
             </Link>
-            <Link className={styles.dropdownMenu_block} onClick={handleLogout}>
+            <div className={styles.dropdownMenu_block} onClick={handleLogout}>
               <div className={styles.dropdownMenu_block_img}>
                 <img src={exit} className={styles.header_photo_two} />
               </div>
               <div className={styles.header_links_main} >Выйти</div>
-            </Link>
-          
-          
-          
+            </div> 
         </div>
       )}
     </div>
