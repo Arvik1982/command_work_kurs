@@ -21,7 +21,8 @@ export default function MainHeader() {
         </h2>
       </div>
       <div className={styles.main__header_right}>
-        {userUid && (
+
+      {userUid && (
           <div className={styles.burger}>
             <Burger currentUser={currentUser}/>
           </div>
@@ -35,6 +36,7 @@ export default function MainHeader() {
             </Link>
           </div>
         )}
+
         <img className={styles.main__header_sale} src={sale} alt="sale" />
       </div>
     </header>

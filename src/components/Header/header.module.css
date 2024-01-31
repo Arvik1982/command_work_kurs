@@ -35,7 +35,7 @@ margin-bottom: 10px;
 }
 
 .burger{
-    margin-right: 49%;
+    padding-right: 75%;
 }
 
 .button__user_exit{
@@ -68,6 +68,7 @@ margin-bottom: 10px;
     padding-top: 30px;
     display: flex;
     justify-content: flex-start;
+    
 }
 .main__header_right{
     margin-left: 170px;
