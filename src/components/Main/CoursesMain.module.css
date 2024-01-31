@@ -47,6 +47,21 @@ justify-content: center;
 color:  rgba(199, 233, 87, 1);
 
 }
+.paginatePrevButtons{
+    &:hover{
+        color:  #EBFFAB
+}
+}
+
+.paginateNextButtons{
+    &:hover{
+        color:  #EBFFAB
+}
+}
+
+.paginateDisabled{
+    display:none
+}
 .paginateButtons a{
     padding: 10px;
     margin: 8px;

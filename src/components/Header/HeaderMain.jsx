@@ -2,9 +2,13 @@ import { Link } from 'react-router-dom'
 import sale from '../../img/Sale sticker.png'
 import WhiteLogo from '../Logo/whiteLogo'
 import styles from './header.module.css'
+import Burger from '../Burger'
+import { useState } from 'react'
 
 export default function MainHeader() {
   const userUid = localStorage.getItem('userUid')
+  const [currentUser]=useState({ email: localStorage.getItem('userLogin')})
+
   return (
     <header className={styles.main__header}>
       <div className={styles.main__header_left}>
@@ -18,16 +22,12 @@ export default function MainHeader() {
       </div>
       <div className={styles.main__header_right}>
         {userUid && (
-          <div className="user_is_logined">
-            <Link to="/profile">
-              <button type="button" className={styles.main__header_button}>
-                Профиль
-              </button>
-            </Link>
+          <div className="user__logined">
+            <Burger currentUser={currentUser}/>
           </div>
         )}
         {!userUid && (
-          <div className="user_is_NOT_logined">
+          <div className="user__not_logined">
             <Link to="/auth">
               <button type="button" className={styles.main__header_button}>
                 Вoйти
