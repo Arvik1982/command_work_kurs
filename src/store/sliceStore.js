@@ -6,6 +6,7 @@ const sliceStore = createSlice({
     courseName: '',
     currentUserUid:'',
     trainingsArray:[],
+    workoutsArray:[],
     connectionError:'' 
   },
   reducers: {
@@ -28,9 +29,13 @@ const sliceStore = createSlice({
       state.connectionError = actions.payload
       
     },
+    setAllWorkoutsArray(state, actions) {
+      state.workoutsArray = actions.payload
+      console.log(state.workoutsArray)
+    },
   },
 })
 
-export const { testRegimeReducer, setCourseName, setCurrentUser,setTrainingsArray,setConnectionError } =
+export const { testRegimeReducer, setCourseName, setCurrentUser,setTrainingsArray,setConnectionError, setAllWorkoutsArray } =
   sliceStore.actions
 export default sliceStore.reducer
