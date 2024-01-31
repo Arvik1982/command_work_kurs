@@ -9,6 +9,7 @@
     padding: 10px;
     padding-right: 15px;
     padding-left: 15px;
+    font-size: 24px;
     width: auto;
     display: flex;
     align-items: center;
@@ -49,8 +50,9 @@
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    gap: 5px;
-    width: 330px;
+    gap: 10px;
+    width: 250px;
+    height: 250px;
     padding: 15px;
     border: 1px solid transparent;
     border-radius: 40px;
