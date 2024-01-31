@@ -15,8 +15,6 @@ import Modal from '../components/Modal';
 import Burger from '../components/Burger';
 
 export default function MyProfilePage() {
-  // const userLocalLogin = localStorage.getItem('userLogin')
-  // const userLocalPass = localStorage.getItem('userPass')
   const dispatch = useDispatch();
   // Стейт для отображения модального окна №1
   const [showModal, setShowModal] = useState(false);

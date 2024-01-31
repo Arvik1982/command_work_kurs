@@ -3,80 +3,68 @@ import styles from './Modal.module.css'; // подключите стили дл
 import done from '../../img/img_profile/Done.png';
 
 const Modal = ({ isOpenModalNext, handleModalClick, selectedTraining }) => {
+  // Заполнение контента для СТЕП-АЭРОБИКИ (сделано)
+  const stepAirobicContent = [
+    { text: 'Урок 1', info: 'Основы' },
+    { text: 'Урок 2', info: 'Основные движения' },
+    { text: 'Урок 3', info: 'Новые движения' },
+    { text: 'Урок 4', info: 'Продвинутые движения' },
+  ];
+// Заполнение контента для ЙОГИ (сделано)
+  const yogaContent = [
+    { text: 'Утренняя практика', info: 'Йога на каждый день / 1 день' },
+    { text: 'Красота и здоровье', info: 'Йога на каждый день / 2 день' },
+    { text: 'Асаны стоя', info: 'Йога на каждый день / 3 день' },
+    { text: 'Растягиваем мышцы бедра', info: 'Йога на каждый день / 4 день' },
+    { text: 'Гибкость спины', info: 'Йога на каждый день / 5 день' }
+  ];
+// Заполнение контента для СТРЕТЧИНГА (сделано)
+  const stretchingContent = [
+    { text: 'Урок 1', info: 'Основы стретчинга' },
+    { text: 'Урок 2', info: 'Разогрев мышц' },
+    { text: 'Урок 3', info: 'Разогрев мышц 2.0' },
+  ];
+// Заполнение контента для БОДИФЛЕКСА (сделано)
+  const bodyFlexContent = [
+    { text: 'Техника дыхания', info: 'Содержимое для BodyFlex' },
+    { text: 'Тренировка мышц бедер', info: 'Содержимое для BodyFlex' },
+    { text: 'Тренировка иышц ягодиц', info: 'Содержимое для BodyFlex' },
+  ];
+// Заполнение контента для ТАНЦЕВАЛЬНЫЙ ФИТНЕС (сделано)
+  const DanceFitness = [
+    { text: 'Урок 1', info: 'Основы' },
+    { text: 'Урок 2', info: 'Основные движения' },
+    { text: 'Урок 3', info: 'Новые движения' },
+    { text: 'Урок 4', info: 'Продвинутые движения' },
+    { text: 'Урок 5', info: 'Мастер-класс' },
+  ];
+// Создание содержимого формы на основе выбранного курса
+  const getContent = (contentArray) => {
+    return contentArray.map((item, index) => (
+      <div className={styles.modalContentBlock} key={index}>
+        <span className={styles.modalContentTextOne}>{item.text}</span>
+        <img src={done} className={styles.modalContentDone} />
+        <span>{item.info}</span>
+      </div>
+    ));
+  };
   return (
     isOpenModalNext && (
-        <form className={styles.modalOverlayTwo}>
-          <div className={styles.modal} onClick={handleModalClick}>
-            <div className={styles.modalContentTwo}>
-              {selectedTraining === 'Yoga' &&
-                <div className={styles.modalContentMain}>
-                  <span className={styles.modalContentTitle}>Выберите тренировку</span>
-                  <div className={styles.modalContentMainBottom}>
-                    <div className={styles.modalContentBlock}>
-                      <span className={styles.modalContentTextOne}>Утренняя практика</span>
-                      <img  src={done} className={styles.modalContentDone}/>
-                      <span>Йога на каждый день / 1 день</span>
-                    </div>
-                    <div className={styles.modalContentBlock}>
-                      <span className={styles.modalContentTextOne}>Красота и здоровье</span>
-                      <img  src={done} className={styles.modalContentDone}/>
-                      <span>Йога на каждый день / 2 день</span>
-                    </div>
-                    <div className={styles.modalContentBlock}>
-                      <span className={styles.modalContentTextOne}>Асаны стоя</span>
-                      <img  src={done} className={styles.modalContentDone}/>
-                      <span>Йога на каждый день / 3 день</span>
-                    </div>
-                    <div className={styles.modalContentBlock}>
-                      <span className={styles.modalContentTextOne}>Растягиваем мышцы бедра</span>
-                      <img  src={done} className={styles.modalContentDone}/>
-                      <span>Йога на каждый день / 4 день</span>
-                    </div>
-                    <div className={styles.modalContentBlock}>
-                      <span className={styles.modalContentTextOne}>Гибкость спины</span>
-                      <img  src={done} className={styles.modalContentDone}/>
-                      <span>Йога на каждый день / 5 день</span>
-                    </div>
-                  </div>
-                </div>
-              }
-              {selectedTraining === 'Stretching' &&
-                <div className={styles.modalContentMain}>
-                  <span className={styles.modalContentTitle}>Выберите тренировку</span>
-                  <div className={styles.modalContentMainBottom}>
-                    <div className={styles.modalContentBlock}>
-                      <span className={styles.modalContentTextOne}>Урок 1</span>
-                      <img  src={done} className={styles.modalContentDone}/>
-                      <span>Основы</span>
-                    </div>
-                    <div className={styles.modalContentBlock}>
-                      <span className={styles.modalContentTextOne}>Урок 2</span>
-                      <img  src={done} className={styles.modalContentDone}/>
-                      <span>Основные движения</span>
-                    </div>
-                    <div className={styles.modalContentBlock}>
-                      <span className={styles.modalContentTextOne}>Урок 3</span>
-                      <img  src={done} className={styles.modalContentDone}/>
-                      <span>Новые движения</span>
-                    </div>
-                    <div className={styles.modalContentBlock}>
-                      <span className={styles.modalContentTextOne}>Урок 4</span>
-                      <img  src={done} className={styles.modalContentDone}/>
-                      <span>Продвинутые движения</span>
-                    </div>
-                    <div className={styles.modalContentBlock}>
-                      <span className={styles.modalContentTextOne}>Урок 5</span>
-                      <img  src={done} className={styles.modalContentDone}/>
-                      <span>Мастер-класс</span>
-                    </div>
-                  </div>
-                </div>
-              }
-              {selectedTraining === 'BodyFlex' && <div>BodyFlex</div>}
+      <form className={styles.modalOverlayTwo}>
+        <div className={styles.modal} onClick={handleModalClick}>
+          <div className={styles.modalContentTwo}>
+            <span className={styles.modalContentTitle}>Выберите тренировку</span>
+            <div className={styles.modalContentMainBottom}>
+              {selectedTraining === 'StepAirobic' && getContent(stepAirobicContent)}
+              {selectedTraining === 'Yoga' && getContent(yogaContent)}
+              {selectedTraining === 'Stretching' && getContent(stretchingContent)}
+              {selectedTraining === 'BodyFlex' && getContent(bodyFlexContent)}
+              {selectedTraining === 'DanceFitness' && getContent(DanceFitness)}
             </div>
           </div>
-        </form>
-      )
+        </div>
+      </form>
+    )
   );
 };
 

@@ -18,8 +18,9 @@
     border-radius: 15px;
 }
 .modalContentTwo {
+    padding: 20px;
     width: 400px;
-    height: 600px;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
