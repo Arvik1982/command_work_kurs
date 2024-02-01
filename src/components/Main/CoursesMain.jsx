@@ -9,7 +9,7 @@ import dance from '../../img/img_main/dance_main_png.png'
 import step from '../../img/img_main/step_main_png.png'
 import body from '../../img/img_main/body_main_png.png'
 import { setCourseName } from '../../store/sliceStore'
-import { SkeletonTheme } from "react-loading-skeleton";
+import { SkeletonTheme } from "react-loading-skeleton"
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
