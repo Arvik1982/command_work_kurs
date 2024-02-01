@@ -321,7 +321,7 @@ export default function MyProfilePage() {
                     alt="img"
                   />
                   {/* <Link to={`/description/${e.nameEN}`} className={styles.main_button}>Перейти →</Link> */}
-                  <div className={styles.main_button} onClick={() => handleToTraining(e.nameEN)}>Перейти →</div>
+                  <button className={styles.main_button} onClick={() => handleToTraining(e.nameEN)}>Перейти →</button>
                 </div>
               </div>
             </div>
