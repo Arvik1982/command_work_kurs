@@ -9,7 +9,7 @@ import numberThree from '../../img/img_descr/descr number 3.png'
 import phoneHand from '../../img/img_descr/descr phone hand img.png'
 import styles from './description.module.css'
 import Burger from '../Burger'
-import Modal from '../Modal'
+import Modal from './../Modal/ModalCourse'
 
 export default function DescriptionPage2() {
   const navigate = useNavigate()
@@ -18,7 +18,8 @@ export default function DescriptionPage2() {
   let courses = useSelector((state) => state.store.trainingsArray) // Получение данных из Redux store
   const userIsRegistered = localStorage.getItem('userUid') // Проверка, зарегистрирован ли пользователь
   const [currentUser] = useState({ email: localStorage.getItem('userLogin') })
-  let currentCourse
+  let currentCourse;
+
   // Функция для изоляции
   const handleModalClick = (event) => {
     event.stopPropagation()
@@ -26,7 +27,8 @@ export default function DescriptionPage2() {
   // Функция для закрытия модального окна
   const handleClickOutside = (event) => {
     if (isOpenModalNext && !event.target.closest(`.${styles.modal}`)) {
-      setIsOpenModalNext(false)
+    setIsOpenModalNext(false)
+
     }
   }
 
