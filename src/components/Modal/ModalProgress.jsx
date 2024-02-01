@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import styles from './Modal.module.css'
 import CustomButton from "../../CustomUiComponents/CustomBtn/CustomButton";
-import successImg from '../.././img/img_succes/succes.jpg'
+import successImg from '../.././img/img_succes/success.png'
 
 function ModalProgress({progressData, setProgressData, isOpenModal, handleModal}) {
   const [isSuccess, setSuccess] = useState(null)
@@ -30,21 +30,21 @@ function ModalProgress({progressData, setProgressData, isOpenModal, handleModal}
                         <span className={styles.modalContentTitle}>Мой прогресс</span>
                         <div>
                           <p>Сколько раз вы сделали наклоны вперед?</p>
-                          <input type="number" onInput={(e) => {
+                          <input className={styles.input} placeholder='Введите значение' type="number" onInput={(e) => {
                             const text = e.target?.value / progressData[1].countEnd * 100
                             inputText(text, progressData[0].id)
                           }}/>
                         </div>
                         <div>
                           <p>Сколько раз вы сделали наклоны вперед?</p>
-                          <input type="number" onInput={(e) => {
+                          <input className={styles.input} placeholder='Введите значение' type="number" onInput={(e) => {
                             const text = e.target?.value / progressData[1].countEnd * 100
                             inputText(text, progressData[1].id)
                           }}/>
                         </div>
                         <div>
                           <p>Сколько раз вы сделали наклоны вперед?</p>
-                          <input type="number" onInput={(e) => {
+                          <input className={styles.input} placeholder='Введите значение' type="number" onInput={(e) => {
                             const text = e.target?.value / progressData[1].countEnd * 100
                             inputText(text, progressData[2].id)
                           }}/>
