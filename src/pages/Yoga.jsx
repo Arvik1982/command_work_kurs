@@ -12,7 +12,7 @@ import info_button from '../img/info_button.svg'
 import buttonImage from '../img/Group 48096487.svg';
 import styles from './css/ioga.module.css';
 import Burger from '../components/Burger';
-import Modal from '../components/Modal';
+import Modal from '../components/Modal/ModalCourse';
 
 export default function DescriptionPage() {
     const [isOpenModalNext, setIsOpenModalNext] = useState(false); // Инициализация состояния модального окна

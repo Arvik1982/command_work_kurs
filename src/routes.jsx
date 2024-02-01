@@ -12,20 +12,18 @@ import { ProtectedRoute } from './components/Protected/Index'
 export default function AppRoutes() {
   
   const user = localStorage.getItem('userUid')
-  
+
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />
       <Route path="/auth" element={<AuthorizationPage />} />
       <Route path="/change_password" element={<ChangePasswordPage />} />
       <Route path="/description/:id" element={<DescriptionPage />} />
-      {/* <Route path="/description/:id" element={<DescriptionPage2 />} /> */}
-      <Route path="*" element={<ErrPage/>} />
-      <Route path="/workout/video" element={<VideoPage/>} />
-      
+      <Route path="*" element={<ErrPage />} />
 {/*доступ только залогиненым*/}
       <Route element ={<ProtectedRoute isAllowed={Boolean(user)}/>}>
-      <Route path="/profile" element={<MyProfilePage />} />
+        <Route path="/profile" element={<MyProfilePage />} />
+        <Route path="/workout" element={<VideoPage/>} />
       </Route>
 {/*доступ только залогиненым*/}
 
