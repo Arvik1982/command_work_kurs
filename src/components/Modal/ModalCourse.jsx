@@ -45,8 +45,8 @@ const ModalCourse = ({ isOpenModalNext, handleModalClick}) => {
 // Создание содержимого формы на основе выбранного курса
   const getContent = (contentArray) => {
     return contentArray.map((item, index) => (
-      <Link to='/workout'>
-        <div className={styles.modalContentBlock} key={index}>
+      <Link to='/workout' key={index}>
+        <div className={styles.modalContentBlock}>
           <span className={styles.modalContentTextOne}>{item.text}</span>
           <img src={done} className={styles.modalContentDone} />
           <span>{item.info}</span>
