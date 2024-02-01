@@ -89,3 +89,23 @@
     color: white;
     border: 1px solid transparent;
 }
+
+.successTitle {
+    font-family: StratosSkyeng;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 48px;
+    text-align: center;
+}
+
+.successImg {
+}
+
+.padding{
+    padding-top: 30px;
+    padding-bottom: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
