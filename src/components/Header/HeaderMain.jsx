@@ -7,12 +7,13 @@ import { useState } from 'react'
 
 export default function MainHeader() {
   const userUid = localStorage.getItem('userUid')
-  const [currentUser]=useState({ email: localStorage.getItem('userLogin')})
+  const [currentUser] = useState({ email: localStorage.getItem('userLogin') })
 
   return (
     <header className={styles.main__header}>
       <div className={styles.main__header_left}>
         <WhiteLogo />
+
         <h3 className={styles.main__description}>
           Онлайн-тренировки для занятий дома
         </h3>
@@ -22,8 +23,8 @@ export default function MainHeader() {
       </div>
       <div className={styles.main__header_right}>
         {userUid && (
-          <div className="user__logined">
-            <Burger currentUser={currentUser}/>
+          <div className={styles.burger}>
+            <Burger currentUser={currentUser} />
           </div>
         )}
         {!userUid && (
@@ -35,6 +36,7 @@ export default function MainHeader() {
             </Link>
           </div>
         )}
+
         <img className={styles.main__header_sale} src={sale} alt="sale" />
       </div>
     </header>

@@ -34,6 +34,10 @@ margin-bottom: 10px;
 
 }
 
+.burger{
+    padding-right: 75%;
+}
+
 .button__user_exit{
  color: #D9D9D9;
  font-family: 'StratosSkyeng';
@@ -64,6 +68,7 @@ margin-bottom: 10px;
     padding-top: 30px;
     display: flex;
     justify-content: flex-start;
+    
 }
 .main__header_right{
     margin-left: 170px;
@@ -124,6 +129,7 @@ margin-top: 40px;
 
 }
 .main__header_button{
+    margin-left: 25%;
     border: #140D40 solid 0;
     background: #140D40;
     border-radius: 46px;
