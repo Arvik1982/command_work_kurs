@@ -58,7 +58,7 @@ a {
   max-width: 528px;
   color: #000;
   font-variant-numeric: lining-nums proportional-nums;
-  font-family: 'StratosSkyeng';
+  font-family: StratosSkyeng;
   font-size: 64px;
   font-style: normal;
   font-weight: 400;
@@ -83,7 +83,7 @@ a {
 .descr__numbers_text {
   color: #101010;
   font-variant-numeric: lining-nums proportional-nums;
-  font-family: 'StratosSkyeng';
+  font-family: StratosSkyeng;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -126,7 +126,7 @@ a {
   width: 1160px;
   color: #000;
   font-variant-numeric: lining-nums proportional-nums;
-  font-family: 'StratosSkyeng';
+  font-family: StratosSkyeng;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
