@@ -10,8 +10,7 @@ import two from "../img/2.png"
 import ofre from "../img/3.png"
 import styles from './css/ioga.module.css';
 import Burger from '../components/Burger';
-
-import Modal from '../components/Modal';
+import Modal from '../components/Modal/ModalCourse';
 import buttonImage from '../img/Group 48096487.svg';
 import info from '../img/info.png';
 import info_button from '../img/info_button.svg'
