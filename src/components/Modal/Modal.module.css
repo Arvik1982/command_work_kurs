@@ -89,3 +89,40 @@
     color: white;
     border: 1px solid transparent;
 }
+
+.input {
+    font-family: StratosSkyeng;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.05000000074505806px;
+    text-align: left;
+    border: none;
+    outline: none;
+    border-bottom: 1px #D0CECE solid;
+    width: 100%;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.successTitle {
+    font-family: StratosSkyeng;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 48px;
+    text-align: center;
+}
+
+.successImg {
+    height: 400px;
+}
+
+.padding{
+    padding-top: 60px;
+    padding-bottom: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

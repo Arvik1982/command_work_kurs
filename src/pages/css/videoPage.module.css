@@ -44,13 +44,11 @@
 
 .video__play {
     width: 100%;
-    min-height: 639px;
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 100%;
+    background: black;
     margin-bottom: 75px;
 }
+
 
 .play__text {
     color: #FFFFFF;
@@ -62,6 +60,10 @@
 }
 
 .video__left {
+
+}
+
+.video__right {
 
 }
 
@@ -90,18 +92,3 @@
     line-height: 32px;
 }
 
-.left__btn {
-    color: #FAFAFA;
-    font-variant-numeric: lining-nums proportional-nums;
-    font-family: StratosSkyeng;
-    border: none;
-    background: #580EA2;
-    padding: 12px 27px;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-    letter-spacing: -0.05px;
-    border-radius: 46px;
-    margin-bottom: 46px;
-}

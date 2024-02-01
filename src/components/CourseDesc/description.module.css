@@ -1,0 +1,194 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.course__page {
+  width: 1440px;
+  height: 1623px;
+  background-color: white;
+}
+
+.course__page_logo {
+  align-items: center;
+  display: flex;
+  align-content: center;
+  padding-top: 60px;
+  padding-bottom: 75px;
+  gap: 780px;
+  width: 220px;
+  height: 35px;
+  flex-shrink: 0;
+}
+.top {
+  display: flex;
+  gap: 640px;
+  flex-direction: row;
+  justify-content: center;
+}
+.course__page_image {
+  /* margin-left: 140px; */
+  margin-bottom: 75px;
+  width: 1160px;
+  height: 310px;
+  background-image: url(./headerimg.png);
+}
+
+.center_text {
+  /* margin-left: 140px; */
+  display: flex;
+  gap: 40px;
+  flex-direction: column;
+  color: #000;
+
+  font-family: StratosSkyeng;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 48px; /* 120% */
+}
+
+.descr__top_text {
+  padding-top: 30px;
+  margin-left: 30px;
+  max-width: 528px;
+  color: #000;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: 'StratosSkyeng';
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 72px; /* 112.5% */
+  letter-spacing: -0.8px;
+}
+
+.descr__numbers {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 225px;
+}
+
+.descr__numbers_el {
+  gap: 24px;
+  height: auto;
+  width: 244px;
+  display: flex;
+  flex-direction: row;
+}
+.descr__numbers_text {
+  color: #101010;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: 'StratosSkyeng';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+.descr__block_ul {
+  gap: 200px;
+  margin-left: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.descr__ul {
+  margin-top: 15px;
+  list-style-type: disc;
+}
+
+.course__directions_text {
+  padding-top: 107px;
+  color: #000;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: StratosSkyeng;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 48px; /* 120% */
+  margin-bottom: 150px;
+}
+
+.course__directions_image {
+  padding-top: 22px;
+  padding-bottom: 75px;
+  display: flex;
+  gap: 230px;
+}
+
+.course__directions_info {
+  margin-bottom: 75px;
+  width: 1160px;
+  color: #000;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: 'StratosSkyeng';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px; /* 133.333% */
+}
+
+.info_block {
+  padding-top: 46px;
+  padding-left: 52px;
+  width: 1200px;
+  height: 320px;
+  display: flex;
+  border-radius: 30px;
+  background: #f9ebff;
+  flex-shrink: 0;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.info_text {
+  width: 800px;
+  height: 120px;
+  color: #000;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: StratosSkyeng;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px; /* 125% */
+}
+
+.info_image {
+  width: 345px;
+  height: 347px;
+}
+.block__phone {
+  position: relative;
+}
+
+.button {
+  color: #fff;
+  position: absolute;
+  top: 220px;
+  left: 50px;
+  width: 275px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: 46px;
+  background: var(--Palette-Purple-90, #580ea2);
+}
+
+.button_text {
+  font-size: 18px;
+  border: none;
+  background: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal {
+  background-color: #fff; /* Цвет фона модального окна */
+  padding: 20px;
+  border-radius: 15px;
+}

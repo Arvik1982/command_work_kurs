@@ -11,7 +11,7 @@ import yoga from '../img/img_profile/yoga_profile.png';
 import stretch from '../img/img_profile/stretch_profile.png';
 import body from '../img/img_profile/bodyflex_profile.png';
 import styleBody from '../styleBody';
-import Modal from '../components/Modal';
+import Modal from '../components/Modal/ModalCourse';
 import Burger from '../components/Burger';
 
 export default function MyProfilePage() {

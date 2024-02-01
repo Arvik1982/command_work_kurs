@@ -1,7 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function ErrPage() {
-  return (
+  return (<>
+  
     <h1
       style={{
         position: 'absolute',
@@ -13,5 +15,19 @@ export default function ErrPage() {
     >
       ERROR 404: Страница не найдена
     </h1>
+    
+    
+    <Link to='/'
+    style={{
+      position: 'absolute',
+      left: '47%',
+      top: '50%',
+      fontFamily: 'StratosSkyeng',
+      textDecoration:'underline'
+    }}
+    > На главную</Link>
+    
+    
+    </>
   )
 }
