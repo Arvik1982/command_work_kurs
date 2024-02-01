@@ -19,7 +19,6 @@ const dispatch=useDispatch()
     ).catch((error)=>{
       dispatch(setConnectionError(error.message))
     })
-
     getAllCourses()
     .then((data) => {
       const arr = [...Object.values(data)]

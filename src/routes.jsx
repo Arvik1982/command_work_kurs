@@ -4,7 +4,6 @@ import MyProfilePage from './pages/Myprofile'
 import ErrPage from './pages/Err'
 import AuthorizationPage from './pages/Authorization'
 import DescriptionPage from './pages/Yoga'
-// import DescriptionPage2 from './components/CourseDesc/Description'
 import ChangePasswordPage from './pages/ChangePassword'
 import VideoPage from "./pages/VideoPage";
 import { ProtectedRoute } from './components/Protected/Index'
