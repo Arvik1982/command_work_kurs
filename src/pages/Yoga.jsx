@@ -103,7 +103,7 @@ export default function DescriptionPage() {
                             <img src={buttonImage} alt="buttonImage" />
                         </div>
                     </div>
-                    <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} selectedTraining={courseData} />
+                    <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} selectedTraining={courseData} trainingsArray={courses}/>
                     {/* Рендер модального окна */}
                 </div>
             )}
