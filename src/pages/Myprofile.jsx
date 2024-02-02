@@ -190,6 +190,7 @@ export default function MyProfilePage() {
     styleBody('#FAFAFA')
     getAllCourses().then((data) => {
       const arr = [...Object.values(data)];
+      console.log(arr)
       setTrainingsArray(arr);
       return data;
     });
@@ -321,13 +322,13 @@ export default function MyProfilePage() {
                     alt="img"
                   />
                   {/* <Link to={`/description/${e.nameEN}`} className={styles.main_button}>Перейти →</Link> */}
-                  <div className={styles.main_button} onClick={() => handleToTraining(e.nameEN)}>Перейти →</div>
+                  <button className={styles.main_button} onClick={() => handleToTraining(e.nameEN)}>Перейти →</button>
                 </div>
               </div>
             </div>
           );
         })}
-        <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick}/>
+        <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} trainingsArray={trainingsArray}/>
       </div>
     </div>
   );
