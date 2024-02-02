@@ -190,6 +190,7 @@ export default function MyProfilePage() {
     styleBody('#FAFAFA')
     getAllCourses().then((data) => {
       const arr = [...Object.values(data)];
+      console.log(arr)
       setTrainingsArray(arr);
       return data;
     });
@@ -327,7 +328,7 @@ export default function MyProfilePage() {
             </div>
           );
         })}
-        <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick}/>
+        <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} trainingsArray={trainingsArray}/>
       </div>
     </div>
   );

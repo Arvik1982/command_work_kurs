@@ -61,6 +61,22 @@
     color: #06b16dcb;
     transition: all .3s;
 }
+.modalContentBlockNotDone {
+    position: relative;
+    padding: 15px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 280px;
+    height: auto;
+    border: 1px solid black;
+    border-radius: 30px;
+    color: black;
+    transition: all .3s;
+}
 .modalContentTextOne {
     width: 190px;
     text-align: center;

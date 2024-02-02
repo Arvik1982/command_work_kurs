@@ -4,56 +4,78 @@ import styles from './Modal.module.css';
 import done from '../../img/img_profile/Done.png';
 import {Link} from "react-router-dom";
 
-const ModalCourse = ({ isOpenModalNext, handleModalClick}) => {
-  // Получаем название курса из Redux Store
-  const courseName = useSelector(state => state.store.courseName);
+const ModalCourse = ({ isOpenModalNext, handleModalClick, trainingsArray}) => {
+// Получаем название курса из Redux Store
+const courseName = useSelector(state => state.store.courseName);
+const isCourseCompleted = (courseId, workoutId) => {
+  console.log(trainingsArray)
+  console.log("courseId:", courseId);
+  console.log("workoutId:", workoutId);
+  const course = trainingsArray.find(course => course.id === courseId);
+  console.log(course)
+  if (course && Array.isArray(course.workouts)) {
+    return course.workouts.some(workout => workout.id === workoutId && localStorage.getItem(workoutId) === 'userUid');
+  }
+  return false;
+};
+// Создание объекта с соответствием курсов и их идентификаторов
+const courseIds = {
+  StepAirobic: '6i67sm',
+  Yoga: 'ab1c3f',
+  Stretching: 'kfpq8e',
+  BodyFlex: 'q02a6i',
+  DanceFitness: 'ypox9r'
+};
+
+// Получение идентификатора для выбранного курса
+const courseId = courseIds[courseName];
   // Заполнение контента для СТЕП-АЭРОБИКИ (сделано)
   const stepAirobicContent = [
-    { text: 'Урок 1', info: 'Основы' },
-    { text: 'Урок 2', info: 'Основные движения' },
-    { text: 'Урок 3', info: 'Новые движения' },
-    { text: 'Урок 4', info: 'Продвинутые движения' },
+    { id: 'e9ghsb', text: 'Урок 1', info: 'Основы' },
+    { id: 'a1rqtt', text: 'Урок 2', info: 'Основные движения' },
+    { id: 'mstcbg', text: 'Урок 3', info: 'Новые движения' },
+    { id: 't3cpno', text: 'Урок 4', info: 'Продвинутые движения' },
   ];
 // Заполнение контента для ЙОГИ (сделано)
   const yogaContent = [
-    { text: 'Утренняя практика', info: 'Йога на каждый день / 1 день' },
-    { text: 'Красота и здоровье', info: 'Йога на каждый день / 2 день' },
-    { text: 'Асаны стоя', info: 'Йога на каждый день / 3 день' },
-    { text: 'Растягиваем мышцы бедра', info: 'Йога на каждый день / 4 день' },
-    { text: 'Гибкость спины', info: 'Йога на каждый день / 5 день' }
+    { id: '3yvozj', text: 'Утренняя практика', info: 'Йога на каждый день / 1 день' },
+    { id: 'hfgxlo', text: 'Красота и здоровье', info: 'Йога на каждый день / 2 день' },
+    { id: 'kcx5ai', text: 'Асаны стоя', info: 'Йога на каждый день / 3 день' },
+    { id: 'kt6ah4', text: 'Растягиваем мышцы бедра', info: 'Йога на каждый день / 4 день' },
+    { id: 'mrhuag', text: 'Гибкость спины', info: 'Йога на каждый день / 5 день' }
   ];
 // Заполнение контента для СТРЕТЧИНГА (сделано)
   const stretchingContent = [
-    { text: 'Урок 1', info: 'Основы стретчинга' },
-    { text: 'Урок 2', info: 'Разогрев мышц' },
-    { text: 'Урок 3', info: 'Разогрев мышц 2.0' },
+    { id: '9mefwq', text: 'Урок 1', info: 'Основы стретчинга' },
+    { id: '9yolz2', text: 'Урок 2', info: 'Разогрев мышц' },
+    { id: 'pi5vtr', text: 'Урок 3', info: 'Разогрев мышц 2.0' },
   ];
 // Заполнение контента для БОДИФЛЕКСА (сделано)
   const bodyFlexContent = [
-    { text: 'Техника дыхания', info: 'Содержимое для BodyFlex' },
-    { text: 'Тренировка мышц бедер', info: 'Содержимое для BodyFlex' },
-    { text: 'Тренировка иышц ягодиц', info: 'Содержимое для BodyFlex' },
+    { id: 'xlpkqy', text: 'Техника дыхания', info: 'Содержимое для BodyFlex' },
+    { id: '17oz5f', text: 'Тренировка мышц бедер', info: 'Содержимое для BodyFlex' },
+    { id: 'pyvaec', text: 'Тренировка иышц ягодиц', info: 'Содержимое для BodyFlex' },
   ];
 // Заполнение контента для ТАНЦЕВАЛЬНЫЙ ФИТНЕС (сделано)
   const DanceFitness = [
-    { text: 'Урок 1', info: 'Основы' },
-    { text: 'Урок 2', info: 'Основные движения' },
-    { text: 'Урок 3', info: 'Новые движения' },
-    { text: 'Урок 4', info: 'Продвинутые движения' },
-    { text: 'Урок 5', info: 'Мастер-класс' },
+    { id: 'gh7bd5', text: 'Урок 1', info: 'Основы' },
+    { id: 'hwsut5', text: 'Урок 2', info: 'Основные движения' },
+    { id: 'n18r8v', text: 'Урок 3', info: 'Новые движения' },
+    { id: 'dq9rzo', text: 'Урок 4', info: 'Продвинутые движения' },
+    { id: 'rr70ie', text: 'Урок 5', info: 'Мастер-класс' },
   ];
 // Создание содержимого формы на основе выбранного курса
-  const getContent = (contentArray) => {
-    return contentArray.map((item, index) => (
-      <Link to='/workout' key={index}>
-        <div className={styles.modalContentBlock}>
-          <span className={styles.modalContentTextOne}>{item.text}</span>
-          <img src={done} className={styles.modalContentDone} />
-          <span>{item.info}</span>
-        </div>
-      </Link>
-    ));
-  };
+const getContent = (contentArray, courseIndex) => {
+  return contentArray.map((item, index) => (
+    <Link to={`/workout/${item.id}`} key={index}>
+      <div className={isCourseCompleted(courseId, item.id) ? styles.modalContentBlock : styles.modalContentBlockNotDone}>
+        <span className={styles.modalContentTextOne}>{item.text}</span>
+        {isCourseCompleted(courseId, item.id) && <img src={done} className={styles.modalContentDone} />}
+        <span>{item.info}</span>
+      </div>
+    </Link>
+  ));
+};
   return (
     isOpenModalNext && (
       <form className={styles.modalOverlayTwo}>
