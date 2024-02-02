@@ -8,13 +8,19 @@ const ModalCourse = ({ isOpenModalNext, handleModalClick, trainingsArray}) => {
 // Получаем название курса из Redux Store
 const courseName = useSelector(state => state.store.courseName);
 const isCourseCompleted = (courseId, workoutId) => {
-  console.log(trainingsArray)
-  console.log("courseId:", courseId);
-  console.log("workoutId:", workoutId);
-  const course = trainingsArray.find(course => course.id === courseId);
+  const user = localStorage.getItem('userUid');
+  const course = trainingsArray.find(course => course._id === courseId);
   console.log(course)
   if (course && Array.isArray(course.workouts)) {
-    return course.workouts.some(workout => workout.id === workoutId && localStorage.getItem(workoutId) === 'userUid');
+    const result = course.workouts.some(workout => {
+      if (workout[workoutId] && workout[workoutId].uid === user) {
+        console.log("Matching UID found for workoutId:", workoutId);
+        return true;
+      }
+      return false;
+    });
+    console.log(result);
+    return result;
   }
   return false;
 };
