@@ -5,22 +5,12 @@ import done from '../../img/img_profile/Done.png';
 import {Link} from "react-router-dom";
 
 const ModalCourse = ({ isOpenModalNext, handleModalClick, trainingsArray}) => {
-// Получаем название курса из Redux Store
 const courseName = useSelector(state => state.store.courseName);
 const isCourseCompleted = (courseId, workoutId) => {
-  const user = localStorage.getItem('userUid');
+  const userUid = localStorage.getItem('userUid');
   const course = trainingsArray.find(course => course._id === courseId);
-  console.log(course)
-  if (course && Array.isArray(course.workouts)) {
-    const result = course.workouts.some(workout => {
-      if (workout[workoutId] && workout[workoutId].uid === user) {
-        console.log("Matching UID found for workoutId:", workoutId);
-        return true;
-      }
-      return false;
-    });
-    console.log(result);
-    return result;
+  if (course && course.workouts && course.workouts[workoutId] && course.workouts[workoutId].uid === userUid) {
+    return true;
   }
   return false;
 };
