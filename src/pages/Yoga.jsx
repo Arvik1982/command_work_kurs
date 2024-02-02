@@ -1,3 +1,4 @@
+
 import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -11,11 +12,9 @@ import ofre from "../img/3.png"
 import styles from './css/ioga.module.css';
 import Burger from '../components/Burger';
 
-import Modal from '../components/Modal';
 import buttonImage from '../img/Group 48096487.svg';
 import info from '../img/info.png';
 import info_button from '../img/info_button.svg'
-
 
 
 export default function DescriptionPage() {
@@ -104,7 +103,8 @@ export default function DescriptionPage() {
                             <img src={buttonImage} alt="buttonImage" />
                         </div>
                     </div>
-                    <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} selectedTraining={courseData} />
+                    <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} selectedTraining={courseData} 
+                    trainingsArray={courses} />
                     {/* Рендер модального окна */}
                 </div>
             )}

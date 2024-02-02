@@ -29,6 +29,7 @@
     width: 220px;
     height: 35px;
     flex-shrink: 0;
+    z-index: 999;
   }
   
   .course__page_image{
@@ -58,7 +59,6 @@
   .course__ioga{
     display: flex;
     font-size: 24px;
-
   }
 
   .yourImageClass{
