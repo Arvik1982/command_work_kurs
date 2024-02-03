@@ -14,11 +14,6 @@ import {
 function App() {
 const dispatch=useDispatch()
   useEffect(()=>{
-    getAllWorkouts().then((data)=>{
-    dispatch(setAllWorkoutsArray(data))}
-    ).catch((error)=>{
-      dispatch(setConnectionError(error.message))
-    })
     getAllCourses()
     .then((data) => {
       const arr = [...Object.values(data)]
@@ -32,7 +27,13 @@ const dispatch=useDispatch()
 
   },[])
 
-
+useEffect(()=>{
+  getAllWorkouts().then((data)=>{
+    dispatch(setAllWorkoutsArray(data))}
+    ).catch((error)=>{
+      dispatch(setConnectionError(error.message))
+    })
+},[])
   return (
     <div className={styles.app}>
       <ContentBox>

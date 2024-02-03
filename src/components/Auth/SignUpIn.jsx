@@ -194,7 +194,7 @@ export default function SignUpIn() {
               setButtonDisabled(false)
             }}
             className={styles.page_input}
-            type="text"
+            type="..."
             placeholder="Повторите пароль"
           />
         </div>

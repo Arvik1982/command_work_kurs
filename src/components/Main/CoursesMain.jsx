@@ -21,17 +21,17 @@ export default function MainCourses() {
   const dispatch = useDispatch()
   const trainingsArray = useSelector((state) => state.store.trainingsArray)
   const error = useSelector((state) => state.store.connectionError)
-  // const [pageNumber, setPageNumber] = useState(0)
-  // const onPageChange = ({ selected }) => {
-  //   setPageNumber(selected)
-  // }
-  // const coursesOnPage = 5
-  // const pagesVisited = pageNumber * coursesOnPage
-  // const displayCoursesArray = trainingsArray.slice(
-  //   pagesVisited,
-  //   pagesVisited + coursesOnPage,
-  // )
-  // const pageCount = Math.ceil(trainingsArray.length / coursesOnPage)
+  const [pageNumber, setPageNumber] = useState(0)
+  const onPageChange = ({ selected }) => {
+    setPageNumber(selected)
+  }
+  const coursesOnPage = 5
+  const pagesVisited = pageNumber * coursesOnPage
+  const displayCoursesArray = trainingsArray.slice(
+    pagesVisited,
+    pagesVisited + coursesOnPage,
+  )
+  const pageCount = Math.ceil(trainingsArray.length / coursesOnPage)
 
   useEffect(()=>{
     setTimeout(()=>{setContentLoaded(true)},1000)
@@ -44,8 +44,9 @@ export default function MainCourses() {
       </h1>
       <div className={styles.main__trainings_grid}>
         {
-        // displayCoursesArray
-        trainingsArray.map((el) => {
+        displayCoursesArray
+        // trainingsArray
+        .map((el) => {
           return (contentLoaded?
             <div className="trainings__grid_element" key={el.nameEN}>
               <Link
@@ -84,7 +85,7 @@ export default function MainCourses() {
        
       </div>
 
-      {/* <ReactPaginate
+      <ReactPaginate
         previousLabel="Предыдущая"
         nextLabel="Следующая"
         pageCount={pageCount}
@@ -94,7 +95,7 @@ export default function MainCourses() {
         nextClassName={styles.paginateNextButtons}
         disabledClassName={pageCount<=1?styles.paginateDisabled:''}
         activeClassName={styles.paginateActive}
-      /> */}
+      />
     </div>
   )
 }
