@@ -179,7 +179,7 @@ export default function SignUpIn() {
             setButtonDisabled(false)
           }}
           className={styles.page_input}
-          type="text"
+          type="password"
           placeholder="Пароль (не менее 6 символов)"
         />
         <div
@@ -194,7 +194,7 @@ export default function SignUpIn() {
               setButtonDisabled(false)
             }}
             className={styles.page_input}
-            type="..."
+            type="password"
             placeholder="Повторите пароль"
           />
         </div>
@@ -243,6 +243,7 @@ export default function SignUpIn() {
               if (e === 'Enter') registration()
             }}
             onClick={() => {
+              setError('')
               if (registrationRegime) {
                 disableButton()
                 registration()
