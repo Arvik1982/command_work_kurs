@@ -32,6 +32,7 @@ export default function SignUpIn() {
     'Firebase: Password should be at least 6 characters (auth/weak-password).'
   const wrongPass = 'Firebase: Error (auth/wrong-password).'
   const loginInUse = 'Firebase: Error (auth/email-already-in-use).'
+  const netError='Firebase: Error (auth/network-request-failed).'
 
   useEffect(() => {
     styleBody('#271A58')
@@ -50,6 +51,35 @@ export default function SignUpIn() {
       id: id,
       progress: progress,
     })
+   
+  }
+// Изменение данных пользователя, запись прогресса 
+  function changeUserData(userId,name, email, imageUrl, id, yogProgr,strProgr,stpProgr,bodProgr,danProgr ) {
+    const db = getDatabase();
+
+    userId ='LDw9y1jPRRSv3NbNLB1AK4SANf52'
+    name ='02022024test@test.ru'
+    email = name
+    imageUrl='url'
+    id ='18'
+    yogProgr=[3,0,1,0,0,7]
+
+    let progress={
+      yoga: yogProgr ,
+      stratch:strProgr?strProgr:0,
+      step: stpProgr?stpProgr:0,
+      body: bodProgr?bodProgr:0,
+      dance: danProgr?danProgr:0,
+    }
+    set(ref(db, 'users/' + userId ), {
+      username: name,
+      email: email,
+      profile_picture: imageUrl,
+      id: id,
+      progress: progress,
+    });
+
+    // <button onClick={()=>{changeUserData()}}>click</button>
   }
 
   function userLogin() {
@@ -60,6 +90,7 @@ export default function SignUpIn() {
         const currentUserUid = currentUserArr[0].uid
         dispatch(setCurrentUser(currentUserUid))
         localStorage.setItem('userUid', currentUserUid)
+        return currentUserArr
       })
       .then(() => {
         navigate('/profile', { replace: true })
@@ -103,7 +134,7 @@ export default function SignUpIn() {
           .then((data) => {
             id = [...Object.values(data)]
             progress = {
-              yoga: 0,
+              yoga: [0,0,0,0,0,0],
               stratch: 0,
               step: 0,
               body: 0,
@@ -148,7 +179,7 @@ export default function SignUpIn() {
             setButtonDisabled(false)
           }}
           className={styles.page_input}
-          type="text"
+          type="password"
           placeholder="Пароль (не менее 6 символов)"
         />
         <div
@@ -163,7 +194,7 @@ export default function SignUpIn() {
               setButtonDisabled(false)
             }}
             className={styles.page_input}
-            type="text"
+            type="password"
             placeholder="Повторите пароль"
           />
         </div>
@@ -182,7 +213,7 @@ export default function SignUpIn() {
                     ? 'Неверный пароль'
                     : error === loginInUse
                       ? 'Пользователь уже зарегистрирован'
-                      : error}
+                      : error===netError?'Нет подключения к сети':error}
         </div>
       </div>
       <div className={styles.authorization__page_buttons}>
@@ -212,6 +243,7 @@ export default function SignUpIn() {
               if (e === 'Enter') registration()
             }}
             onClick={() => {
+              setError('')
               if (registrationRegime) {
                 disableButton()
                 registration()
@@ -231,6 +263,7 @@ export default function SignUpIn() {
           >
             Зарегистрироваться
           </button>
+          
         </div>
       </div>
     </div>

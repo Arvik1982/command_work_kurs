@@ -13,11 +13,18 @@ import { SkeletonTheme } from "react-loading-skeleton"
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
+
+
 export default function MainCourses() {
 
   const [contentLoaded, setContentLoaded]=useState(false)
   const dispatch = useDispatch()
-  const trainingsArray = useSelector((state) => state.store.trainingsArray)
+  const reduxTrainingsArray = useSelector((state) => state.store.trainingsArray)
+  const localTrainingsArray = JSON.parse(localStorage.getItem('trainingsArray'))
+  const trainingsArray = reduxTrainingsArray?reduxTrainingsArray:localTrainingsArray
+  
+
+
   const error = useSelector((state) => state.store.connectionError)
   const [pageNumber, setPageNumber] = useState(0)
   const onPageChange = ({ selected }) => {
@@ -41,7 +48,10 @@ export default function MainCourses() {
         {error}
       </h1>
       <div className={styles.main__trainings_grid}>
-        {displayCoursesArray.map((el) => {
+        {
+        displayCoursesArray
+        // trainingsArray
+        .map((el) => {
           return (contentLoaded?
             <div className="trainings__grid_element" key={el.nameEN}>
               <Link

@@ -5,7 +5,9 @@ const sliceStore = createSlice({
   initialState: {
     courseName: JSON.parse(localStorage.getItem('courseName')),
     currentUserUid: '',
-    trainingsArray: JSON.parse(localStorage.getItem('trainingsArray')),
+    trainingsArray: []
+    // JSON.parse(localStorage.getItem('trainingsArray'))
+    ,
     workoutsArray: JSON.parse(localStorage.getItem('workouts')),
     connectionError: '',
   },
