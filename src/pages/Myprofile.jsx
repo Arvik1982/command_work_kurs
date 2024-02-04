@@ -335,7 +335,7 @@ export default function MyProfilePage() {
         {showNotification ? (
           <div className={styles.main__courses_info}>
             <div className={styles.main__courses_info_two}>
-            <span>У вас нет добавленных курсов, но вы можете пройти на <Link className={styles.main__courses_bottom} to="/">главную страницу</Link> для ознакомления</span>
+            <span>Сейчас у вас нет добавленных курсов, но вы можете пройти на <Link className={styles.main__courses_bottom} to="/">главную страницу</Link> для ознакомления</span>
             </div>
           </div>
         ) : (
