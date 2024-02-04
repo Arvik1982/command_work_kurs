@@ -39,6 +39,28 @@ export default function MyProfilePage() {
   const [showPassword, setShowPassword] = useState(true);
   // Стейт для уведомления
   const [showNotification, setShowNotification] = useState(false);
+  // Получение курсов (АПИ)
+  useEffect(() => {
+    styleBody('#FAFAFA')
+    const uid = localStorage.getItem('userUid');
+    setTimeout(() => {
+      getMyCourses(uid).then((data) => {
+          const arr = [...Object.values(data)];
+          console.log(arr);
+          if (arr.length === 1) {
+              setTrainingsArray([0]);
+              setTimeout(() => {
+                  setShowNotification(true);
+              }, 3000);
+          } else {
+              setTrainingsArray(arr);
+          }
+          return data;
+      }).catch((error) => {
+          console.error('Error fetching data:', error);
+      });
+      }, 500);
+  }, []);
   // Функция клика по кнопке "Перейти"
   const handleToTraining = (trainingType) => {
     console.log(trainingType)
@@ -196,24 +218,7 @@ export default function MyProfilePage() {
   const handleImageClick = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
-  // Получение курсов (АПИ)
-  useEffect(() => {
-    styleBody('#FAFAFA')
-    const uid = localStorage.getItem('userUid');
-    getMyCourses(uid).then((data) => {
-      const arr = [...Object.values(data)];
-      console.log(arr);
-      if (arr.length === 1) {
-        setTrainingsArray([0]);
-        setTimeout(() => {
-          setShowNotification(true);
-        }, 3000);
-      } else {
-        setTrainingsArray(arr);
-      }
-      return data;
-    });
-  }, []);
+
   // Получение информации о текущем пользователе при загрузке страницы
   useEffect(() => {
     const user = auth.currentUser;

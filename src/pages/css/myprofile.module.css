@@ -17,11 +17,11 @@
 }
 @keyframes fadeInUp {
     from {
-      top: -250%; /* Начальная позиция до анимации */
+      top: -250%;
       opacity: 0;
     }
     to {
-      top: -300%; /* Конечная позиция после анимации */
+      top: -300%;
       opacity: 1;
     }
 }
@@ -121,7 +121,7 @@
     cursor: pointer;
     transition: all .3s;
 }
-/* Стиль для пустого массива курсов */
+/* Нет курсов */
 .main__courses {
     position: absolute;
     top: -150%;
@@ -148,7 +148,7 @@
     width: auto;
     height: auto;
     text-align: center;
-    background-color: #c7e957b3;
+    /* background-color: #c7e957b3; */
     border: 1px solid transparent;
     border-radius: 30px;
     animation: fadeInUp 0.5s ease;
@@ -159,15 +159,15 @@
     flex-direction: column;
     gap: 20px;
     font-size: 18px;
-    color: black;
-    border: 1px dashed black;
+    color: rgba(0, 0, 0, 0.5);
+    border: 1px dashed rgba(0, 0, 0, 0.5);
     border-radius: 20px;
 }
 .main__courses_bottom {
     cursor: pointer;
-    color: black;
+    color: rgba(0, 0, 0, 0.5);
     font-style: italic;
-    border-bottom: 1px dashed #141414;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.5);
     transition: all .3s;
 }
 /* Бургер меню */
@@ -375,6 +375,7 @@
 /* Наведение */
 .main__courses_bottom:hover {
     color: #6504c5;
+    border-bottom: 1px dashed #6504c5;
 }
 .header_button:hover {
     background-color: #3F007D;
