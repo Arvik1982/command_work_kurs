@@ -4,6 +4,17 @@
     50% { color: #6e0ea290; } /* Цвет фона при "погашенном" состоянии */
     100% { color: #da2549; }
 }
+@keyframes rotate {
+    0% {
+      transform: rotate(10deg); /* Начальное положение */
+    }
+    50% {
+      transform: rotate(15deg); /* Половина анимации - поворот на 5 градусов */
+    }
+    100% {
+      transform: rotate(10deg); /* Завершение анимации - возвращаем в начальное положение */
+    }
+  }
 
 /* Основные стили */
 .wrapper {
@@ -65,9 +76,10 @@
     transition: all .3s;
 }
 .main {
+    position: relative;
     padding-top: 35px;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     gap: 25px;
 }
 .main_direct {
@@ -90,6 +102,25 @@
     font-size: 20px;
     cursor: pointer;
     transition: all .3s;
+}
+/* Стиль для пустого массива курсов */
+.main__courses {
+    position: absolute;
+    top: -150%;
+    left: 20%;
+    padding: 5px;
+    width: auto;
+    height: auto;
+    text-align: center;
+    background-color: #c7e957b3;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    animation: rotate 2s infinite;
+}
+.main__courses_none {
+    padding: 5px;
+    border: 1px dashed black;
+    border-radius: 20px;
 }
 /* Бургер меню */
 .dropdownMenu {

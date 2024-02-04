@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { reauthenticateWithCredential, EmailAuthProvider, updatePassword, updateEmail } from 'firebase/auth';
 import { auth } from '../firebase_auth';
-import { getAllCourses } from '../api';
+import { getAllCourses, getMyCourses } from '../api';
 import { setCourseName } from '../store/sliceStore';
 import styles from './css/myprofile.module.css';
 import logo from '../img/logo.svg';
@@ -186,12 +186,28 @@ export default function MyProfilePage() {
     }
   };
   // Получение курсов (АПИ)
+  // useEffect(() => {
+  //   styleBody('#FAFAFA')
+  //   const uid = localStorage.getItem('userUid');
+  //   getMyCourses(uid).then((data) => {
+  //     const arr = [...Object.values(data)];
+  //     console.log(arr)
+  //     setTrainingsArray(arr);
+  //     return data;
+  //   });
+  // }, []);
   useEffect(() => {
     styleBody('#FAFAFA')
-    getAllCourses().then((data) => {
+    const uid = localStorage.getItem('userUid');
+    getMyCourses(uid).then((data) => {
       const arr = [...Object.values(data)];
-      console.log(arr)
-      setTrainingsArray(arr);
+      console.log(arr);
+      if (arr.length === 1) {
+        // Если массив пустой, устанавливаем пустой массив
+        setTrainingsArray([0]);
+      } else {
+        setTrainingsArray(arr);
+      }
       return data;
     });
   }, []);
@@ -300,7 +316,12 @@ export default function MyProfilePage() {
       </div>
       <span className={styles.header_title}>Мои курсы</span>
       <div className={styles.main}>
-        {Object.values(trainingsArray).slice(1, 4).map((e) => {
+      {trainingsArray.length === 1 ? (
+        <div className={styles.main__courses}>
+          <p className={styles.main__courses_none}>Нет курсов</p>
+        </div>
+      ) : (
+        trainingsArray.slice(1, 5).map((e) => { // Отображаем элементы массива, начиная со второго элемента до пятого
           return (
             <div
               className={styles.main_direct}
@@ -326,9 +347,10 @@ export default function MyProfilePage() {
                 </div>
               </div>
             </div>
-          );
-        })}
-        <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} trainingsArray={trainingsArray}/>
+          );;
+        })
+      )}
+      <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} trainingsArray={trainingsArray}/>
       </div>
     </div>
   );
