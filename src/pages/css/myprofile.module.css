@@ -14,7 +14,17 @@
     100% {
       transform: rotate(10deg); /* Завершение анимации - возвращаем в начальное положение */
     }
-  }
+}
+@keyframes fadeInUp {
+    from {
+      top: -250%; /* Начальная позиция до анимации */
+      opacity: 0;
+    }
+    to {
+      top: -300%; /* Конечная позиция после анимации */
+      opacity: 1;
+    }
+}
 
 /* Основные стили */
 .wrapper {
@@ -129,6 +139,36 @@
     padding: 5px;
     border: 1px dashed black;
     border-radius: 20px;
+}
+.main__courses_info {
+    position: absolute;
+    top: -300%;
+    left: 63%;
+    padding: 10px;
+    width: auto;
+    height: auto;
+    text-align: center;
+    background-color: #c7e957b3;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    animation: fadeInUp 0.5s ease;
+}
+.main__courses_info_two {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 18px;
+    color: black;
+    border: 1px dashed black;
+    border-radius: 20px;
+}
+.main__courses_bottom {
+    cursor: pointer;
+    color: black;
+    font-style: italic;
+    border-bottom: 1px dashed #141414;
+    transition: all .3s;
 }
 /* Бургер меню */
 .dropdownMenu {
@@ -333,6 +373,9 @@
 
 
 /* Наведение */
+.main__courses_bottom:hover {
+    color: #6504c5;
+}
 .header_button:hover {
     background-color: #3F007D;
     border: 1px solid #3F007D;

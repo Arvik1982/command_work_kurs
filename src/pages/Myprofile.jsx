@@ -15,6 +15,7 @@ import close from '../img/img_profile/close.png';
 import open from '../img/img_profile/open.png';
 import Modal from '../components/Modal/ModalCourse';
 import Burger from '../components/Burger';
+import { Link } from 'react-router-dom';
 
 export default function MyProfilePage() {
   const dispatch = useDispatch();
@@ -36,6 +37,8 @@ export default function MyProfilePage() {
   const [isOpenModalNext, setIsOpenModalNext] = useState(false);
   // Стейт для показа пароля
   const [showPassword, setShowPassword] = useState(true);
+  // Стейт для уведомления
+  const [showNotification, setShowNotification] = useState(false);
   // Функция клика по кнопке "Перейти"
   const handleToTraining = (trainingType) => {
     console.log(trainingType)
@@ -201,8 +204,10 @@ export default function MyProfilePage() {
       const arr = [...Object.values(data)];
       console.log(arr);
       if (arr.length === 1) {
-        // Если массив пустой, устанавливаем пустой массив
         setTrainingsArray([0]);
+        setTimeout(() => {
+          setShowNotification(true);
+        }, 3000);
       } else {
         setTrainingsArray(arr);
       }
@@ -323,11 +328,22 @@ export default function MyProfilePage() {
       <span className={styles.header_title}>Мои курсы</span>
       <div className={styles.main}>
       {trainingsArray.length === 1 ? (
+      <div>
         <div className={styles.main__courses}>
           <p className={styles.main__courses_none}>Нет курсов</p>
         </div>
+        {showNotification ? (
+          <div className={styles.main__courses_info}>
+            <div className={styles.main__courses_info_two}>
+            <span>У вас нет добавленных курсов, но вы можете пройти на <Link className={styles.main__courses_bottom} to="/">главную страницу</Link> для ознакомления</span>
+            </div>
+          </div>
+        ) : (
+        null
+        )}
+      </div>
       ) : (
-        trainingsArray.slice(1, 5).map((e) => { // Отображаем элементы массива, начиная со второго элемента до пятого
+        trainingsArray.slice(1, 5).map((e) => {
           return (
             <div
               className={styles.main_direct}
@@ -353,7 +369,7 @@ export default function MyProfilePage() {
                 </div>
               </div>
             </div>
-          );;
+          );
         })
       )}
       <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} trainingsArray={trainingsArray}/>
