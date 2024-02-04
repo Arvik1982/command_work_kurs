@@ -4,6 +4,27 @@
     50% { color: #6e0ea290; } /* Цвет фона при "погашенном" состоянии */
     100% { color: #da2549; }
 }
+@keyframes rotate {
+    0% {
+      transform: rotate(10deg); /* Начальное положение */
+    }
+    50% {
+      transform: rotate(15deg); /* Половина анимации - поворот на 5 градусов */
+    }
+    100% {
+      transform: rotate(10deg); /* Завершение анимации - возвращаем в начальное положение */
+    }
+}
+@keyframes fadeInUp {
+    from {
+      top: -250%;
+      opacity: 0;
+    }
+    to {
+      top: -300%;
+      opacity: 1;
+    }
+}
 
 /* Основные стили */
 .wrapper {
@@ -47,10 +68,18 @@
     height: 50px;
 }
 .header_info_login {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     padding: 15px;
     border: 1px solid transparent;
     border-radius: 20px;
     background-color: #c7e957b3;
+}
+.header_img_eye {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
 }
 .header_button {
     cursor: pointer;
@@ -65,9 +94,10 @@
     transition: all .3s;
 }
 .main {
+    position: relative;
     padding-top: 35px;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     gap: 25px;
 }
 .main_direct {
@@ -89,6 +119,55 @@
     display: inline-block;
     font-size: 20px;
     cursor: pointer;
+    transition: all .3s;
+}
+/* Нет курсов */
+.main__courses {
+    position: absolute;
+    top: -150%;
+    left: 20%;
+    padding: 5px;
+    width: auto;
+    height: auto;
+    text-align: center;
+    background-color: #c7e957b3;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    animation: rotate 2s infinite;
+}
+.main__courses_none {
+    padding: 5px;
+    border: 1px dashed black;
+    border-radius: 20px;
+}
+.main__courses_info {
+    position: absolute;
+    top: -300%;
+    left: 63%;
+    padding: 10px;
+    width: auto;
+    height: auto;
+    text-align: center;
+    /* background-color: #c7e957b3; */
+    border: 1px solid transparent;
+    border-radius: 30px;
+    animation: fadeInUp 0.5s ease;
+}
+.main__courses_info_two {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.5);
+    border: 1px dashed rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+}
+.main__courses_bottom {
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.5);
+    font-style: italic;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.5);
     transition: all .3s;
 }
 /* Бургер меню */
@@ -294,6 +373,10 @@
 
 
 /* Наведение */
+.main__courses_bottom:hover {
+    color: #6504c5;
+    border-bottom: 1px dashed #6504c5;
+}
 .header_button:hover {
     background-color: #3F007D;
     border: 1px solid #3F007D;

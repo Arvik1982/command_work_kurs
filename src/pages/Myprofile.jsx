@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { reauthenticateWithCredential, EmailAuthProvider, updatePassword, updateEmail } from 'firebase/auth';
 import { auth } from '../firebase_auth';
-import { getAllCourses } from '../api';
+import { getAllCourses, getMyCourses } from '../api';
 import { setCourseName } from '../store/sliceStore';
 import styles from './css/myprofile.module.css';
 import logo from '../img/logo.svg';
@@ -11,8 +11,11 @@ import yoga from '../img/img_profile/yoga_profile.png';
 import stretch from '../img/img_profile/stretch_profile.png';
 import body from '../img/img_profile/bodyflex_profile.png';
 import styleBody from '../styleBody';
+import close from '../img/img_profile/close.png';
+import open from '../img/img_profile/open.png';
 import Modal from '../components/Modal/ModalCourse';
 import Burger from '../components/Burger';
+import { Link } from 'react-router-dom';
 
 export default function MyProfilePage() {
   const dispatch = useDispatch();
@@ -32,6 +35,35 @@ export default function MyProfilePage() {
   const [currentUser, setCurrentUser] = useState(null);
   // Стейт для кнопки "Перейти"
   const [isOpenModalNext, setIsOpenModalNext] = useState(false);
+  // Стейт для показа пароля
+  const [showPassword, setShowPassword] = useState(true);
+  // Стейт для уведомления
+  const [showNotification, setShowNotification] = useState(false);
+  // Получение курсов (АПИ)
+  useEffect(() => {
+    styleBody('#FAFAFA');
+    const uid = localStorage.getItem('userUid');
+    const fetchData = async () => {
+      try {
+        const data = await getMyCourses(uid);
+        const arr = [...Object.values(data)];
+        console.log(arr);
+          if (arr.length === 1) {
+            setTrainingsArray([0]);
+            setTimeout(() => {
+              setShowNotification(true);
+            }, 1000);
+          } else {
+              setTrainingsArray(arr);
+          }
+      } catch (error) {
+        setTimeout(fetchData, 1000);
+      }
+    };
+
+    // Вызываем fetchData для первоначального запроса
+    fetchData();
+}, []);
   // Функция клика по кнопке "Перейти"
   const handleToTraining = (trainingType) => {
     console.log(trainingType)
@@ -76,7 +108,10 @@ export default function MyProfilePage() {
     switch(true) {
       case password !== storedPassword:
         errors.push('Неверный пароль!');
-        break;
+      break;
+      case password === newPassword:
+        errors.push('Вы ввели текущий пароль!');
+      break;
       case(!newPassword.length || !repeatPassword.length || !password):
       errors.push('Заполните все поля ввода');
       break;
@@ -129,6 +164,7 @@ export default function MyProfilePage() {
   const handleSaveLoginClick = () => {
     const newLogin = document.getElementById('username').value;
     const validUsername = /^[a-zA-Z][a-zA-Z0-9._@]*$/;
+    const hasDomain = /^[a-zA-Z][a-zA-Z0-9._]*@[a-zA-Z]+\.[a-zA-Z]{2,}$/;
     const user = auth.currentUser;
     const email = user.email;
     const password = document.getElementById('password').value;
@@ -140,14 +176,17 @@ export default function MyProfilePage() {
     );
     const localUser = user.uid;
     switch (true) {
+      case !newLogin || !password:
+        errors.push('Заполните все поля ввода');
+      break;
       case password !== storedPassword:
         errors.push('Неверный пароль!');
         break;
-      case !newLogin || !password:
-        errors.push('Заполните все поля ввода');
-        break;
       case !newLogin.match(validUsername):
-        errors.push('Логин должен содержать только латинские буквы, цифры и не начинаться с дефиса или подчеркивания');
+        errors.push('Логин должен начинаться с буквы и содержать только латинские буквы, цифры, точки, подчеркивания или символы @');
+        break;
+      case !newLogin.match(hasDomain):
+        errors.push('Логин должен содержать домен');
         break;
       default:
         // Сбрасываем ошибки, если они были ранее
@@ -173,8 +212,10 @@ export default function MyProfilePage() {
           localStorage.setItem('userLogin', user.email);
           localStorage.setItem('userPass', password);
         }).catch((err) => {
-          if (err.message !== 'Server error') {
-            errors.push(`Неверные данные!`);
+          if (err.code === 'auth/email-already-in-use') {
+              errors.push('Данный email уже используется другим аккаунтом.');
+          } else if (err.message !== 'Server error') {
+              errors.push(`Неверные данные!`);
           }
           console.log(`${err.message}`);
           setIsSavingLogin(false);
@@ -185,16 +226,11 @@ export default function MyProfilePage() {
       setError(errors.join(', '));
     }
   };
-  // Получение курсов (АПИ)
-  useEffect(() => {
-    styleBody('#FAFAFA')
-    getAllCourses().then((data) => {
-      const arr = [...Object.values(data)];
-      console.log(arr)
-      setTrainingsArray(arr);
-      return data;
-    });
-  }, []);
+  // Функция для обработки клика на изображении
+  const handleImageClick = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   // Получение информации о текущем пользователе при загрузке страницы
   useEffect(() => {
     const user = auth.currentUser;
@@ -229,7 +265,15 @@ export default function MyProfilePage() {
           </div>
           <div className={styles.header_info}>
             <span className={styles.header_info_text}>Пароль:</span>
-            <span className={styles.header_info_login}>{currentUser?.password}</span>
+            <div className={styles.header_info_login}>
+              <span>{showPassword ? '••••••' : currentUser?.password}</span>
+              <img
+                className={styles.header_img_eye}
+                src={showPassword ? close : open}
+                alt={showPassword ? 'close_password' : 'open_password'}
+                onClick={handleImageClick}
+              />
+            </div>
           </div>
         </div>
         <button className={styles.header_button} onClick={handleEditLoginClick} type="submit">Редактировать логин</button>
@@ -276,8 +320,8 @@ export default function MyProfilePage() {
               <span className={styles.main_text}>Текущий пароль:</span>
                 <input className={styles.main_form} type="password" id="password" name="password" placeholder="Введите пароль" />
                 <span className={styles.main_text}>Новый пароль:</span>
-                <input className={styles.main_form} type="text" id="newpassword" name="username" placeholder="Введите новый пароль" />
-                <input className={styles.main_form} type="text" id="repeatPassword" name="repeatPassword" placeholder="Повторите пароль" />
+                <input className={styles.main_form} type="password" id="newpassword" name="username" placeholder="Введите новый пароль" />
+                <input className={styles.main_form} type="password" id="repeatPassword" name="repeatPassword" placeholder="Повторите пароль" />
                 <div
                   className={styles.main_criterion}
                 >
@@ -300,7 +344,23 @@ export default function MyProfilePage() {
       </div>
       <span className={styles.header_title}>Мои курсы</span>
       <div className={styles.main}>
-        {Object.values(trainingsArray).slice(1, 4).map((e) => {
+      {trainingsArray.length === 1 ? (
+      <div>
+        <div className={styles.main__courses}>
+          <p className={styles.main__courses_none}>Нет курсов</p>
+        </div>
+        {showNotification ? (
+          <div className={styles.main__courses_info}>
+            <div className={styles.main__courses_info_two}>
+            <span>Сейчас у вас нет добавленных курсов, но вы можете пройти на <Link className={styles.main__courses_bottom} to="/">главную страницу</Link> для ознакомления</span>
+            </div>
+          </div>
+        ) : (
+        null
+        )}
+      </div>
+      ) : (
+        trainingsArray.slice(1, 5).map((e) => {
           return (
             <div
               className={styles.main_direct}
@@ -327,8 +387,9 @@ export default function MyProfilePage() {
               </div>
             </div>
           );
-        })}
-        <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} trainingsArray={trainingsArray}/>
+        })
+      )}
+      <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} trainingsArray={trainingsArray}/>
       </div>
     </div>
   );
