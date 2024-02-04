@@ -308,8 +308,8 @@ export default function MyProfilePage() {
               <span className={styles.main_text}>Текущий пароль:</span>
                 <input className={styles.main_form} type="password" id="password" name="password" placeholder="Введите пароль" />
                 <span className={styles.main_text}>Новый пароль:</span>
-                <input className={styles.main_form} type="text" id="newpassword" name="username" placeholder="Введите новый пароль" />
-                <input className={styles.main_form} type="text" id="repeatPassword" name="repeatPassword" placeholder="Повторите пароль" />
+                <input className={styles.main_form} type="password" id="newpassword" name="username" placeholder="Введите новый пароль" />
+                <input className={styles.main_form} type="password" id="repeatPassword" name="repeatPassword" placeholder="Повторите пароль" />
                 <div
                   className={styles.main_criterion}
                 >
