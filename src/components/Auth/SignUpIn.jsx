@@ -133,9 +133,7 @@ export default function SignUpIn() {
         getAllUsers()
           .then((data) => {
             id = [...Object.values(data)]
-            courses = {
-              courses_id:[0]
-            }
+            courses =[0]
             const uid = responseNewUser[0].uid
             const userId = uid
             const imageUrl = ''
