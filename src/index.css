@@ -21,9 +21,13 @@ body {
 }
 
 /*Убрать полосу прокрутки для всей страницы*/
-body::-webkit-scrollbar {
-  width: 10;
+/* body::-webkit-scrollbar {
+  width: 0;
+} */
+body{
+  overflow-x: hidden;
 }
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
