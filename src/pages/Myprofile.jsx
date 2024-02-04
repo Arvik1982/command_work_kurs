@@ -11,6 +11,8 @@ import yoga from '../img/img_profile/yoga_profile.png';
 import stretch from '../img/img_profile/stretch_profile.png';
 import body from '../img/img_profile/bodyflex_profile.png';
 import styleBody from '../styleBody';
+import close from '../img/img_profile/close.png';
+import open from '../img/img_profile/open.png';
 import Modal from '../components/Modal/ModalCourse';
 import Burger from '../components/Burger';
 
@@ -32,6 +34,8 @@ export default function MyProfilePage() {
   const [currentUser, setCurrentUser] = useState(null);
   // Стейт для кнопки "Перейти"
   const [isOpenModalNext, setIsOpenModalNext] = useState(false);
+  // Стейт для показа пароля
+  const [showPassword, setShowPassword] = useState(true);
   // Функция клика по кнопке "Перейти"
   const handleToTraining = (trainingType) => {
     console.log(trainingType)
@@ -185,17 +189,11 @@ export default function MyProfilePage() {
       setError(errors.join(', '));
     }
   };
+  // Функция для обработки клика на изображении
+  const handleImageClick = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
   // Получение курсов (АПИ)
-  // useEffect(() => {
-  //   styleBody('#FAFAFA')
-  //   const uid = localStorage.getItem('userUid');
-  //   getMyCourses(uid).then((data) => {
-  //     const arr = [...Object.values(data)];
-  //     console.log(arr)
-  //     setTrainingsArray(arr);
-  //     return data;
-  //   });
-  // }, []);
   useEffect(() => {
     styleBody('#FAFAFA')
     const uid = localStorage.getItem('userUid');
@@ -245,7 +243,15 @@ export default function MyProfilePage() {
           </div>
           <div className={styles.header_info}>
             <span className={styles.header_info_text}>Пароль:</span>
-            <span className={styles.header_info_login}>{currentUser?.password}</span>
+            <div className={styles.header_info_login}>
+              <span>{showPassword ? '••••••' : currentUser?.password}</span>
+              <img
+                className={styles.header_img_eye}
+                src={showPassword ? close : open}
+                alt={showPassword ? 'close_password' : 'open_password'}
+                onClick={handleImageClick}
+              />
+            </div>
           </div>
         </div>
         <button className={styles.header_button} onClick={handleEditLoginClick} type="submit">Редактировать логин</button>
