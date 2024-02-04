@@ -41,26 +41,29 @@ export default function MyProfilePage() {
   const [showNotification, setShowNotification] = useState(false);
   // Получение курсов (АПИ)
   useEffect(() => {
-    styleBody('#FAFAFA')
+    styleBody('#FAFAFA');
     const uid = localStorage.getItem('userUid');
-    setTimeout(() => {
-      getMyCourses(uid).then((data) => {
-          const arr = [...Object.values(data)];
-          console.log(arr);
+    const fetchData = async () => {
+      try {
+        const data = await getMyCourses(uid);
+        const arr = [...Object.values(data)];
+        console.log(arr);
           if (arr.length === 1) {
-              setTrainingsArray([0]);
-              setTimeout(() => {
-                  setShowNotification(true);
-              }, 3000);
+            setTrainingsArray([0]);
+            setTimeout(() => {
+              setShowNotification(true);
+            }, 1000);
           } else {
               setTrainingsArray(arr);
           }
-          return data;
-      }).catch((error) => {
-          console.error('Error fetching data:', error);
-      });
-      }, 1000);
-  }, []);
+      } catch (error) {
+        setTimeout(fetchData, 1000);
+      }
+    };
+
+    // Вызываем fetchData для первоначального запроса
+    fetchData();
+}, []);
   // Функция клика по кнопке "Перейти"
   const handleToTraining = (trainingType) => {
     console.log(trainingType)
