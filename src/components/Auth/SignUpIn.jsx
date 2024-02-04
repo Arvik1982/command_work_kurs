@@ -42,14 +42,14 @@ export default function SignUpIn() {
     setButtonDisabled(true)
   }
 
-  function writeUserData(userId, name, email, imageUrl, id, progress) {
+  function writeUserData(userId, name, email, imageUrl, id, courses) {
     const db = getDatabase()
     set(ref(db, 'users/' + userId), {
       username: name,
       email: email,
       profile_picture: imageUrl,
       id: id,
-      progress: progress,
+      courses: courses,
     })
    
   }
@@ -129,23 +129,19 @@ export default function SignUpIn() {
 
       .then((responseNewUser) => {
         let id = []
-        let progress = []
+        let courses = []
         getAllUsers()
           .then((data) => {
             id = [...Object.values(data)]
-            progress = {
-              yoga: [0,0,0,0,0,0],
-              stratch: 0,
-              step: 0,
-              body: 0,
-              dance: 0,
+            courses = {
+              courses_id:[0]
             }
             const uid = responseNewUser[0].uid
             const userId = uid
             const imageUrl = ''
             const name = responseNewUser[0].email
             const email = responseNewUser[0].email
-            writeUserData(userId, name, email, imageUrl, id.length, progress)
+            writeUserData(userId, name, email, imageUrl, id.length, courses)
             navigate('/profile', { replace: true })
             return id
           })
