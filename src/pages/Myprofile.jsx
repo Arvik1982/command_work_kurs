@@ -41,26 +41,29 @@ export default function MyProfilePage() {
   const [showNotification, setShowNotification] = useState(false);
   // Получение курсов (АПИ)
   useEffect(() => {
-    styleBody('#FAFAFA')
+    styleBody('#FAFAFA');
     const uid = localStorage.getItem('userUid');
-    setTimeout(() => {
-      getMyCourses(uid).then((data) => {
-          const arr = [...Object.values(data)];
-          console.log(arr);
+    const fetchData = async () => {
+      try {
+        const data = await getMyCourses(uid);
+        const arr = [...Object.values(data)];
+        console.log(arr);
           if (arr.length === 1) {
-              setTrainingsArray([0]);
-              setTimeout(() => {
-                  setShowNotification(true);
-              }, 3000);
+            setTrainingsArray([0]);
+            setTimeout(() => {
+              setShowNotification(true);
+            }, 1000);
           } else {
               setTrainingsArray(arr);
           }
-          return data;
-      }).catch((error) => {
-          console.error('Error fetching data:', error);
-      });
-      }, 1000);
-  }, []);
+      } catch (error) {
+        setTimeout(fetchData, 1000);
+      }
+    };
+
+    // Вызываем fetchData для первоначального запроса
+    fetchData();
+}, []);
   // Функция клика по кнопке "Перейти"
   const handleToTraining = (trainingType) => {
     console.log(trainingType)
@@ -105,7 +108,10 @@ export default function MyProfilePage() {
     switch(true) {
       case password !== storedPassword:
         errors.push('Неверный пароль!');
-        break;
+      break;
+      case password === newPassword:
+        errors.push('Вы ввели текущий пароль!');
+      break;
       case(!newPassword.length || !repeatPassword.length || !password):
       errors.push('Заполните все поля ввода');
       break;
@@ -158,6 +164,7 @@ export default function MyProfilePage() {
   const handleSaveLoginClick = () => {
     const newLogin = document.getElementById('username').value;
     const validUsername = /^[a-zA-Z][a-zA-Z0-9._@]*$/;
+    const hasDomain = /^[a-zA-Z][a-zA-Z0-9._]*@[a-zA-Z]+\.[a-zA-Z]{2,}$/;
     const user = auth.currentUser;
     const email = user.email;
     const password = document.getElementById('password').value;
@@ -169,14 +176,17 @@ export default function MyProfilePage() {
     );
     const localUser = user.uid;
     switch (true) {
+      case !newLogin || !password:
+        errors.push('Заполните все поля ввода');
+      break;
       case password !== storedPassword:
         errors.push('Неверный пароль!');
         break;
-      case !newLogin || !password:
-        errors.push('Заполните все поля ввода');
-        break;
       case !newLogin.match(validUsername):
-        errors.push('Логин должен содержать только латинские буквы, цифры и не начинаться с дефиса или подчеркивания');
+        errors.push('Логин должен начинаться с буквы и содержать только латинские буквы, цифры, точки, подчеркивания или символы @');
+        break;
+      case !newLogin.match(hasDomain):
+        errors.push('Логин должен содержать домен');
         break;
       default:
         // Сбрасываем ошибки, если они были ранее
@@ -202,8 +212,10 @@ export default function MyProfilePage() {
           localStorage.setItem('userLogin', user.email);
           localStorage.setItem('userPass', password);
         }).catch((err) => {
-          if (err.message !== 'Server error') {
-            errors.push(`Неверные данные!`);
+          if (err.code === 'auth/email-already-in-use') {
+              errors.push('Данный email уже используется другим аккаунтом.');
+          } else if (err.message !== 'Server error') {
+              errors.push(`Неверные данные!`);
           }
           console.log(`${err.message}`);
           setIsSavingLogin(false);
