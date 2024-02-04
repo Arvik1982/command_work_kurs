@@ -59,7 +59,7 @@ export default function MyProfilePage() {
       }).catch((error) => {
           console.error('Error fetching data:', error);
       });
-      }, 500);
+      }, 1000);
   }, []);
   // Функция клика по кнопке "Перейти"
   const handleToTraining = (trainingType) => {
