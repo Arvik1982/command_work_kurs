@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { reauthenticateWithCredential, EmailAuthProvider, updatePassword, updateEmail } from 'firebase/auth';
 import { auth } from '../firebase_auth';
-import { getAllCourses } from '../api';
+import { getAllCourses, getMyCourses } from '../api';
 import { setCourseName } from '../store/sliceStore';
 import styles from './css/myprofile.module.css';
 import logo from '../img/logo.svg';
@@ -11,8 +11,11 @@ import yoga from '../img/img_profile/yoga_profile.png';
 import stretch from '../img/img_profile/stretch_profile.png';
 import body from '../img/img_profile/bodyflex_profile.png';
 import styleBody from '../styleBody';
+import close from '../img/img_profile/close.png';
+import open from '../img/img_profile/open.png';
 import Modal from '../components/Modal/ModalCourse';
 import Burger from '../components/Burger';
+import { Link } from 'react-router-dom';
 
 export default function MyProfilePage() {
   const dispatch = useDispatch();
@@ -32,6 +35,32 @@ export default function MyProfilePage() {
   const [currentUser, setCurrentUser] = useState(null);
   // Стейт для кнопки "Перейти"
   const [isOpenModalNext, setIsOpenModalNext] = useState(false);
+  // Стейт для показа пароля
+  const [showPassword, setShowPassword] = useState(true);
+  // Стейт для уведомления
+  const [showNotification, setShowNotification] = useState(false);
+  // Получение курсов (АПИ)
+  useEffect(() => {
+    styleBody('#FAFAFA')
+    const uid = localStorage.getItem('userUid');
+    setTimeout(() => {
+      getMyCourses(uid).then((data) => {
+          const arr = [...Object.values(data)];
+          console.log(arr);
+          if (arr.length === 1) {
+              setTrainingsArray([0]);
+              setTimeout(() => {
+                  setShowNotification(true);
+              }, 3000);
+          } else {
+              setTrainingsArray(arr);
+          }
+          return data;
+      }).catch((error) => {
+          console.error('Error fetching data:', error);
+      });
+      }, 500);
+  }, []);
   // Функция клика по кнопке "Перейти"
   const handleToTraining = (trainingType) => {
     console.log(trainingType)
@@ -185,16 +214,11 @@ export default function MyProfilePage() {
       setError(errors.join(', '));
     }
   };
-  // Получение курсов (АПИ)
-  useEffect(() => {
-    styleBody('#FAFAFA')
-    getAllCourses().then((data) => {
-      const arr = [...Object.values(data)];
-      console.log(arr)
-      setTrainingsArray(arr);
-      return data;
-    });
-  }, []);
+  // Функция для обработки клика на изображении
+  const handleImageClick = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   // Получение информации о текущем пользователе при загрузке страницы
   useEffect(() => {
     const user = auth.currentUser;
@@ -229,7 +253,15 @@ export default function MyProfilePage() {
           </div>
           <div className={styles.header_info}>
             <span className={styles.header_info_text}>Пароль:</span>
-            <span className={styles.header_info_login}>{currentUser?.password}</span>
+            <div className={styles.header_info_login}>
+              <span>{showPassword ? '••••••' : currentUser?.password}</span>
+              <img
+                className={styles.header_img_eye}
+                src={showPassword ? close : open}
+                alt={showPassword ? 'close_password' : 'open_password'}
+                onClick={handleImageClick}
+              />
+            </div>
           </div>
         </div>
         <button className={styles.header_button} onClick={handleEditLoginClick} type="submit">Редактировать логин</button>
@@ -300,7 +332,23 @@ export default function MyProfilePage() {
       </div>
       <span className={styles.header_title}>Мои курсы</span>
       <div className={styles.main}>
-        {Object.values(trainingsArray).slice(1, 4).map((e) => {
+      {trainingsArray.length === 1 ? (
+      <div>
+        <div className={styles.main__courses}>
+          <p className={styles.main__courses_none}>Нет курсов</p>
+        </div>
+        {showNotification ? (
+          <div className={styles.main__courses_info}>
+            <div className={styles.main__courses_info_two}>
+            <span>Сейчас у вас нет добавленных курсов, но вы можете пройти на <Link className={styles.main__courses_bottom} to="/">главную страницу</Link> для ознакомления</span>
+            </div>
+          </div>
+        ) : (
+        null
+        )}
+      </div>
+      ) : (
+        trainingsArray.slice(1, 5).map((e) => {
           return (
             <div
               className={styles.main_direct}
@@ -327,8 +375,9 @@ export default function MyProfilePage() {
               </div>
             </div>
           );
-        })}
-        <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} trainingsArray={trainingsArray}/>
+        })
+      )}
+      <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} trainingsArray={trainingsArray}/>
       </div>
     </div>
   );
