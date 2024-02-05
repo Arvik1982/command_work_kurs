@@ -10,6 +10,7 @@
   .course__page_image{
     background: rgba(245, 245, 245, 1);
     position: relative;
+    z-index: -1;
   }
 
   .imagetext{
@@ -29,6 +30,7 @@
     width: 220px;
     height: 35px;
     flex-shrink: 0;
+    z-index: 999;
   }
   
   .course__page_image{
@@ -45,24 +47,29 @@
     flex-direction: column;
     color: #000;
     font-family: StratosSkyeng;
-    font-size: 25px;
+    font-size: 24px;
     font-weight: 400;
-    line-height: 48px; 
   }
 
   .course__ioga_image{
     display: flex;
-    gap: 32px;
+    gap: 25px;
   }
   
   .course__ioga{
     display: flex;
-    font-size: 24px;
+    max-width: 400px;
+  }
 
+  .course__ioga_text{
+    padding-left: 10px;
+    font-weight: normal;
+    
   }
 
   .yourImageClass{
-    
+    height: 50%;
+    gap: 10px;
   }
 
   .course__directions_text{
