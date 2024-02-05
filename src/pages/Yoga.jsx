@@ -14,6 +14,7 @@ import Burger from '../components/Burger';
 import buttonImage from '../img/Group 48096487.svg';
 import info from '../img/info.png';
 import info_button from '../img/info_button.svg'
+import Modal from '../components/Modal/ModalCourse';
 
 
 export default function DescriptionPage() {
@@ -49,20 +50,24 @@ export default function DescriptionPage() {
                     </div>
                     <div className={styles.center_text}>
                         <h2>Подойдет для вас, если:</h2>
+
                         <div className={styles.course__ioga_image}>
                             <div className={styles.course__ioga}>
                                 <img src={one} alt="one" className={styles.yourImageClass}/>
-                                <h3>{courseData.fitting[0]}</h3>
+                                <h3 className={styles.course__ioga_text}>{courseData.fitting[0]}</h3>
                             </div>
+
                             <div className={styles.course__ioga}>
                                 <img src={two} alt="two" className={styles.yourImageClass}/>
-                                <h3>{courseData.fitting[1]}</h3>
+                                <h3 className={styles.course__ioga_text}>{courseData.fitting[1]}</h3>
                             </div>
+
                             <div className={styles.course__ioga}>
                                 <img src={ofre} alt="ofre" className={styles.yourImageClass}/>
-                                <h3>{courseData.fitting[2]}</h3>
+                                <h3 className={styles.course__ioga_text}>{courseData.fitting[2]}</h3>
                             </div>
                         </div>
+
                     </div>
                     <div className={styles.course__directions_text}>
                         <h2>Направления</h2>
