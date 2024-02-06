@@ -19,7 +19,7 @@ import { getMyCourses } from '../api';
 
 
 export default function DescriptionPage() {
-    
+
     const [isOpenModalNext, setIsOpenModalNext] = useState(false); // Инициализация состояния модального окна
     const { id } = useParams(); // Получение параметра маршрута
     const courses = useSelector(state => state.store.trainingsArray); // Получение данных из Redux store
@@ -33,11 +33,11 @@ export default function DescriptionPage() {
 
     const courseData = courses.find(course => course.nameEN === id); // Поиск соответствующего курса
 
-
     const handleToTraining = () => {
         setIsOpenModalNext(true);
       };
       // Функция для изоляции
+
     const handleModalClick = (event) => {
         event.stopPropagation();
     };
@@ -79,7 +79,7 @@ export default function DescriptionPage() {
                     <div className={styles.course__page_image}>
                         <img src={Fon1} alt="Fon" />
                         <div className={styles.imagetext}>
-                        <h2>{courseData.nameRU}</h2>
+                            <h2>{courseData.nameRU}</h2>
                         </div>
                     </div>
                     <div className={styles.center_text}>
@@ -87,17 +87,17 @@ export default function DescriptionPage() {
 
                         <div className={styles.course__ioga_image}>
                             <div className={styles.course__ioga}>
-                                <img src={one} alt="one" className={styles.yourImageClass}/>
+                                <img src={one} alt="one" className={styles.yourImageClass} />
                                 <h3 className={styles.course__ioga_text}>{courseData.fitting[0]}</h3>
                             </div>
 
                             <div className={styles.course__ioga}>
-                                <img src={two} alt="two" className={styles.yourImageClass}/>
+                                <img src={two} alt="two" className={styles.yourImageClass} />
                                 <h3 className={styles.course__ioga_text}>{courseData.fitting[1]}</h3>
                             </div>
 
                             <div className={styles.course__ioga}>
-                                <img src={ofre} alt="ofre" className={styles.yourImageClass}/>
+                                <img src={ofre} alt="ofre" className={styles.yourImageClass} />
                                 <h3 className={styles.course__ioga_text}>{courseData.fitting[2]}</h3>
                             </div>
                         </div>
@@ -129,6 +129,7 @@ export default function DescriptionPage() {
                         <div className={styles.button}>
                             {userIsRegistered ? ( // Проверка зарегистрирован ли пользователь
                                 <button className={styles.button_text} onClick={handleToTraining}>
+
                                     Начать тренировку
                                 </button>
                             ) : (
