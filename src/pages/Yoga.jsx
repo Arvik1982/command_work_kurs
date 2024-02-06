@@ -35,8 +35,8 @@ export default function DescriptionPage() {
 
     const handleToTraining = () => {
         setIsOpenModalNext(true);
-      };
-      // Функция для изоляции
+    };
+    // Функция для изоляции
 
     const handleModalClick = (event) => {
         event.stopPropagation();
@@ -44,7 +44,7 @@ export default function DescriptionPage() {
     // Функция для закрытия модального окна
     const handleClickOutside = (event) => {
         if ((isOpenModalNext) && !event.target.closest(`.${styles.modal}`)) {
-        setIsOpenModalNext(false);
+            setIsOpenModalNext(false);
         }
     };
     // Получение прогресса (АПИ)
@@ -52,15 +52,15 @@ export default function DescriptionPage() {
         styleBody('#FAFAFA');
         const uid = localStorage.getItem('userUid');
         const fetchData = async () => {
-        try {
-            const data = await getMyCourses(uid);
-            const arr = [...Object.values(data)];
-            console.log(arr);
-            if (arr.length === 1) {
-                setTrainingsArray([0]);
-            } else {
-                setTrainingsArray(arr);
-            }
+            try {
+                const data = await getMyCourses(uid);
+                const arr = [...Object.values(data)];
+                console.log(arr);
+                if (arr.length === 1) {
+                    setTrainingsArray([0]);
+                } else {
+                    setTrainingsArray(arr);
+                }
             } catch (error) {
                 setTimeout(fetchData, 1000);
             }
@@ -106,16 +106,12 @@ export default function DescriptionPage() {
                     <div className={styles.course__directions_text}>
                         <h2>Направления</h2>
                         <div className={styles.course__directions_image}>
-                            <ul className={styles.spisock}>
-                                <li>{courseData.directions[0]}</li>
-                                <li>{courseData.directions[1]}</li>
-                                <li>{courseData.directions[2]}</li>
-                            </ul>
-
-                            <ul className={styles.spisock}>
-                                <li>{courseData.directions[3]}</li>
-                                <li>{courseData.directions[4]}</li>
-                                <li>{courseData.directions[5]}</li>
+                            <ul className={`${styles.spisock} ${courseData.directions.length > 3 ? styles.largeList : ''}`}>
+                                {courseData.directions.map((direction, index) => {
+                                    return (
+                                        <li key={index}>{direction}</li>
+                                    )
+                                })}
                             </ul>
                         </div>
                     </div>
@@ -142,8 +138,8 @@ export default function DescriptionPage() {
                             <img src={buttonImage} alt="buttonImage" />
                         </div>
                     </div>
-                    <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} 
-                    trainingsArray={trainingsArray} />
+                    <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick}
+                        trainingsArray={trainingsArray} />
                     {/* Рендер модального окна */}
                 </div>
             )}
