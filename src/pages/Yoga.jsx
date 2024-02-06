@@ -31,14 +31,18 @@ export default function DescriptionPage() {
 
     const courseData = courses.find(course => course.nameEN === id); // Поиск соответствующего курса
 
-    // Функция для изоляции
+    const handleToTraining = () => {
+        setIsOpenModalNext(true);
+      };
+      // Функция для изоляции
+
     const handleModalClick = (event) => {
         event.stopPropagation();
     };
     // Функция для закрытия модального окна
     const handleClickOutside = (event) => {
-        if (isOpenModalNext && !event.target.closest(`.${styles.modal}`)) {
-            setIsOpenModalNext(false);
+        if ((isOpenModalNext) && !event.target.closest(`.${styles.modal}`)) {
+        setIsOpenModalNext(false);
         }
     };
 
@@ -102,7 +106,8 @@ export default function DescriptionPage() {
                         </h2>
                         <div className={styles.button}>
                             {userIsRegistered ? ( // Проверка зарегистрирован ли пользователь
-                                <button className={styles.button_text} onClick={() => setIsOpenModalNext(true)}>
+                                <button className={styles.button_text} onClick={handleToTraining}>
+
                                     Начать тренировку
                                 </button>
                             ) : (
