@@ -7,7 +7,10 @@
     text-decoration: none;
   }
 
-  .course__page_image{
+  .course__page_image {
+    margin-left: 15px;
+    transform: scale(1.03);
+    border-radius: 30px;
     background: rgba(245, 245, 245, 1);
     position: relative;
     z-index: -1;
@@ -21,16 +24,13 @@
   }
 
   .course__page_logo{
-    align-items: center;
     display: flex;
-    align-content: center;
-    padding-top: 60px;
-    padding-bottom: 75px;
-    gap: 780px;
-    width: 220px;
-    height: 35px;
-    flex-shrink: 0;
-    z-index: 999;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 400;
+    font-size: 24px;
+    padding-bottom: 52px;
+    padding-top: 30px;
   }
   
   .course__page_image{
