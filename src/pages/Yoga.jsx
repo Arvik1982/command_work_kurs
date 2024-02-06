@@ -30,12 +30,23 @@ export default function DescriptionPage() {
 
     const courseData = courses.find(course => course.nameEN === id); // Поиск соответствующего курса
 
-    const handleModalClick = () => {
-        setIsOpenModalNext(!isOpenModalNext); // Обработчик клика по кнопке "Начать тренировку"
+
+    const handleToTraining = () => {
+        setIsOpenModalNext(true);
+      };
+      // Функция для изоляции
+    const handleModalClick = (event) => {
+        event.stopPropagation();
+    };
+    // Функция для закрытия модального окна
+    const handleClickOutside = (event) => {
+        if ((isOpenModalNext) && !event.target.closest(`.${styles.modal}`)) {
+        setIsOpenModalNext(false);
+        }
     };
 
     return (
-        <div className={styles.course__page}>
+        <div className={styles.course__page} onClick={handleClickOutside}>
             <div className={styles.course__page_logo}>
                 <BlackLogo />
                 <Burger />
@@ -94,7 +105,7 @@ export default function DescriptionPage() {
                         </h2>
                         <div className={styles.button}>
                             {userIsRegistered ? ( // Проверка зарегистрирован ли пользователь
-                                <button className={styles.button_text} onClick={handleModalClick}>
+                                <button className={styles.button_text} onClick={handleToTraining}>
                                     Начать тренировку
                                 </button>
                             ) : (
