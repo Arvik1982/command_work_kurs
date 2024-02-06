@@ -51,6 +51,26 @@
     font-weight: 400;
   }
 
+  .spisock {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    width: 100%;
+  }
+  
+  .spisock li {
+    width: calc(100% / 3); /* Делит список на три столбика */
+    box-sizing: border-box;
+    padding: 5px;
+  }
+  
+  @media (max-width: 768px) {
+    .spisock li {
+      width: calc(100% / 2); /* При ширине экрана менее 768px делит список на два столбика */
+    }
+  }
+  
   .course__ioga_image{
     display: flex;
     gap: 25px;
