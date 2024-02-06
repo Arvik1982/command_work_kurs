@@ -15,6 +15,7 @@ import buttonImage from '../img/Group 48096487.svg';
 import info from '../img/info.png';
 import info_button from '../img/info_button.svg'
 import Modal from '../components/Modal/ModalCourse';
+import { getMyCourses } from '../api';
 
 
 export default function DescriptionPage() {
@@ -24,6 +25,7 @@ export default function DescriptionPage() {
     const courses = useSelector(state => state.store.trainingsArray); // Получение данных из Redux store
     const userIsRegistered = localStorage.getItem('userUid'); // Проверка, зарегистрирован ли пользователь
     const [currentUser] = useState({ email: localStorage.getItem('userLogin') })
+    const [trainingsArray, setTrainingsArray] = useState([]);
 
     useEffect(() => {
         styleBody('#fff'); // Вызов функции для изменения стилей страницы при монтировании
@@ -45,6 +47,26 @@ export default function DescriptionPage() {
         setIsOpenModalNext(false);
         }
     };
+    // Получение прогресса (АПИ)
+    useEffect(() => {
+        styleBody('#FAFAFA');
+        const uid = localStorage.getItem('userUid');
+        const fetchData = async () => {
+        try {
+            const data = await getMyCourses(uid);
+            const arr = [...Object.values(data)];
+            console.log(arr);
+            if (arr.length === 1) {
+                setTrainingsArray([0]);
+            } else {
+                setTrainingsArray(arr);
+            }
+            } catch (error) {
+                setTimeout(fetchData, 1000);
+            }
+        };
+        fetchData();
+    }, []);
 
     return (
         <div className={styles.course__page} onClick={handleClickOutside}>
@@ -120,11 +142,8 @@ export default function DescriptionPage() {
                             <img src={buttonImage} alt="buttonImage" />
                         </div>
                     </div>
-                    <Modal
-                        isOpenModalNext={isOpenModalNext}
-                        handleModalClick={handleClickOutside}
-                        selectedTraining={courseData}
-                        trainingsArray={courses} />
+                    <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} 
+                    trainingsArray={trainingsArray} />
                     {/* Рендер модального окна */}
                 </div>
             )}
