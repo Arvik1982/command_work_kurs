@@ -72,10 +72,10 @@
     gap: 8px;
     width: 280px;
     height: auto;
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 30px;
-    color: black;
-    transition: all .3s;
+    color: rgba(0, 0, 0, 0.5);
+    transition: all .4s;
 }
 .modalContentTextOne {
     width: 190px;
@@ -95,8 +95,8 @@
 
 /* Наведение */
 .modalContentBlock:hover {
-    background-color: #06b16d8d;
-    color: white;
+    background-color: #06b16d41;
+    color: #06b16d8d;
     border: 1px solid transparent;
 }
 .modalContentBlock:active {
@@ -104,6 +104,10 @@
     background-color: #08955dcb;
     color: white;
     border: 1px solid transparent;
+}
+.modalContentBlockNotDone:hover {
+    border: 1px dashed #06b16db7;
+    color: #06b16db7;
 }
 
 .input {

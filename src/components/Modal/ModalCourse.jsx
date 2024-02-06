@@ -7,10 +7,14 @@ import {Link} from "react-router-dom";
 const ModalCourse = ({ isOpenModalNext, handleModalClick, trainingsArray}) => {
 const courseName = useSelector(state => state.store.courseName);
 const isCourseCompleted = (courseId, workoutId) => {
-  const userUid = localStorage.getItem('userUid');
   const course = trainingsArray.find(course => course._id === courseId);
-  if (course && course.workouts && course.workouts[workoutId] && course.workouts[workoutId].uid === userUid) {
-    return true;
+  console.log(course)
+  if (course && course.progress && course.progress[workoutId]) {
+    for (const key in course.progress[workoutId]) {
+      if (course.progress[workoutId][key] !== 0) {
+        return true;
+      }
+    }
   }
   return false;
 };
