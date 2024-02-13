@@ -1,42 +1,25 @@
 import styles from './css/videoPage.module.css'
 import BlackLogo from "../components/Logo/BlackLogo";
 import Progress from "../components/Progress/Progress";
-import video from "./video.mp4"
 import {useEffect, useState} from "react";
 import styleBody from "../styleBody";
 import Burger from "../components/Burger";
 import ModalProgress from "../components/Modal/ModalProgress";
 import CustomButton from "../CustomUiComponents/CustomBtn/CustomButton";
+import {useParams} from "react-router-dom";
+import {getLesson} from "../api";
+import {useDispatch, useSelector} from "react-redux";
+import {setLesson} from "../store/sliceStore";
+import progress from "../components/Progress/Progress";
 
 function VideoPage() {
+  const id = useParams().id
+  const nameCourse = useParams().name
   const [isOpenModal, setOpenModal] = useState(null)
   const [currentUser, setCurrentUser] = useState(null);
-  const [progressData, setProgressData] = useState(
-      [
-        {
-          id: 1,
-          text: 'Наклоны вперед',
-          yourProgress: 45,
-          color: '#565EEF',
-          countEnd: 10
-        },
-        {
-          id: 2,
-          text: 'Наклоны назад',
-          yourProgress: 90,
-          color: '#FF6D00',
-          countEnd: 10
-
-        },
-        {
-          id: 3,
-          text: 'Поднятие ног, согнутых в коленях',
-          yourProgress: 30,
-          color: '#9A48F1',
-          countEnd: 5
-        }
-      ]
-  )
+  const lesson = useSelector(state => state.store.lesson);
+  const exercises = useSelector(state => state.store.lesson)?.exercises
+  const dispatch = useDispatch()
 
   useEffect(() => {
     styleBody('#fff')
@@ -45,7 +28,14 @@ function VideoPage() {
     if (userEmailFromStorage) {
       setCurrentUser({email: userEmailFromStorage, password: userPasswordFromStorage});
     }
-  },[])
+    getLesson(id).then(
+        lessonData => {
+          if (lessonData)
+            dispatch(setLesson(lessonData))
+          console.log(lesson)
+        }
+    )
+  }, [])
 
   const handleModal = () => {
     setOpenModal(prevState => !prevState)
@@ -57,27 +47,36 @@ function VideoPage() {
           <BlackLogo route='/profile'/>
           <Burger currentUser={currentUser}/>
         </div>
-        <h2 className={styles.video__title}>Йога</h2>
-        <p className={styles.video__lesson}>
-          Красота и здоровье / Йога на каждый день / 2 день
-        </p>
-        <video className={styles.video__play} src={video} controls>
-        </video>
-        <div className={styles.video__box}>
-          <div className={styles.video__left}>
-            <h3 className={styles.left__title}>Упражнения</h3>
-            <ul className={styles.left__lessons}>
-              <li>Наклон вперед (10 повторений)</li>
-              <li>Наклон назад (10 повторений)</li>
-              <li>Поднятие ног, согнутых в коленях (5 повторений)</li>
-            </ul>
-            <CustomButton onClick={handleModal}>Заполнить свой прогресс</CustomButton>
-          </div>
-          <div className={styles.video__right}>
-            <Progress progressData={progressData}/>
-          </div>
-        </div>
-        <ModalProgress progressData={progressData} setProgressData={setProgressData} isOpenModal={isOpenModal} handleModal={handleModal}/>
+        <h2 className={styles.video__title}>{nameCourse}</h2>
+        <p className={styles.video__lesson}>{lesson?.name}</p>
+        <iframe
+            className={styles.video__play}
+            src={lesson?.video}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title="Embedded youtube"
+        />
+        {exercises && (
+            <>
+              <div className={styles.video__box}>
+                <div className={styles.video__left}>
+                  <h3 className={styles.left__title}>Упражнения</h3>
+                  <ul className={styles.left__lessons}>
+                    {lesson?.exercises?.map((exercise, index) => {
+                      return <li key={index}>{exercise?.name}</li>
+                    })}
+                  </ul>
+                  <CustomButton onClick={handleModal}>Заполнить свой прогресс</CustomButton>
+                </div>
+                <div className={styles.video__right}>
+                  <Progress lesson={lesson}/>
+                </div>
+              </div>
+              <ModalProgress isOpenModal={isOpenModal}
+                             handleModal={handleModal}/>
+            </>
+        )}
       </div>
   );
 }

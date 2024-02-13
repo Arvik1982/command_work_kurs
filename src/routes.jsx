@@ -22,7 +22,7 @@ export default function AppRoutes() {
 {/*доступ только залогиненым*/}
       <Route element ={<ProtectedRoute isAllowed={Boolean(user)}/>}>
         <Route path="/profile" element={<MyProfilePage />} />
-        <Route path="/workout" element={<VideoPage/>} />
+        <Route path="/workout/:id/:name" element={<VideoPage/>} />
       </Route>
 {/*доступ только залогиненым*/}
 
