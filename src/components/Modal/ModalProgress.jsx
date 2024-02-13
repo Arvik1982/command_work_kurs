@@ -5,8 +5,10 @@ import successImg from '../.././img/img_succes/success.png'
 import {useDispatch, useSelector} from "react-redux";
 import {getLessonsUser, postCourse} from "../../api";
 import {setProgress} from "../../store/sliceStore";
+import {useParams} from "react-router-dom";
 
 function ModalProgress({progressData, isOpenModal, handleModal}) {
+  const id = useParams().id
   const [isSuccess, setSuccess] = useState(null)
   const exercises = useSelector(state => state.store.lesson)?.exercises
   const courseName = useSelector(state => state.store.lesson)?.name
@@ -33,18 +35,23 @@ function ModalProgress({progressData, isOpenModal, handleModal}) {
     }
   }
 
-  const handlePostChange = () => {
-    setSuccess(true)
-    postCourse(courseId, courseName, newProgress)
-    getLessonsUser(courseId)
-        .then(data => {
-          dispatch(setProgress(data))
-        })
-    setTimeout(() => {
-      setNewProgress([])
-      handleModal()
-      setSuccess(false)
-    }, 2000)
+  const handlePostChange = (e) => {
+    e.preventDefault()
+    if (!error) {
+      setSuccess(true)
+      postCourse(courseId, courseName, newProgress)
+
+      setTimeout(() => {
+        setNewProgress([])
+        getLessonsUser(id)
+            .then(data => {
+              console.log(data, 'ekpfkepfkpepfkpef')
+              dispatch(setProgress(data))
+            })
+        handleModal()
+        setSuccess(false)
+      }, 2000)
+    }
   }
 
   return (
