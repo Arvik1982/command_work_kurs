@@ -7,9 +7,13 @@
     text-decoration: none;
   }
 
-  .course__page_image{
+  .course__page_image {
+    margin-left: 15px;
+    transform: scale(1.03);
+    border-radius: 30px;
     background: rgba(245, 245, 245, 1);
     position: relative;
+    z-index: -1;
   }
 
   .imagetext{
@@ -20,15 +24,13 @@
   }
 
   .course__page_logo{
-    align-items: center;
     display: flex;
-    align-content: center;
-    padding-top: 60px;
-    padding-bottom: 75px;
-    gap: 780px;
-    width: 220px;
-    height: 35px;
-    flex-shrink: 0;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 400;
+    font-size: 24px;
+    padding-bottom: 52px;
+    padding-top: 30px;
   }
   
   .course__page_image{
@@ -45,24 +47,49 @@
     flex-direction: column;
     color: #000;
     font-family: StratosSkyeng;
-    font-size: 25px;
+    font-size: 24px;
     font-weight: 400;
-    line-height: 48px; 
   }
 
+  .spisock {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    width: 100%;
+  }
+  
+  .spisock li {
+    width: calc(100% / 3); /* Делит список на три столбика */
+    box-sizing: border-box;
+    padding: 5px;
+  }
+  
+  @media (max-width: 768px) {
+    .spisock li {
+      width: calc(100% / 2); /* При ширине экрана менее 768px делит список на два столбика */
+    }
+  }
+  
   .course__ioga_image{
     display: flex;
-    gap: 32px;
+    gap: 25px;
   }
   
   .course__ioga{
     display: flex;
-    font-size: 24px;
+    max-width: 400px;
+  }
 
+  .course__ioga_text{
+    padding-left: 10px;
+    font-weight: normal;
+    
   }
 
   .yourImageClass{
-    
+    height: 50%;
+    gap: 10px;
   }
 
   .course__directions_text{

@@ -7,10 +7,13 @@ import {Link} from "react-router-dom";
 const ModalCourse = ({ isOpenModalNext, handleModalClick, trainingsArray}) => {
 const courseName = useSelector(state => state.store.courseName);
 const isCourseCompleted = (courseId, workoutId) => {
-  const userUid = localStorage.getItem('userUid');
   const course = trainingsArray.find(course => course._id === courseId);
-  if (course && course.workouts && course.workouts[workoutId] && course.workouts[workoutId].uid === userUid) {
-    return true;
+  if (course && course.progress && course.progress[workoutId]) {
+    for (const key in course.progress[workoutId]) {
+      if (course.progress[workoutId][key] !== 0) {
+        return true;
+      }
+    }
   }
   return false;
 };
@@ -64,7 +67,7 @@ const courseId = courseIds[courseName];
 const getContent = (contentArray, courseIndex) => {
   return contentArray.map((item, index) => (
     // <Link to={`/workout/${item.id}`} key={index}>
-    <Link to={`/workout`} key={index}>
+    <Link to={`/workout/${item.id}/${courseName}`} key={index}>
       <div className={isCourseCompleted(courseId, item.id) ? styles.modalContentBlock : styles.modalContentBlockNotDone}>
         <span className={styles.modalContentTextOne}>{item.text}</span>
         {isCourseCompleted(courseId, item.id) && <img src={done} className={styles.modalContentDone} />}

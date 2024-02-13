@@ -6,7 +6,12 @@ const sliceStore = createSlice({
     courseName: JSON.parse(localStorage.getItem('courseName')),
     currentUserUid: '',
     trainingsArray: [],
+
+    lesson: [],
+    progress: null,
+
     currentCourseArray:[],
+
     workoutsArray: JSON.parse(localStorage.getItem('workouts')),
     connectionError: '',
   },
@@ -30,8 +35,16 @@ const sliceStore = createSlice({
       state.workoutsArray = actions.payload
       localStorage.setItem('workouts',JSON.stringify(actions.payload))
     },
+
+    setLesson(state, {payload}){
+      state.lesson = payload
+    },
+    setProgress(state, {payload}) {
+      state.progress = payload
+
     setCurrentCourseArray(state, actions) {
       state.currentCourseArray = actions.payload
+
 
     }
   },
@@ -44,6 +57,11 @@ export const {
   setTrainingsArray,
   setConnectionError,
   setAllWorkoutsArray,
+
+  setLesson,
+  setProgress
+
   setCurrentCourseArray,
+
 } = sliceStore.actions
 export default sliceStore.reducer
