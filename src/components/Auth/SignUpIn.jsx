@@ -52,34 +52,8 @@ export default function SignUpIn() {
     })
    
   }
-// Изменение данных пользователя, запись прогресса 
-  function changeUserData(userId,name, email, imageUrl, id, yogProgr,strProgr,stpProgr,bodProgr,danProgr ) {
-    const db = getDatabase();
 
-    userId ='LDw9y1jPRRSv3NbNLB1AK4SANf52'
-    name ='02022024test@test.ru'
-    email = name
-    imageUrl='url'
-    id ='18'
-    yogProgr=[3,0,1,0,0,7]
 
-    let progress={
-      yoga: yogProgr ,
-      stratch:strProgr?strProgr:0,
-      step: stpProgr?stpProgr:0,
-      body: bodProgr?bodProgr:0,
-      dance: danProgr?danProgr:0,
-    }
-    set(ref(db, 'users/' + userId ), {
-      username: name,
-      email: email,
-      profile_picture: imageUrl,
-      id: id,
-      progress: progress,
-    });
-
-    // <button onClick={()=>{changeUserData()}}>click</button>
-  }
 
   function userLogin() {
     console.log('login')
