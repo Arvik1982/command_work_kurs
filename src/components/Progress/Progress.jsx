@@ -7,12 +7,13 @@ import {useParams} from "react-router-dom";
 import {setProgress} from "../../store/sliceStore";
 
 function Progress() {
+  const courseName = useParams().name
   const lesson = useSelector(state => state.store.lesson);
   const progress = useSelector(state => state.store.progress);
   const id = useParams().id
   const dispatch = useDispatch()
   useEffect(() => {
-    getLessonsUser(id)
+    getLessonsUser(id, courseName)
         .then(data => {
           dispatch(setProgress(data))
         })

@@ -1,9 +1,13 @@
 import React from 'react';
 import styles from './customBtn.module.css'
 
-function CustomButton({children, onClick}) {
+function CustomButton({children, onClick, disabled}) {
+  const style = {
+    background: disabled ? 'green' : '',
+    borderColor: disabled ? 'green' : ''
+  }
   return (
-        <button className={styles.customBtn} onClick={onClick}>{children}</button>
+        <button style={style} className={styles.customBtn} onClick={onClick} disabled={disabled}>{children}</button>
   );
 }
 

@@ -7,7 +7,7 @@ import Burger from "../components/Burger";
 import ModalProgress from "../components/Modal/ModalProgress";
 import CustomButton from "../CustomUiComponents/CustomBtn/CustomButton";
 import {useParams} from "react-router-dom";
-import {getLesson} from "../api";
+import {getLesson, getNoLessonsUser, postCourseNoProgress} from "../api";
 import {useDispatch, useSelector} from "react-redux";
 import {setLesson} from "../store/sliceStore";
 import progress from "../components/Progress/Progress";
@@ -17,6 +17,7 @@ function VideoPage() {
   const nameCourse = useParams().name
   const [isOpenModal, setOpenModal] = useState(null)
   const [currentUser, setCurrentUser] = useState(null);
+  const [complete, setComplete] = useState(null)
   const lesson = useSelector(state => state.store.lesson);
   const exercises = useSelector(state => state.store.lesson)?.exercises
   const dispatch = useDispatch()
@@ -35,10 +36,25 @@ function VideoPage() {
           console.log(lesson)
         }
     )
+
+    getNoLessonsUser(nameCourse).then(
+        lessonData => {
+          if (lessonData)
+            setComplete(lessonData)
+          console.log(lessonData)
+        }
+    )
+
+
   }, [])
 
   const handleModal = () => {
     setOpenModal(prevState => !prevState)
+  }
+
+  const handleComplete = () => {
+    postCourseNoProgress(nameCourse)
+    setComplete(true)
   }
 
   return (
@@ -57,26 +73,28 @@ function VideoPage() {
             allowFullScreen
             title="Embedded youtube"
         />
-        {exercises && (
-            <>
-              <div className={styles.video__box}>
-                <div className={styles.video__left}>
-                  <h3 className={styles.left__title}>Упражнения</h3>
-                  <ul className={styles.left__lessons}>
-                    {lesson?.exercises?.map((exercise, index) => {
-                      return <li key={index}>{exercise?.name}</li>
-                    })}
-                  </ul>
-                  <CustomButton onClick={handleModal}>Заполнить свой прогресс</CustomButton>
-                </div>
-                <div className={styles.video__right}>
-                  <Progress lesson={lesson}/>
-                </div>
-              </div>
-              <ModalProgress isOpenModal={isOpenModal}
-                             handleModal={handleModal}/>
-            </>
-        )}
+        {exercises ? (
+                <>
+                  <div className={styles.video__box}>
+                    <div className={styles.video__left}>
+                      <h3 className={styles.left__title}>Упражнения</h3>
+                      <ul className={styles.left__lessons}>
+                        {lesson?.exercises?.map((exercise, index) => {
+                          return <li key={index}>{exercise?.name}</li>
+                        })}
+                      </ul>
+                      <CustomButton onClick={handleModal}>Заполнить свой прогресс</CustomButton>
+                    </div>
+                    <div className={styles.video__right}>
+                      <Progress lesson={lesson}/>
+                    </div>
+                  </div>
+                  <ModalProgress isOpenModal={isOpenModal}
+                                 handleModal={handleModal}/>
+                </>
+            ) :
+            <CustomButton onClick={handleComplete} disabled={complete}>{complete ? 'Тренировка пройдена': 'Закончить тренировку'}</CustomButton>
+        }
       </div>
   );
 }
