@@ -66,7 +66,6 @@ const courseId = courseIds[courseName];
 // Создание содержимого формы на основе выбранного курса
 const getContent = (contentArray, courseIndex) => {
   return contentArray.map((item, index) => (
-    // <Link to={`/workout/${item.id}`} key={index}>
     <Link to={`/workout/${item.id}/${courseName}`} key={index}>
       <div className={isCourseCompleted(courseId, item.id) ? styles.modalContentBlock : styles.modalContentBlockNotDone}>
         <span className={styles.modalContentTextOne}>{item.text}</span>
