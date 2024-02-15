@@ -19,13 +19,10 @@ export default function AppRoutes() {
       <Route path="/change_password" element={<ChangePasswordPage />} />
       <Route path="/description/:id" element={<DescriptionPage />} />
       <Route path="*" element={<ErrPage />} />
-{/*доступ только залогиненым*/}
       <Route element ={<ProtectedRoute isAllowed={Boolean(user)}/>}>
         <Route path="/profile" element={<MyProfilePage />} />
         <Route path="/workout/:id/:name" element={<VideoPage/>} />
       </Route>
-{/*доступ только залогиненым*/}
-
     </Routes>
   )
 }

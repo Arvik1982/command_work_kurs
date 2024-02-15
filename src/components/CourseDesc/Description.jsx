@@ -13,9 +13,12 @@ import Modal from './../Modal/ModalCourse'
 
 export default function DescriptionPage2() {
   const navigate = useNavigate()
+  
   const [isOpenModalNext, setIsOpenModalNext] = useState(false) // Инициализация состояния модального окна
   const id = useParams() // Получение параметра маршрута
-  let courses = useSelector((state) => state.store.trainingsArray) // Получение данных из Redux store
+  
+  let courses = JSON.parse(localStorage.getItem('trainingsArray'))
+  // useSelector((state) => state.store.trainingsArray) // Получение данных из Redux store
   const userIsRegistered = localStorage.getItem('userUid') // Проверка, зарегистрирован ли пользователь
   const [currentUser] = useState({ email: localStorage.getItem('userLogin') })
   let currentCourse;
@@ -34,10 +37,14 @@ export default function DescriptionPage2() {
 
   useEffect(() => {
     styleBody('#fff') // Вызов функции для изменения стилей страницы при монтировании
-  }, [])
+    
+     }, [])
 
-  id.id ? (currentCourse = id.id) : ''
+     id.id ? (currentCourse = id.id) : ''
+  console.log(courses)
   const courseData = courses.find((course) => course.nameEN === currentCourse) // Поиск соответствующего курса
+  console.log(courseData)
+  
   return (
     <div className={styles.course__page} onClick={handleClickOutside}>
       <div className={styles.course__page_logo}>

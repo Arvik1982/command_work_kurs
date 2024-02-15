@@ -41,6 +41,7 @@ export default function MyProfilePage() {
   const [showNotification, setShowNotification] = useState(false);
   // Получение курсов (АПИ)
   useEffect(() => {
+    
     styleBody('#FAFAFA');
     const uid = localStorage.getItem('userUid');
     const fetchData = async () => {
