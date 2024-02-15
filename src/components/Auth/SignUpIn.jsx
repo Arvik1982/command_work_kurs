@@ -58,6 +58,18 @@ export default function SignUpIn() {
 
   function userLogin() {
     console.log('login')
+  
+    if (login === '') {
+      setPlaseholderLogin('Введите логин')
+      setError('Введите логин')
+      
+      return
+    }
+    if (pass === '') {
+      setError('Введите пароль')
+      
+      return
+    }
     signInWithEmailAndPassword(auth, login, pass)
       .then((response) => {
         const currentUserArr = [...Object.values(response)]
@@ -83,10 +95,12 @@ export default function SignUpIn() {
     if (login === '') {
       setPlaseholderLogin('Введите логин')
       setError('Введите логин')
+      
       return
     }
     if (pass === '') {
       setError('Введите пароль')
+      
       return
     }
     createUserWithEmailAndPassword(auth, login, pass)
