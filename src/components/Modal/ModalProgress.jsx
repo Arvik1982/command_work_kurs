@@ -11,8 +11,9 @@ function ModalProgress({progressData, isOpenModal, handleModal}) {
   const id = useParams().id
   const [isSuccess, setSuccess] = useState(null)
   const exercises = useSelector(state => state.store.lesson)?.exercises
-  const courseName = useSelector(state => state.store.lesson)?.name
-  const courseId = useSelector(state => state.store.lesson)?._id
+  const lessonName = useSelector(state => state.store.lesson)?.name
+  const courseName = useParams().name
+  const lessonId = useSelector(state => state.store.lesson)?._id
   const [newProgress, setNewProgress] = useState([])
   const [error, setError] = useState(null)
   const dispatch = useDispatch()
@@ -39,11 +40,10 @@ function ModalProgress({progressData, isOpenModal, handleModal}) {
     e.preventDefault()
     if (!error) {
       setSuccess(true)
-      postCourse(courseId, courseName, newProgress)
-
+      postCourse(lessonId, lessonName, newProgress, courseName)
       setTimeout(() => {
         setNewProgress([])
-        getLessonsUser(id)
+        getLessonsUser(id, courseName)
             .then(data => {
               console.log(data, 'ekpfkepfkpepfkpef')
               dispatch(setProgress(data))
