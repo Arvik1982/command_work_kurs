@@ -49,6 +49,7 @@ export default function SignUpIn() {
       email: email,
       profile_picture: imageUrl,
       id: id,
+      courses:[0]
     })
    
   }
