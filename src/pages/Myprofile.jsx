@@ -46,7 +46,6 @@ export default function MyProfilePage() {
     const uid = localStorage.getItem('userUid');
     const fetchData = async () => {
       try {
-        console.log("my profile")
         const data = await getMyCourses(uid);
         const arr = [...Object.values(data)];
         console.log(arr);
