@@ -18,7 +18,7 @@ export async function getAllCourses() {
 export async function getMyCourses(uid) {
   try{
   const response = await fetch(
-    `https://fitness-pro-5a801-default-rtdb.europe-west1.firebasedatabase.app/users/${uid}/courses.json`,
+    `https://fitness-pro-5a801-default-rtdb.europe-west1.firebasedatabase.app/users/${uid}.json`,
     {
       method: 'GET',
     },

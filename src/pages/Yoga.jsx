@@ -52,21 +52,21 @@ export default function DescriptionPage() {
         styleBody('#FAFAFA');
         const uid = localStorage.getItem('userUid');
         const fetchData = async () => {
-            try {
-                const data = await getMyCourses(uid);
-                const arr = [...Object.values(data)];
-                console.log(arr);
-                if (arr.length === 1) {
-                    setTrainingsArray([0]);
-                } else {
-                    setTrainingsArray(arr);
-                }
-            } catch (error) {
-                setTimeout(fetchData, 1000);
+          try {
+            const data = await getMyCourses(uid);
+            console.log(data)
+            if ('course' in data) {
+              setTrainingsArray(data.course);
+              console.log(data.course)
+            } else {
+              setTrainingsArray([0]);
             }
+          } catch (error) {
+            alert(error)
+          }
         };
         fetchData();
-    }, []);
+      }, []);
 
     return (
         <div className={styles.course__page} onClick={handleClickOutside}>

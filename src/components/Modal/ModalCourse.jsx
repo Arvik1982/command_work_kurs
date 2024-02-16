@@ -7,11 +7,13 @@ import {Link} from "react-router-dom";
 const ModalCourse = ({ isOpenModalNext, handleModalClick, trainingsArray}) => {
 const courseName = useSelector(state => state.store.courseName);
 const isCourseCompleted = (courseId, workoutId) => {
-  const course = trainingsArray.find(course => course._id === courseId);
-  if (course && course.progress && course.progress[workoutId]) {
-    for (const key in course.progress[workoutId]) {
-      if (course.progress[workoutId][key] !== 0) {
-        return true;
+  if (trainingsArray.hasOwnProperty(courseId) && trainingsArray[courseId].hasOwnProperty(workoutId)) {
+    const progress = trainingsArray[courseId][workoutId].progress;
+    if (progress && Object.keys(progress).length > 0) {
+      for (const key in progress) {
+        if (progress[key].quantity !== 0) {
+          return true;
+        }
       }
     }
   }
@@ -20,9 +22,9 @@ const isCourseCompleted = (courseId, workoutId) => {
 // Создание объекта с соответствием курсов и их идентификаторов
 const courseIds = {
   StepAirobic: '6i67sm',
-  Yoga: 'ab1c3f',
-  Stretching: 'kfpq8e',
-  BodyFlex: 'q02a6i',
+  Yoga: 'Yoga',
+  Stretching: 'Stretching',
+  BodyFlex: 'BodyFlex',
   DanceFitness: 'ypox9r'
 };
 
