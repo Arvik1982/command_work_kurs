@@ -41,30 +41,24 @@ export default function MyProfilePage() {
   const [showNotification, setShowNotification] = useState(false);
   // Получение курсов (АПИ)
   useEffect(() => {
-    
     styleBody('#FAFAFA');
     const uid = localStorage.getItem('userUid');
     const fetchData = async () => {
       try {
         const data = await getMyCourses(uid);
-        const arr = [...Object.values(data)];
-        console.log(arr);
-          if (arr.length === 1) {
-            setTrainingsArray([0]);
-            setTimeout(() => {
-              setShowNotification(true);
-            }, 1000);
-          } else {
-              setTrainingsArray(arr);
-          }
+        console.log(data)
+        if ('course' in data) {
+          setTrainingsArray(data.course);
+          console.log(data.course)
+        } else {
+          setTrainingsArray([0]);
+        }
       } catch (error) {
         setTimeout(fetchData, 1000);
       }
     };
-
-    // Вызываем fetchData для первоначального запроса
-    fetchData();
-}, []);
+    fetchData(); // Вызов функции получения данных при монтировании компонента
+  }, []);
   // Функция клика по кнопке "Перейти"
   const handleToTraining = (trainingType) => {
     console.log(trainingType)
@@ -345,7 +339,7 @@ export default function MyProfilePage() {
       </div>
       <span className={styles.header_title}>Мои курсы</span>
       <div className={styles.main}>
-      {trainingsArray.length === 1 ? (
+      {trainingsArray[0] === 0 ? (
       <div>
         <div className={styles.main__courses}>
           <p className={styles.main__courses_none}>Нет курсов</p>
@@ -361,35 +355,22 @@ export default function MyProfilePage() {
         )}
       </div>
       ) : (
-        trainingsArray.slice(1, 5).map((e) => {
-          return (
-            <div
-              className={styles.main_direct}
-              key={e.nameEN}
-            >
-              <div>
-                <div
-                  onClick={() => {
-                    dispatch(setCourseName(e.nameEN));
-                  }}
-                >
-                  <img
-                    key={e.nameEN}
-                    src={
-                      e.nameEN === 'Yoga' ? yoga
-                        : e.nameEN === 'Stretching' ? stretch
-                          : e.nameEN === 'BodyFlex' ? body : ''
-                    }
-                    alt="img"
-                  />
-                  {/* <Link to={`/description/${e.nameEN}`} className={styles.main_button}>Перейти →</Link> */}
-                  <button className={styles.main_button} onClick={() => handleToTraining(e.nameEN)}>Перейти →</button>
-                </div>
-              </div>
-            </div>
-          );
-        })
-      )}
+        Object.keys(trainingsArray).map((courseKey, index) => (
+        <div className={styles.main_direct} key={index}>
+          <div onClick={() => dispatch(setCourseName(courseKey))}>
+            <img
+              src={
+                courseKey === 'Yoga' ? yoga
+                : courseKey === 'Stretching' ? stretch
+                : courseKey === 'BodyFlex' ? body : ''
+              }
+              alt="img"
+            />
+            <button className={styles.main_button} onClick={() => handleToTraining(courseKey)}>Перейти →</button>
+          </div>
+        </div>
+      ))
+    )}
       <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} trainingsArray={trainingsArray}/>
       </div>
     </div>
