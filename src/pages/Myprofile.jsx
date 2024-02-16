@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { reauthenticateWithCredential, EmailAuthProvider, updatePassword, updateEmail } from 'firebase/auth';
 import { auth } from '../firebase_auth';
-import { getAllCourses, getMyCourses } from '../api';
+import { getMyCourses } from '../api';
 import { setCourseName } from '../store/sliceStore';
 import styles from './css/myprofile.module.css';
 import logo from '../img/logo.svg';
@@ -55,10 +55,10 @@ export default function MyProfilePage() {
           setShowNotification(true)
         }
       } catch (error) {
-        setTimeout(fetchData, 1000);
+        alert(error)
       }
     };
-    fetchData(); // Вызов функции получения данных при монтировании компонента
+    fetchData();
   }, []);
   // Функция клика по кнопке "Перейти"
   const handleToTraining = (trainingType) => {
