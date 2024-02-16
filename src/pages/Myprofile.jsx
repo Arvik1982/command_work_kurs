@@ -52,6 +52,7 @@ export default function MyProfilePage() {
           console.log(data.course)
         } else {
           setTrainingsArray([0]);
+          setShowNotification(true)
         }
       } catch (error) {
         setTimeout(fetchData, 1000);
