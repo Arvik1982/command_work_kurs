@@ -1,10 +1,10 @@
 
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import MyProfile from './Myprofile'
 import styleBody from "../styleBody";
 import BlackLogo from "../components/Logo/BlackLogo";
-import Fon from "../img/Group 48096400.svg"
 import Fon1 from "../img/Subtract.svg"
 import one from "../img/1.png"
 import two from "../img/2.png"
@@ -14,59 +14,113 @@ import Burger from '../components/Burger';
 import buttonImage from '../img/Group 48096487.svg';
 import info from '../img/info.png';
 import info_button from '../img/info_button.svg'
-import Modal from '../components/Modal/ModalCourse';
 import { getMyCourses } from '../api';
+import { postCourseNoProgress } from '../api';
+import Modal from '../components/Modal/ModalCourse';
 
 
 export default function DescriptionPage() {
-
-    const [isOpenModalNext, setIsOpenModalNext] = useState(false); // Инициализация состояния модального окна
-    const { id } = useParams(); // Получение параметра маршрута
-    const courses = useSelector(state => state.store.trainingsArray); // Получение данных из Redux store
-    const userIsRegistered = localStorage.getItem('userUid'); // Проверка, зарегистрирован ли пользователь
-    const [currentUser] = useState({ email: localStorage.getItem('userLogin') })
+    const [isSubscribed, setIsSubscribed] = useState(false);
+    const [isOpenModalNext, setIsOpenModalNext] = useState(false);
+    const { id } = useParams();
+    const courses = useSelector(state => state.store.trainingsArray);
+    const userIsRegistered = localStorage.getItem('userUid');
+    const [currentUser] = useState({ email: localStorage.getItem('userLogin') });
     const [trainingsArray, setTrainingsArray] = useState([]);
+    const courseData = courses.find(course => course.nameEN === id);
+    const navigate = useNavigate();
+    const [isRegisterButtonVisible, setIsRegisterButtonVisible] = useState(true);
 
-    useEffect(() => {
-        styleBody('#fff'); // Вызов функции для изменения стилей страницы при монтировании
-    }, []);
+    const handleAuthRedirect = () => {
+        navigate('/Auth');
+    };
 
-    const courseData = courses.find(course => course.nameEN === id); // Поиск соответствующего курса
+    const handleCourseButtonClick = () => {
+    if (!userIsRegistered) {
+        handleAuthRedirect();
+    } else {
+        if (!isOpenModalNext) {
+            postCourseNoProgress(courseData.nameEN);
+            setIsSubscribed(true); // Устанавливаем флаг подписки
+            setIsRegisterButtonVisible(false); // Скрываем кнопку записи на тренировку
+            alert("Вы успешно записались на тренировку!"); // Выводим алерт
+        } else {
+            setIsOpenModalNext(false); // Закрываем модальное окно
+        }
+    }
+};
+    
 
     const handleToTraining = () => {
         setIsOpenModalNext(true);
     };
-    // Функция для изоляции
 
     const handleModalClick = (event) => {
         event.stopPropagation();
     };
-    // Функция для закрытия модального окна
+
     const handleClickOutside = (event) => {
-        if ((isOpenModalNext) && !event.target.closest(`.${styles.modal}`)) {
+        if (isOpenModalNext && !event.target.closest(`.${styles.modal}`)) {
             setIsOpenModalNext(false);
         }
     };
+
+    useEffect(() => {
+        styleBody('#fff'); // Вызов функции для изменения стилей страницы при монтировании
+    }, []);
+    // Обновление текста кнопки после записи на курс
+    useEffect(() => {
+        if (userIsRegistered) {
+            setIsOpenModalNext(false); // Закрываем модальное окно
+        }
+    }, [userIsRegistered]);
+
+
     // Получение прогресса (АПИ)
     useEffect(() => {
         styleBody('#FAFAFA');
         const uid = localStorage.getItem('userUid');
         const fetchData = async () => {
-          try {
-            const data = await getMyCourses(uid);
-            console.log(data)
-            if ('course' in data) {
-              setTrainingsArray(data.course);
-              console.log(data.course)
-            } else {
-              setTrainingsArray([0]);
+            try {
+                const data = await getMyCourses(uid);
+                console.log(data)
+                if ('course' in data) {
+                    setTrainingsArray(data.course);
+                    console.log(data.course)
+                } else {
+                    setTrainingsArray([0]);
+                }
+            } catch (error) {
+                alert(error)
             }
-          } catch (error) {
-            alert(error)
-          }
         };
         fetchData();
-      }, []);
+    }, []);
+
+
+    useEffect(() => {
+        styleBody('#fff'); // Вызов функции для изменения стилей страницы при монтировании
+    }, []);
+    // Получение прогресса (АПИ)
+    useEffect(() => {
+        styleBody('#FAFAFA');
+        const uid = localStorage.getItem('userUid');
+        const fetchData = async () => {
+            try {
+                const data = await getMyCourses(uid);
+                console.log(data)
+                if ('course' in data) {
+                    setTrainingsArray(data.course);
+                    console.log(data.course)
+                } else {
+                    setTrainingsArray([0]);
+                }
+            } catch (error) {
+                alert(error)
+            }
+        };
+        fetchData();
+    }, []);
 
     return (
         <div className={styles.course__page} onClick={handleClickOutside}>
@@ -123,17 +177,18 @@ export default function DescriptionPage() {
                             <img src={info_button} alt="info_button" />
                         </h2>
                         <div className={styles.button}>
-                            {userIsRegistered ? ( // Проверка зарегистрирован ли пользователь
-                                <button className={styles.button_text} onClick={handleToTraining}>
+                {isRegisterButtonVisible && !isSubscribed && (
+                    <button className={styles.button_text} onClick={() => handleCourseButtonClick(navigate)}>
+                        Записаться на тренировку
+                    </button>
+                )}
 
-                                    Начать тренировку
-                                </button>
-                            ) : (
-                                <a href="/Auth" className={styles.button_text}>
-                                    Записаться на тренировку
-                                </a>
-                            )}
-                        </div>
+                {!isRegisterButtonVisible && 
+                    <button className={styles.button_text} onClick={handleToTraining}>
+                        Начать тренировку
+                    </button>
+        }
+    </div>
                         <div className={styles.info_image}>
                             <img src={buttonImage} alt="buttonImage" />
                         </div>
