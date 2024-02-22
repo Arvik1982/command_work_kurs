@@ -31,29 +31,26 @@ export default function DescriptionPage() {
     const navigate = useNavigate();
     const [isRegisterButtonVisible, setIsRegisterButtonVisible] = useState(true);
 
-    const handleAuthRedirect = () => {
-        navigate('/Auth');
-    };
 
     const handleCourseButtonClick = () => {
-    if (!userIsRegistered) {
-        handleAuthRedirect();
-    } else {
-        if (!isOpenModalNext) {
+        if (!userIsRegistered) {
+            navigate('/Auth'); // Переход на страницу регистрации
+        } else {
             postCourseNoProgress(courseData.nameEN);
             setIsSubscribed(true); // Устанавливаем флаг подписки
-            setIsRegisterButtonVisible(false); // Скрываем кнопку записи на тренировку
-            alert("Вы успешно записались на тренировку!"); // Выводим алерт
-        } else {
-            setIsOpenModalNext(false); // Закрываем модальное окно
+            setIsRegisterButtonVisible(false); // Скрываем кнопку подписки
+            alert("Вы успешно подписались на курс!"); // Выводим алерт
         }
-    }
-};
+    };
     
 
-    const handleToTraining = () => {
+const handleToTraining = () => {
+    if (!isSubscribed) {
+        handleCourseButtonClick();
+    } else {
         setIsOpenModalNext(true);
-    };
+    }
+};
 
     const handleModalClick = (event) => {
         event.stopPropagation();
@@ -64,6 +61,7 @@ export default function DescriptionPage() {
             setIsOpenModalNext(false);
         }
     };
+    
 
     useEffect(() => {
         styleBody('#fff'); // Вызов функции для изменения стилей страницы при монтировании
@@ -177,17 +175,17 @@ export default function DescriptionPage() {
                             <img src={info_button} alt="info_button" />
                         </h2>
                         <div className={styles.button}>
-                {isRegisterButtonVisible && !isSubscribed && (
-                    <button className={styles.button_text} onClick={() => handleCourseButtonClick(navigate)}>
-                        Записаться на тренировку
-                    </button>
-                )}
+        {isRegisterButtonVisible && !isSubscribed && (
+            <button className={styles.button_text} onClick={handleCourseButtonClick}>
+                Записаться на тренировку
+            </button>
+        )}
 
-                {!isRegisterButtonVisible && 
-                    <button className={styles.button_text} onClick={handleToTraining}>
-                        Начать тренировку
-                    </button>
-        }
+        {!isRegisterButtonVisible && isSubscribed && (
+            <button className={styles.button_text} onClick={handleToTraining}>
+                Начать тренировку
+            </button>
+        )}
     </div>
                         <div className={styles.info_image}>
                             <img src={buttonImage} alt="buttonImage" />
