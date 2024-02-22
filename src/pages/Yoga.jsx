@@ -87,6 +87,7 @@ const handleToTraining = () => {
                     console.log(data.course)
                 } else {
                     setTrainingsArray([0]);
+                    setShowNotification(true)
                 }
             } catch (error) {
                 alert(error)
