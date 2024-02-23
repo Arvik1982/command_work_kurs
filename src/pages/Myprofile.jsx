@@ -9,6 +9,8 @@ import logo from '../img/logo.svg';
 import BlackLogo from '../components/Logo/BlackLogo';
 import yoga from '../img/img_profile/yoga_profile.png';
 import stretch from '../img/img_profile/stretch_profile.png';
+import step from '../img/img_profile/step.jpg';
+import dance from '../img/img_profile/dance.jpg';
 import body from '../img/img_profile/bodyflex_profile.png';
 import styleBody from '../styleBody';
 import close from '../img/img_profile/close.png';
@@ -46,19 +48,24 @@ export default function MyProfilePage() {
     const fetchData = async () => {
       try {
         const data = await getMyCourses(uid);
-        console.log(data)
-        if ('course' in data) {
-          setTrainingsArray(data.course);
-          console.log(data.course)
+        if (data !== null) { // Проверка на null
+          console.log(data)
+          if ('course' in data) {
+            setTrainingsArray(data.course);
+            console.log(data.course)
+          } else {
+            setTrainingsArray([0]);
+            setShowNotification(true);
+          }
         } else {
-          setTrainingsArray([0]);
-          setShowNotification(true)
+          fetchData();
         }
       } catch (error) {
+        console.log(error)
         alert(error)
       }
     };
-    fetchData();
+    uid ? fetchData() : '';
   }, []);
   // Функция клика по кнопке "Перейти"
   const handleToTraining = (trainingType) => {
@@ -356,21 +363,26 @@ export default function MyProfilePage() {
         )}
       </div>
       ) : (
-        Object.keys(trainingsArray).map((courseKey, index) => (
-        <div className={styles.main_direct} key={index}>
-          <div onClick={() => dispatch(setCourseName(courseKey))}>
-            <img
-              src={
-                courseKey === 'Yoga' ? yoga
-                : courseKey === 'Stretching' ? stretch
-                : courseKey === 'BodyFlex' ? body : ''
-              }
-              alt="img"
-            />
-            <button className={styles.main_button} onClick={() => handleToTraining(courseKey)}>Перейти →</button>
-          </div>
-        </div>
-      ))
+<div className={styles.gallery}>
+  {Object.keys(trainingsArray).map((courseKey, index) => (
+    <div className={styles.main_direct} key={index}>
+      <div onClick={() => dispatch(setCourseName(courseKey))}>
+        <img
+          className={styles.main_img}
+          src={
+            courseKey === 'Yoga' ? yoga
+            : courseKey === 'Stretching' ? stretch
+            : courseKey === 'DanceFitness' ? dance
+            : courseKey === 'StepAirobic' ? step
+            : courseKey === 'BodyFlex' ? body : ''
+          }
+          alt="img"
+        />
+        <button className={styles.main_button} onClick={() => handleToTraining(courseKey)}>Перейти →</button>
+      </div>
+    </div>
+  ))}
+</div>
     )}
       <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick} trainingsArray={trainingsArray}/>
       </div>
