@@ -111,7 +111,7 @@ export default function SignUpIn() {
         const newUserUid = newUserArr[0].uid
         dispatch(setCurrentUser(newUserUid))
         localStorage.setItem('userUid', newUserUid)
-        navigate('/profile', { replace: true })
+        navigate('/', { replace: true })
         return newUserArr
       })
 
@@ -126,7 +126,7 @@ export default function SignUpIn() {
             const name = responseNewUser[0].email
             const email = responseNewUser[0].email
             writeUserData(userId, name, email, imageUrl, id.length)
-            navigate('/profile', { replace: true })
+            navigate('/', { replace: true })
             return id
           })
           .catch((newError) => setError(newError.message))
