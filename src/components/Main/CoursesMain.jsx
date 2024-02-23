@@ -72,10 +72,11 @@ export default function MainCourses() {
          
         }
       } catch (error) {
-        alert(error)
+       console.log(error)
+        
       }
     };
-    if (uid){ fetchData();}
+    uid?fetchData():''
    
   }, []);
 
