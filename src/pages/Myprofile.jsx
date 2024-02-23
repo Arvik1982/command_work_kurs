@@ -58,7 +58,7 @@ export default function MyProfilePage() {
         alert(error)
       }
     };
-    fetchData();
+    uid?fetchData():'';
   }, []);
   // Функция клика по кнопке "Перейти"
   const handleToTraining = (trainingType) => {
