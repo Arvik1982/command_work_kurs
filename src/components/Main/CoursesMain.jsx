@@ -81,7 +81,9 @@ export default function MainCourses() {
 
 
   return (
-    <div className={styles.block__center}>
+    <div onClick={()=>{isOpenModalNext?setIsOpenModalNext(false):''}}
+    
+    className={styles.block__center}>
 
 
 <Modal isOpenModalNext={isOpenModalNext} handleModalClick={handleModalClick}
