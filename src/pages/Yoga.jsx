@@ -87,13 +87,13 @@ const handleToTraining = () => {
                     console.log(data.course)
                 } else {
                     setTrainingsArray([0]);
-                    setShowNotification(true)
+                    // setShowNotification(true)
                 }
             } catch (error) {
                 alert(error)
             }
         };
-        fetchData();
+        uid?fetchData():'';
     }, []);
 
 
@@ -118,7 +118,7 @@ const handleToTraining = () => {
                 alert(error)
             }
         };
-        fetchData();
+       uid? fetchData():'';
     }, []);
 
     return (
