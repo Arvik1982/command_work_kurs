@@ -7,7 +7,7 @@ import Burger from "../components/Burger";
 import ModalProgress from "../components/Modal/ModalProgress";
 import CustomButton from "../CustomUiComponents/CustomBtn/CustomButton";
 import {useParams} from "react-router-dom";
-import {getLesson, getNoLessonsUser, postCourseNoProgress} from "../api";
+import {getLesson, getLessonsUser, postCourse} from "../api";
 import {useDispatch, useSelector} from "react-redux";
 import {setLesson} from "../store/sliceStore";
 import progress from "../components/Progress/Progress";
@@ -17,7 +17,7 @@ function VideoPage() {
   const nameCourse = useParams().name
   const [isOpenModal, setOpenModal] = useState(null)
   const [currentUser, setCurrentUser] = useState(null);
-  const [complete, setComplete] = useState(null)
+  const [complete, setComplete] = useState(false)
   const lesson = useSelector(state => state.store.lesson);
   const exercises = useSelector(state => state.store.lesson)?.exercises
   const dispatch = useDispatch()
@@ -37,15 +37,9 @@ function VideoPage() {
         }
     )
 
-    getNoLessonsUser(nameCourse).then(
-        lessonData => {
-          if (lessonData)
-            setComplete(lessonData)
-          console.log(lessonData)
-        }
-    )
-
-
+    getLessonsUser(lesson._id, nameCourse).then(lesson => {
+      setComplete(lesson?.progress)
+    })
   }, [])
 
   const handleModal = () => {
@@ -53,7 +47,7 @@ function VideoPage() {
   }
 
   const handleComplete = () => {
-    postCourseNoProgress(nameCourse)
+    postCourse(lesson._id, lesson.name, [{yourProgress: 10, quantity: 10},], nameCourse)
     setComplete(true)
   }
 
@@ -93,7 +87,8 @@ function VideoPage() {
                                  handleModal={handleModal}/>
                 </>
             ) :
-            <CustomButton onClick={handleComplete} disabled={complete}>{complete ? 'Тренировка пройдена': 'Закончить тренировку'}</CustomButton>
+            <CustomButton onClick={handleComplete}
+                          disabled={complete}>{complete ? 'Тренировка пройдена' : 'Закончить тренировку'}</CustomButton>
         }
       </div>
   );

@@ -100,9 +100,21 @@
     justify-content: start;
     gap: 25px;
 }
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Определяем 3 столбца с равным размером */
+    grid-auto-rows: auto; /* Автоматическая высота для строк */
+    gap: 20px; /* Отступ между элементами */
+  }
 .main_direct {
     position: relative;
-    width: 400px;
+    width: 100%;
+}
+.main_img {
+    border-radius: 40px;
+    width: 360px;
+    height: 480px;
+    object-fit: cover;
 }
 .main_button {
     position: absolute;

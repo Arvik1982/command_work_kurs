@@ -38,7 +38,12 @@ function ModalProgress({progressData, isOpenModal, handleModal}) {
 
   const handlePostChange = (e) => {
     e.preventDefault()
-    if (!error) {
+    if (!error && newProgress) {
+
+      if ( newProgress.length < exercises.length){
+        setError(true)
+        return;
+      }
       setSuccess(true)
       postCourse(lessonId, lessonName, newProgress, courseName)
       setTimeout(() => {

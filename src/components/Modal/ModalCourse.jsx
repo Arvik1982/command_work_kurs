@@ -21,11 +21,11 @@ const isCourseCompleted = (courseId, workoutId) => {
 };
 // Создание объекта с соответствием курсов и их идентификаторов
 const courseIds = {
-  StepAirobic: '6i67sm',
+  StepAirobic: 'StepAirobic',
   Yoga: 'Yoga',
   Stretching: 'Stretching',
   BodyFlex: 'BodyFlex',
-  DanceFitness: 'ypox9r'
+  DanceFitness: 'DanceFitness'
 };
 
 // Получение идентификатора для выбранного курса
